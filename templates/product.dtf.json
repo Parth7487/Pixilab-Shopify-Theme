@@ -26,12 +26,6 @@
             "size_guide_page": ""
           }
         },
-        "description": {
-          "type": "show_description",
-          "settings": {
-            "custom_liquid": "{{ product.description }}"
-          }
-        },
         "quantity_selector": {
           "type": "quantity_button",
           "settings": {
@@ -46,7 +40,6 @@
         "title",
         "price",
         "variants",
-        "description",
         "quantity_selector"
       ],
       "settings": {
@@ -54,9 +47,33 @@
         "mg": "0,0,50px,0",
         "pd": "20px,20px,20px,20px"
       }
+    },
+    "product_tabs": {
+      "type": "product-page-tab",
+      "blocks": {
+        "tab_description": {
+          "type": "tab_description",
+          "settings": {
+            "title_description": "Description"
+          }
+        }
+      },
+      "block_order": [
+        "tab_description"
+      ],
+      "settings": {
+        "hide_tabs": false,
+        "accordion_tabs": false,
+        "cl_bg": "#ffffff",
+        "show_border": true,
+        "cl_line": "#eeeeee",
+        "mg": "50px,0,50px,0",
+        "pd": "20px,20px,20px,20px"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "product_tabs"
   ]
 }
