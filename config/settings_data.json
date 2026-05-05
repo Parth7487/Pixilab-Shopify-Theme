@@ -1480,7 +1480,7 @@
               "tt_hd": "Business Card",
               "url": "shopify://collections/new-business-cards",
               "open_link": "_self",
-              "menu": "business-cards",
+              "menu": "business-card",
               "col": "4"
             }
           },
