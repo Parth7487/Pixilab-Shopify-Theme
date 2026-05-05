@@ -1465,6 +1465,7 @@
           },
           "link_XQNYHp": {
             "type": "link",
+            "disabled": true,
             "settings": {
               "tt_hd": "Postcards",
               "url": "shopify://collections/postcards",
