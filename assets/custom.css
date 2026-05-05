@@ -35,7 +35,25 @@
   
 }
 
-/*---------------- Custom CSS for only mobile -------------------*/
 @media (max-width: 767px){
   .custom-css{padding: 10px;}
+}
+
+/*---------------- Price Invisibility Shield -------------------*/
+[data-price-zero="true"],
+.price--zero-dollar {
+    display: block !important;
+}
+
+/* If any price accidentally shows 0.00, we hide it */
+.price-item:contains("$0.00"), 
+.price-item:contains("0,00"),
+.price-item:empty {
+    display: none !important;
+}
+
+/* Special fix for collection cards showing $0.00 */
+.card-information .price--zero-dollar {
+    font-size: 12px;
+    margin-top: 5px;
 }

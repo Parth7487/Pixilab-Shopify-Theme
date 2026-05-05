@@ -22,7 +22,9 @@
 				</div>
 				<div class="col-12 mt__10">
 					 <a class="product-title db" href="{{product.url | within: c}}">{{ product.title | highlight: search_terms }}</a>
-				   {%- if product.price_varies -%}
+				   {%- if product.price == 0 -%}
+				     <span class="price-based-on-options" style="font-size: 12px; color: #777; font-style: italic;">Price based on options</span>
+				   {%- elsif product.price_varies -%}
 					{{ product.price_min | money }}–{{ product.price_max | money }}
 					{%- elsif on_sale -%}<del>{{ product.compare_at_price  | money }}</del> <ins>{{ product.price | money }}</ins>{%- if settings.label_sale_style == '1' -%}<span class="nt_label onsale">{{ on_sale_txt }}</span>{%- else-%}{%- assign save = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | ceil -%}<span class="onsale nt_label">Sale</span>{% endif -%}
 					{%- else -%}

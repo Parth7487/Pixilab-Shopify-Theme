@@ -8,6 +8,10 @@
     <span class="starting-at-label" style="font-size: 11px; color: #777; font-weight: 500; font-style: italic; margin-right: 2px;">from</span>
     <span class="current" style="font-weight: 600; color: #111; font-size: 14px;">{{ starting_at_value | money }}</span>
   </div>
+{%- elsif product.price == 0 -%}
+  <div class="price starting-at" style="display: block !important;">
+    <span class="current" style="font-weight: 500; color: #777; font-size: 13px; font-style: italic;">Price based on options</span>
+  </div>
 {%- else -%}
   {%- liquid
   assign variant_unit = product.variants.first

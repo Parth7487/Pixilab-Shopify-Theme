@@ -30,6 +30,18 @@
   endif
 -%}
 
+{% if price == 0 %}
+  <div class="price price--zero-dollar" data-price-zero="true">
+    <span class="price-item price-item--regular" style="font-size: 0.9em; color: #777; font-style: italic;">
+      Calculating price...
+    </span>
+  </div>
+  <style>
+    /* Prevent the $0.00 from showing briefly */
+    .price--zero-dollar + .price { display: none !important; }
+  </style>
+{% else %}
+
 <div class="price
   {%- if price_class %} {{ price_class }}{% endif -%}
   {%- if available == false %} price--sold-out {% endif -%}
@@ -81,13 +93,6 @@
       </span>
     </small>
   </div>
-  {%- if show_badges -%}
-    <span class="badge price__badge-sale color-{{ settings.sale_badge_color_scheme }}" aria-hidden="true">
-      {{ 'products.product.on_sale' | t }}
-    </span>
-
-    <span class="badge price__badge-sold-out color-{{ settings.sold_out_badge_color_scheme }}" aria-hidden="true">
-      {{ 'products.product.sold_out' | t }}
-    </span>
   {%- endif -%}
 </div>
+{% endif %}
