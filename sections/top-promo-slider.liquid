@@ -1,0 +1,692 @@
+{%- comment -%}
+  Banner Slider Section - "Hero Slideshow"
+  Features: Auto-play, Pagination Dots, Coupon Code Pill, Ken Burns Effect.
+  Design: React/Tailwind conversion for Crowned by Abba.
+  Protocol: Sticky Header Protection applied.
+{%- endcomment -%}
+
+{%- style -%}
+  #section-{{ section.id }} {
+    /* Layout */
+    --mobile-height: {{ section.settings.mobile_height }}px;
+    --desktop-height: {{ section.settings.desktop_height }}px;
+    
+    /* Spacing */
+    --header-offset: {{ section.settings.header_offset }}px;
+    
+    /* Colors (Defaults) */
+    --color-white: #FFFFFF;
+    --color-black: #000000;
+  }
+{%- endstyle -%}
+
+<style>
+  /* --- FONTS & UTILS --- */
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
+
+  #section-{{ section.id }} * { box-sizing: border-box; }
+
+  .hero-section {
+    /* STICKY HEADER PROTECTION */
+    position: relative;
+    z-index: 0;
+    isolation: isolate;
+    
+    width: 100%;
+    height: var(--mobile-height);
+    background-color: var(--color-black);
+    overflow: hidden;
+    padding-top: var(--header-offset);
+  }
+
+  @media (min-width: 768px) {
+    .hero-section { height: var(--desktop-height); }
+  }
+
+  /* --- SLIDES --- */
+  .slide-container {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .slide-container.active {
+    opacity: 1;
+    z-index: 10;
+    pointer-events: auto;
+  }
+
+  /* Image Layer */
+  .slide-image-wrapper {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .slide-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 8s linear;
+    transform: scale(1);
+  }
+
+  /* Ken Burns Effect on Active Slide */
+  .slide-container.active .slide-img {
+    transform: scale(1.1);
+  }
+
+  .gradient-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.5), transparent);
+  }
+
+  @media (min-width: 768px) {
+    .gradient-overlay {
+      background: linear-gradient(to right, rgba(0,0,0,0.9), rgba(0,0,0,0.5), transparent);
+    }
+  }
+
+  /* --- CONTENT LAYER --- */
+  .content-wrapper {
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Mobile: Bottom */
+    padding: 1.5rem;
+    padding-bottom: 6rem; /* Space for dots */
+    pointer-events: none; /* Let clicks pass */
+  }
+
+  @media (min-width: 768px) {
+    .content-wrapper {
+      justify-content: center; /* Desktop: Center */
+      padding: 0 3rem;
+      padding-bottom: 0;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .content-wrapper { padding: 0 5rem; }
+  }
+
+  .content-inner {
+    max-width: 80rem;
+    width: 100%;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    align-items: flex-end; /* Mobile align */
+  }
+
+  @media (min-width: 768px) {
+    .content-inner { align-items: center; }
+  }
+
+  /* Text Stack */
+  .text-stack {
+    position: relative;
+    width: 100%;
+    max-width: 56rem;
+    pointer-events: auto;
+    transform: translateY(2rem);
+    opacity: 0;
+    transition: all 0.7s ease-out;
+  }
+
+  .slide-container.active .text-stack {
+    transform: translateY(0);
+    opacity: 1;
+    transition-delay: 0.1s;
+  }
+
+  /* Badge */
+  .badge-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .badge-pill {
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.25rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.625rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: white;
+  }
+
+  .premium-label {
+    display: none;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.6);
+  }
+
+  @media (min-width: 640px) { .premium-label { display: flex; } }
+
+  .icon-sparkle { width: 0.75rem; height: 0.75rem; }
+
+  /* Headings */
+  .headline {
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    color: white;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    margin: 0 0 1rem 0;
+    font-size: 2.25rem;
+    text-shadow: 0 10px 20px rgba(0,0,0,0.5);
+  }
+
+  .headline span { font-style: italic; }
+
+  @media (min-width: 640px) { .headline { font-size: 3rem; margin-bottom: 1.5rem; } }
+  @media (min-width: 1024px) { .headline { font-size: 4.5rem; } }
+
+  .subhead {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.875rem;
+    color: rgba(255,255,255,0.8);
+    font-weight: 300;
+    line-height: 1.6;
+    max-width: 36rem;
+    margin-bottom: 1.5rem;
+    display: none;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  }
+
+  @media (min-width: 640px) { .subhead { display: block; font-size: 1rem; } }
+  @media (min-width: 1024px) { .subhead { font-size: 1.125rem; } }
+
+  /* Action Bar */
+  .action-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  @media (min-width: 640px) {
+    .action-bar {
+      flex-direction: row;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+  }
+
+  /* CTA Button */
+  .btn-cta {
+    height: 2.5rem;
+    padding: 0 1.5rem;
+    border-radius: 9999px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+
+  @media (min-width: 768px) {
+    .btn-cta { height: 3rem; padding: 0 2rem; font-size: 0.75rem; }
+  }
+
+  .btn-cta:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(255,255,255,0.2); }
+
+  .icon-arrow { width: 1rem; height: 1rem; }
+
+  /* Coupon Pill */
+  .coupon-pill {
+    height: 2.5rem;
+    padding: 0 0.5rem 0 1.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: default;
+    transition: background 0.3s;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  @media (min-width: 768px) { .coupon-pill { height: 3rem; } }
+
+  .coupon-pill:hover { background: rgba(255, 255, 255, 0.2); }
+
+  .icon-circle {
+    width: 1.5rem; height: 1.5rem;
+    border-radius: 9999px;
+    background: white;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    flex-shrink: 0;
+  }
+
+  @media (min-width: 768px) { .icon-circle { width: 2rem; height: 2rem; } }
+
+  .icon-tag { width: 0.75rem; height: 0.75rem; }
+  @media (min-width: 768px) { .icon-tag { width: 0.875rem; height: 0.875rem; } }
+
+  .code-text-group {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding-right: 0.5rem;
+  }
+
+  .label-tiny {
+    font-size: 0.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: rgba(255,255,255,0.6);
+    white-space: nowrap;
+  }
+
+  .code-val {
+    font-size: 0.625rem;
+    font-weight: 900;
+    color: white;
+    letter-spacing: 0.1em;
+    line-height: 1;
+  }
+
+  @media (min-width: 768px) {
+    .code-val { font-size: 0.75rem; }
+  }
+
+  .divider { width: 1px; height: 1.5rem; background: rgba(255,255,255,0.1); flex-shrink: 0; display: none; }
+  .offer-text { font-size: 0.55rem; font-weight: 700; color: rgba(255,255,255,0.9); text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: none; margin-right: 1rem; }
+
+  @media (min-width: 400px) { .divider, .offer-text { display: block; } }
+
+  /* --- CONTROLS --- */
+  .controls-layer {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 0;
+    width: 100%;
+    z-index: 30;
+    padding: 0 1.5rem;
+    pointer-events: none;
+  }
+
+  @media (min-width: 768px) {
+    .controls-layer { bottom: 2rem; padding: 0 3rem; }
+  }
+
+  @media (min-width: 1280px) {
+    .controls-layer { padding: 0 5rem; }
+  }
+
+  .controls-inner {
+    max-width: 80rem;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    pointer-events: auto;
+  }
+
+  /* Dots */
+  .dots-row { display: flex; gap: 1rem; }
+
+  .dot-btn {
+    height: 0.25rem;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    cursor: pointer;
+    transition: all 0.5s;
+    width: 2rem;
+  }
+
+  .dot-btn:hover { background: rgba(255, 255, 255, 0.4); }
+  .dot-btn.active { width: 4rem; background: white; }
+
+  /* Arrows */
+  .arrow-row { display: none; gap: 0.5rem; }
+  @media (min-width: 640px) { .arrow-row { display: flex; } }
+
+  .nav-arrow {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    transition: all 0.3s;
+  }
+
+  .nav-arrow:hover { background: white; color: black; border-color: white; }
+  .icon-nav { width: 1.125rem; height: 1.125rem; }
+
+</style>
+
+<section id="section-{{ section.id }}" class="hero-section">
+  
+  {%- for block in section.blocks -%}
+    <div class="slide-container {% if forloop.first %}active{% endif %}" data-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+      
+      <!-- Image Layer -->
+      <div class="slide-image-wrapper">
+        {%- if block.settings.image != blank -%}
+          {{ block.settings.image | image_url: width: 2000 | image_tag: class: 'slide-img', loading: 'eager' }}
+        {%- else -%}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'slide-img' }}
+        {%- endif -%}
+        <div class="gradient-overlay"></div>
+      </div>
+
+      <!-- Content Layer -->
+      <div class="content-wrapper">
+        <div class="content-inner">
+          <div class="text-stack">
+            
+            <!-- Badge -->
+            <div class="badge-row">
+              <span class="badge-pill" style="background-color: {{ block.settings.accent_color }};">Limited Offer</span>
+              <span class="premium-label" style="color: {{ block.settings.accent_color }};">
+                <svg class="icon-sparkle" viewBox="0 0 24 24" fill="currentColor"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.582a.5.5 0 0 1 0 .962L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path></svg>
+                Premium Selection
+              </span>
+            </div>
+
+            <!-- Heading -->
+            <h1 class="headline">
+              {{ block.settings.headline_1 }}<br/>
+              <span style="color: {{ block.settings.accent_color }};">{{ block.settings.headline_2 }}</span>
+            </h1>
+
+            <!-- Subhead -->
+            <p class="subhead">{{ block.settings.subhead }}</p>
+
+            <!-- Buttons -->
+            <div class="action-bar">
+              <a href="{{ block.settings.btn_link }}" class="btn-cta" style="background-color: {{ block.settings.accent_color }};">
+                {{ block.settings.btn_text }}
+                <svg class="icon-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </a>
+
+              <div class="coupon-pill">
+                <div class="icon-circle">
+                  <svg class="icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+                </div>
+                <div class="code-text-group">
+                  <span class="label-tiny">Use Code</span>
+                  <span class="code-val">{{ block.settings.coupon_code }}</span>
+                </div>
+                <div class="divider"></div>
+                <span class="offer-text">{{ block.settings.offer_text }}</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  {%- endfor -%}
+
+  <!-- Controls Layer -->
+  <div class="controls-layer">
+    <div class="controls-inner">
+      
+      <!-- Dots -->
+      <div class="dots-row">
+        {%- for block in section.blocks -%}
+          <button class="dot-btn {% if forloop.first %}active{% endif %}" data-index="{{ forloop.index0 }}" aria-label="Go to slide {{ forloop.index }}"></button>
+        {%- endfor -%}
+      </div>
+
+      <!-- Arrows -->
+      <div class="arrow-row">
+        <button id="prev-{{ section.id }}" class="nav-arrow"><svg class="icon-nav" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+        <button id="next-{{ section.id }}" class="nav-arrow"><svg class="icon-nav" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const sectionId = "{{ section.id }}";
+    const slides = document.querySelectorAll(`#section-${sectionId} .slide-container`);
+    const dots = document.querySelectorAll(`#section-${sectionId} .dot-btn`);
+    const prevBtn = document.getElementById(`prev-${sectionId}`);
+    const nextBtn = document.getElementById(`next-${sectionId}`);
+    
+    let currentIndex = 0;
+    let timer;
+    const intervalTime = 6000;
+
+    function showSlide(index) {
+      // Wrap index
+      if (index >= slides.length) index = 0;
+      if (index < 0) index = slides.length - 1;
+      
+      currentIndex = index;
+
+      // Update Slides
+      slides.forEach(slide => slide.classList.remove('active'));
+      slides[currentIndex].classList.add('active');
+
+      // Update Dots
+      dots.forEach(dot => dot.classList.remove('active'));
+      dots[currentIndex].classList.add('active');
+    }
+
+    function startAutoPlay() {
+      stopAutoPlay();
+      timer = setInterval(() => {
+        showSlide(currentIndex + 1);
+      }, intervalTime);
+    }
+
+    function stopAutoPlay() {
+      clearInterval(timer);
+    }
+
+    // Event Listeners
+    nextBtn?.addEventListener('click', () => {
+      showSlide(currentIndex + 1);
+      startAutoPlay(); // Reset timer
+    });
+
+    prevBtn?.addEventListener('click', () => {
+      showSlide(currentIndex - 1);
+      startAutoPlay();
+    });
+
+    dots.forEach(dot => {
+      dot.addEventListener('click', (e) => {
+        const idx = parseInt(e.target.dataset.index);
+        showSlide(idx);
+        startAutoPlay();
+      });
+    });
+
+    // Start
+    if (slides.length > 1) {
+      startAutoPlay();
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Banner Slider (Hero)",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Navbar Fix Controls"
+    },
+    {
+      "type": "range",
+      "id": "header_offset",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Spacing (Push Down)",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "mobile_height",
+      "min": 400,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "label": "Mobile Height",
+      "default": 600
+    },
+    {
+      "type": "range",
+      "id": "desktop_height",
+      "min": 500,
+      "max": 1000,
+      "step": 10,
+      "unit": "px",
+      "label": "Desktop Height",
+      "default": 600
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Background Image"
+        },
+        {
+          "type": "text",
+          "id": "headline_1",
+          "default": "Great Displays,",
+          "label": "Headline Line 1"
+        },
+        {
+          "type": "text",
+          "id": "headline_2",
+          "default": "Greater Results",
+          "label": "Headline Line 2 (Highlighted)"
+        },
+        {
+          "type": "textarea",
+          "id": "subhead",
+          "default": "Transform your presence with modular systems engineered for impact.",
+          "label": "Subhead"
+        },
+        {
+          "type": "text",
+          "id": "btn_text",
+          "default": "Shop Collection",
+          "label": "Button Text"
+        },
+        {
+          "type": "url",
+          "id": "btn_link",
+          "label": "Button Link"
+        },
+        {
+          "type": "text",
+          "id": "coupon_code",
+          "default": "TRADE30",
+          "label": "Coupon Code"
+        },
+        {
+          "type": "text",
+          "id": "offer_text",
+          "default": "30% OFF Trade Show Displays",
+          "label": "Offer Description"
+        },
+        {
+          "type": "color",
+          "id": "accent_color",
+          "default": "#E85C34",
+          "label": "Accent Color"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner Slider (Hero)",
+      "blocks": [
+        {
+          "type": "slide",
+          "settings": {
+            "headline_1": "Great Displays,",
+            "headline_2": "Greater Results",
+            "coupon_code": "TRADE30",
+            "accent_color": "#E85C34"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "headline_1": "Maximum Impact,",
+            "headline_2": "Minimum Effort",
+            "coupon_code": "BOGO24",
+            "accent_color": "#00B9F1"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "headline_1": "Retail Ready,",
+            "headline_2": "Instant Attraction",
+            "coupon_code": "FREESHIP",
+            "accent_color": "#E6007E"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

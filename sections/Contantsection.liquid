@@ -1,0 +1,845 @@
+{% comment %}
+  Contact Section - Texas Premiere Studio
+  Displays contact information in a 4-column grid with hover effects
+  Mobile layouts: Grid (2x2), List, Card Stack
+{% endcomment %}
+
+{% style %}
+  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@900&display=swap');
+
+  /* ============================================
+     BASE STYLES
+     ============================================ */
+  .contact-wrapper {
+    width: 100%;
+    max-width: {% if section.settings.full_width %}100%{% else %}100vw{% endif %};
+    overflow-x: hidden;
+    background-color: #FFFFFF;
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    position: relative;
+    font-family: 'Outfit', sans-serif;
+  }
+
+  .contact-wrapper.full-width {
+    max-width: 100%;
+  }
+
+  .contact-container {
+    max-width: {% if section.settings.full_width %}100%{% else %}2200px{% endif %};
+    margin: 0 auto;
+    padding: {% if section.settings.remove_side_padding %}0{% else %}0 16px{% endif %};
+    position: relative;
+  }
+
+  @media (min-width: 640px) {
+    .contact-container {
+      padding: {% if section.settings.remove_side_padding %}0{% else %}0 24px{% endif %};
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .contact-container {
+      padding: {% if section.settings.remove_side_padding %}0{% else %}0 64px{% endif %};
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .contact-container {
+      padding: {% if section.settings.remove_side_padding %}0{% else %}0 96px{% endif %};
+    }
+  }
+
+  /* ============================================
+     TITLE SECTION
+     ============================================ */
+  .contact-title-section {
+    text-align: center;
+    margin-bottom: 64px;
+    animation: contact-fade-in 1000ms ease-out;
+    {% if section.settings.remove_side_padding %}
+    padding: 0 16px;
+    {% endif %}
+  }
+
+  @keyframes contact-fade-in {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .contact-label-container {
+    display: inline-block;
+    border-top: 2px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+    padding: 16px 48px;
+  }
+
+  .contact-label-text {
+    font-size: 14px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.6em;
+    color: rgba(0, 0, 0, 0.4);
+    margin: 0;
+  }
+
+  /* ============================================
+     GRID WRAPPER & DECORATIONS
+     ============================================ */
+  .contact-grid-wrapper {
+    position: relative;
+    {% if section.settings.remove_side_padding %}
+    padding: 0 16px;
+    {% endif %}
+  }
+
+  .contact-decoration-horizontal {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: rgba(0, 0, 0, 0.05);
+    transform: translateY(-50%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .contact-decoration-vertical {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.05);
+    transform: translateX(-50%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* ============================================
+     DESKTOP GRID (4 COLUMNS) - NO CHANGES
+     ============================================ */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ============================================
+     CONTACT CARD STYLES
+     ============================================ */
+  .contact-card {
+    background-color: #FAFAFA;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 32px;
+    padding: 32px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 220px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 700ms ease;
+    text-decoration: none;
+    color: #000000;
+  }
+
+  .contact-card:hover {
+    background-color: #000000;
+    color: #FFFFFF;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+  }
+
+  @media (min-width: 1280px) {
+    .contact-card {
+      padding: 40px;
+    }
+  }
+
+  .contact-icon {
+    width: 28px;
+    height: 28px;
+    margin-bottom: 24px;
+    opacity: 0.3;
+    transition: all 500ms ease;
+  }
+
+  .contact-card:hover .contact-icon {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+
+  .contact-content {
+    margin-top: auto;
+  }
+
+  .contact-label {
+    font-size: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.4em;
+    opacity: 0.4;
+    margin-bottom: 12px;
+    transition: opacity 200ms ease;
+  }
+
+  .contact-card:hover .contact-label {
+    opacity: 0.6;
+  }
+
+  .contact-value {
+    font-size: 20px;
+    font-weight: 900;
+    line-height: 1.2;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  @media (min-width: 1280px) {
+    .contact-value {
+      font-size: 24px;
+    }
+  }
+
+  /* ============================================
+     MOBILE LAYOUTS (< 768px)
+     ============================================ */
+  @media (max-width: 767px) {
+    
+    /* Hide desktop decorations on mobile */
+    .contact-decoration-horizontal,
+    .contact-decoration-vertical {
+      display: none;
+    }
+
+    /* ----- LAYOUT: GRID 2x2 ----- */
+    .contact-grid.mobile-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .contact-grid.mobile-grid .contact-card {
+      aspect-ratio: 1 / 1;
+      min-height: unset;
+      padding: 20px;
+      border-radius: 24px;
+    }
+
+    .contact-grid.mobile-grid .contact-value {
+      font-size: 14px;
+    }
+
+    .contact-grid.mobile-grid .contact-label {
+      font-size: 8px;
+      margin-bottom: 8px;
+    }
+
+    .contact-grid.mobile-grid .contact-icon {
+      width: 24px;
+      height: 24px;
+      margin-bottom: 16px;
+    }
+
+    /* ----- LAYOUT: LIST ----- */
+    .contact-grid.mobile-list {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .contact-grid.mobile-list .contact-card {
+      flex-direction: row;
+      align-items: center;
+      min-height: unset;
+      padding: 16px 20px;
+      border-radius: 16px;
+      gap: 16px;
+    }
+
+    .contact-grid.mobile-list .contact-icon {
+      width: 24px;
+      height: 24px;
+      margin-bottom: 0;
+      flex-shrink: 0;
+    }
+
+    .contact-grid.mobile-list .contact-content {
+      margin-top: 0;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .contact-grid.mobile-list .contact-label {
+      margin-bottom: 0;
+      font-size: 9px;
+    }
+
+    .contact-grid.mobile-list .contact-value {
+      font-size: 14px;
+      text-align: right;
+    }
+
+    /* ----- LAYOUT: CARD STACK ----- */
+    .contact-grid.mobile-stack {
+      display: block;
+      position: relative;
+      height: 280px;
+      touch-action: pan-y;
+    }
+
+    .contact-grid.mobile-stack .contact-card {
+      position: absolute;
+      width: calc(100% - 40px);
+      left: 50%;
+      transform: translateX(-50%);
+      min-height: 200px;
+      aspect-ratio: unset;
+      transition: all 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      border-radius: 24px;
+    }
+
+    .contact-grid.mobile-stack .contact-card[data-index="0"] {
+      z-index: 4;
+      top: 0;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .contact-grid.mobile-stack .contact-card[data-index="1"] {
+      z-index: 3;
+      top: 15px;
+      transform: translateX(-50%) scale(0.95);
+      opacity: 0.8;
+    }
+
+    .contact-grid.mobile-stack .contact-card[data-index="2"] {
+      z-index: 2;
+      top: 30px;
+      transform: translateX(-50%) scale(0.9);
+      opacity: 0.6;
+    }
+
+    .contact-grid.mobile-stack .contact-card[data-index="3"] {
+      z-index: 1;
+      top: 45px;
+      transform: translateX(-50%) scale(0.85);
+      opacity: 0.4;
+    }
+
+    .contact-grid.mobile-stack .contact-card.swiping {
+      transition: none;
+    }
+
+    .contact-grid.mobile-stack .contact-value {
+      font-size: 18px;
+    }
+
+    /* Stack Indicator Dots */
+    .stack-indicators {
+      display: none;
+    }
+
+    .mobile-stack-wrapper .stack-indicators {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 20px;
+      padding-top: 60px;
+    }
+
+    .mobile-stack-wrapper .stack-indicators.hidden {
+      display: none;
+    }
+
+    .stack-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: rgba(0, 0, 0, 0.2);
+      transition: all 300ms ease;
+      cursor: pointer;
+    }
+
+    .stack-dot.active {
+      background-color: #000000;
+      transform: scale(1.2);
+    }
+
+    /* Swipe hint */
+    .swipe-hint {
+      text-align: center;
+      font-size: 12px;
+      color: rgba(0, 0, 0, 0.4);
+      margin-top: 16px;
+      padding-top: 60px;
+    }
+
+    .mobile-stack-wrapper .swipe-hint {
+      display: block;
+    }
+
+    .swipe-hint.hidden {
+      display: none;
+    }
+  }
+
+  /* Tablet - 2 columns */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .contact-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .contact-card {
+      aspect-ratio: 1 / 1;
+    }
+  }
+
+  /* Hide stack elements on desktop */
+  @media (min-width: 768px) {
+    .stack-indicators,
+    .swipe-hint {
+      display: none !important;
+    }
+  }
+{% endstyle %}
+
+<div class="contact-wrapper {% if section.settings.full_width %}full-width{% endif %}" {{ section.shopify_attributes }}>
+  <div class="contact-container">
+    <div class="contact-title-section">
+      <div class="contact-label-container">
+        <p class="contact-label-text">{{ section.settings.title | default: "TEXAS PREMIERE STUDIO" }}</p>
+      </div>
+    </div>
+
+    <div class="contact-grid-wrapper {% if section.settings.mobile_layout == 'stack' %}mobile-stack-wrapper{% endif %}">
+      <div class="contact-decoration-horizontal"></div>
+      <div class="contact-decoration-vertical"></div>
+
+      <div class="contact-grid {% if section.settings.mobile_layout == 'grid' %}mobile-grid{% elsif section.settings.mobile_layout == 'list' %}mobile-list{% elsif section.settings.mobile_layout == 'stack' %}mobile-stack{% endif %}" id="contactGrid-{{ section.id }}">
+        
+        <!-- Phone Card -->
+        <a href="tel:{{ section.settings.phone | remove: ' ' | remove: '-' | remove: '(' | remove: ')' }}" 
+           class="contact-card" 
+           data-index="0"
+           aria-label="Call {{ section.settings.phone }}">
+          <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+          </svg>
+          <div class="contact-content">
+            <div class="contact-label">{{ section.settings.phone_label | default: "DIRECT PHONE" }}</div>
+            <div class="contact-value">{{ section.settings.phone | default: "+1 469-432-6283" }}</div>
+          </div>
+        </a>
+
+        <!-- Email Card -->
+        <a href="mailto:{{ section.settings.email }}" 
+           class="contact-card" 
+           data-index="1"
+           aria-label="Email {{ section.settings.email }}">
+          <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+          <div class="contact-content">
+            <div class="contact-label">{{ section.settings.email_label | default: "EMAIL ADDRESS" }}</div>
+            <div class="contact-value">{{ section.settings.email | default: "hello@texaspremiere.com" }}</div>
+          </div>
+        </a>
+
+        <!-- Location Card -->
+        <a href="{{ section.settings.location_url | default: '#' }}" 
+           class="contact-card" 
+           data-index="2"
+           {% if section.settings.location_url != blank %}target="_blank" rel="noopener noreferrer"{% endif %}
+           aria-label="View location: {{ section.settings.location }}">
+          <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+            <circle cx="12" cy="10" r="3"></circle>
+          </svg>
+          <div class="contact-content">
+            <div class="contact-label">{{ section.settings.location_label | default: "STUDIO LOCATION" }}</div>
+            <div class="contact-value">{{ section.settings.location | default: "Dallas, Texas" }}</div>
+          </div>
+        </a>
+
+        <!-- Hours Card -->
+        <div class="contact-card" data-index="3">
+          <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          <div class="contact-content">
+            <div class="contact-label">{{ section.settings.hours_label | default: "BUSINESS HOURS" }}</div>
+            <div class="contact-value">{{ section.settings.hours | default: "Mon-Fri 9AM-6PM" }}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stack Indicator Dots -->
+      {% if section.settings.mobile_layout == 'stack' %}
+        <div class="stack-indicators {% unless section.settings.show_indicators %}hidden{% endunless %}" id="stackIndicators-{{ section.id }}">
+          <span class="stack-dot active" data-index="0"></span>
+          <span class="stack-dot" data-index="1"></span>
+          <span class="stack-dot" data-index="2"></span>
+          <span class="stack-dot" data-index="3"></span>
+        </div>
+        <p class="swipe-hint {% unless section.settings.show_indicators %}hidden{% endunless %}">Swipe up or down to navigate</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<!-- Card Stack JavaScript -->
+{% if section.settings.mobile_layout == 'stack' %}
+<script>
+(function() {
+  'use strict';
+
+  const sectionId = '{{ section.id }}';
+  const grid = document.getElementById('contactGrid-' + sectionId);
+  const indicators = document.getElementById('stackIndicators-' + sectionId);
+  
+  if (!grid || !grid.classList.contains('mobile-stack')) return;
+
+  const cards = Array.from(grid.querySelectorAll('.contact-card'));
+  const dots = indicators ? Array.from(indicators.querySelectorAll('.stack-dot')) : [];
+  const totalCards = cards.length;
+  
+  let currentIndex = 0;
+  let startY = 0;
+  let currentY = 0;
+  let isDragging = false;
+  let threshold = 50;
+
+  // Check if mobile
+  function isMobile() {
+    return window.innerWidth < 768;
+  }
+
+  // Update card positions
+  function updateCards(animated = true) {
+    cards.forEach((card, index) => {
+      // Calculate relative position from current index
+      let relativeIndex = (index - currentIndex + totalCards) % totalCards;
+      
+      if (!animated) {
+        card.classList.add('swiping');
+      } else {
+        card.classList.remove('swiping');
+      }
+
+      card.setAttribute('data-index', relativeIndex);
+      
+      // Update styles based on position
+      switch(relativeIndex) {
+        case 0:
+          card.style.zIndex = 4;
+          card.style.top = '0px';
+          card.style.transform = 'translateX(-50%) scale(1)';
+          card.style.opacity = '1';
+          break;
+        case 1:
+          card.style.zIndex = 3;
+          card.style.top = '15px';
+          card.style.transform = 'translateX(-50%) scale(0.95)';
+          card.style.opacity = '0.8';
+          break;
+        case 2:
+          card.style.zIndex = 2;
+          card.style.top = '30px';
+          card.style.transform = 'translateX(-50%) scale(0.9)';
+          card.style.opacity = '0.6';
+          break;
+        case 3:
+          card.style.zIndex = 1;
+          card.style.top = '45px';
+          card.style.transform = 'translateX(-50%) scale(0.85)';
+          card.style.opacity = '0.4';
+          break;
+      }
+    });
+
+    // Update indicator dots
+    dots.forEach((dot, index) => {
+      if (index === currentIndex) {
+        dot.classList.add('active');
+      } else {
+        dot.classList.remove('active');
+      }
+    });
+  }
+
+  // Go to next card
+  function nextCard() {
+    currentIndex = (currentIndex + 1) % totalCards;
+    updateCards();
+  }
+
+  // Go to previous card
+  function prevCard() {
+    currentIndex = (currentIndex - 1 + totalCards) % totalCards;
+    updateCards();
+  }
+
+  // Go to specific card
+  function goToCard(index) {
+    currentIndex = index;
+    updateCards();
+  }
+
+  // Touch/Mouse events
+  function handleStart(e) {
+    if (!isMobile()) return;
+    
+    isDragging = true;
+    startY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+    
+    cards.forEach(card => card.classList.add('swiping'));
+  }
+
+  function handleMove(e) {
+    if (!isDragging || !isMobile()) return;
+    
+    currentY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
+    const deltaY = startY - currentY;
+    
+    // Visual feedback while dragging
+    const topCard = cards.find(card => card.getAttribute('data-index') === '0');
+    if (topCard && Math.abs(deltaY) > 10) {
+      const moveAmount = Math.min(Math.abs(deltaY) * 0.3, 30);
+      if (deltaY > 0) {
+        topCard.style.transform = `translateX(-50%) scale(1) translateY(-${moveAmount}px)`;
+      } else {
+        topCard.style.transform = `translateX(-50%) scale(1) translateY(${moveAmount}px)`;
+      }
+    }
+  }
+
+  function handleEnd(e) {
+    if (!isDragging || !isMobile()) return;
+    
+    isDragging = false;
+    const deltaY = startY - currentY;
+    
+    cards.forEach(card => card.classList.remove('swiping'));
+    
+    if (Math.abs(deltaY) > threshold) {
+      if (deltaY > 0) {
+        // Swiped up - next card
+        nextCard();
+      } else {
+        // Swiped down - previous card
+        prevCard();
+      }
+    } else {
+      // Reset position
+      updateCards();
+    }
+  }
+
+  // Add event listeners to the grid
+  grid.addEventListener('touchstart', handleStart, { passive: true });
+  grid.addEventListener('touchmove', handleMove, { passive: true });
+  grid.addEventListener('touchend', handleEnd);
+  
+  grid.addEventListener('mousedown', handleStart);
+  grid.addEventListener('mousemove', handleMove);
+  grid.addEventListener('mouseup', handleEnd);
+  grid.addEventListener('mouseleave', handleEnd);
+
+  // Dot click events
+  dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+      goToCard(index);
+    });
+  });
+
+  // Prevent card links from triggering during swipe
+  cards.forEach(card => {
+    card.addEventListener('click', (e) => {
+      if (Math.abs(startY - currentY) > 10) {
+        e.preventDefault();
+      }
+    });
+  });
+
+  // Handle window resize
+  window.addEventListener('resize', () => {
+    updateCards();
+  });
+
+  // Initialize
+  updateCards();
+
+})();
+</script>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Contact Section",
+  "tag": "section",
+  "class": "section-contact",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "TEXAS PREMIERE STUDIO"
+    },
+    {
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full Width",
+      "default": false,
+      "info": "Remove max-width constraint"
+    },
+    {
+      "type": "checkbox",
+      "id": "remove_side_padding",
+      "label": "Remove Side Padding",
+      "default": false,
+      "info": "Remove left and right padding"
+    },
+    {
+      "type": "select",
+      "id": "mobile_layout",
+      "label": "Mobile Layout",
+      "default": "grid",
+      "options": [
+        {
+          "value": "grid",
+          "label": "Grid (2x2)"
+        },
+        {
+          "value": "list",
+          "label": "List"
+        },
+        {
+          "value": "stack",
+          "label": "Card Stack"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "show_indicators",
+      "label": "Show Indicator Dots",
+      "default": true,
+      "info": "Show navigation dots for Card Stack layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top Padding",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "default": 80,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom Padding",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "default": 80,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Phone Card"
+    },
+    {
+      "type": "text",
+      "id": "phone_label",
+      "label": "Phone Label",
+      "default": "DIRECT PHONE"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Phone Number",
+      "default": "+1 469-432-6283"
+    },
+    {
+      "type": "header",
+      "content": "Email Card"
+    },
+    {
+      "type": "text",
+      "id": "email_label",
+      "label": "Email Label",
+      "default": "EMAIL ADDRESS"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email Address",
+      "default": "hello@texaspremiere.com"
+    },
+    {
+      "type": "header",
+      "content": "Location Card"
+    },
+    {
+      "type": "text",
+      "id": "location_label",
+      "label": "Location Label",
+      "default": "STUDIO LOCATION"
+    },
+    {
+      "type": "text",
+      "id": "location",
+      "label": "Location",
+      "default": "Dallas, Texas"
+    },
+    {
+      "type": "url",
+      "id": "location_url",
+      "label": "Google Maps URL",
+      "info": "Optional: Link to Google Maps location"
+    },
+    {
+      "type": "header",
+      "content": "Hours Card"
+    },
+    {
+      "type": "text",
+      "id": "hours_label",
+      "label": "Hours Label",
+      "default": "BUSINESS HOURS"
+    },
+    {
+      "type": "text",
+      "id": "hours",
+      "label": "Business Hours",
+      "default": "Mon-Fri 9AM-6PM"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact Section"
+    }
+  ]
+}
+{% endschema %}

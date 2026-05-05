@@ -1,0 +1,1199 @@
+{% comment %}
+  Feature Grid 2x2 Section
+  Displays a 2x2 grid with content, hero image, product feature, and CTA
+{% endcomment %}
+
+{% style %}
+  .feature-grid-wrapper-{{ section.id }} {
+    width: 100%;
+    max-width: 100vw;
+    background-color: {{ section.settings.background_color }};
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  @media screen and (min-width: 640px) {
+    .feature-grid-wrapper-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top_desktop }}px;
+      padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
+    }
+  }
+
+  .feature-grid-container-{{ section.id }} {
+    max-width: {% if section.settings.full_width %}100%{% else %}2200px{% endif %};
+    margin: 0 auto;
+    padding-left: {% if section.settings.remove_side_padding %}0{% else %}16px{% endif %};
+    padding-right: {% if section.settings.remove_side_padding %}0{% else %}16px{% endif %};
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  @media screen and (min-width: 640px) {
+    .feature-grid-container-{{ section.id }} {
+      padding-left: {% if section.settings.remove_side_padding %}0{% else %}24px{% endif %};
+      padding-right: {% if section.settings.remove_side_padding %}0{% else %}24px{% endif %};
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .feature-grid-container-{{ section.id }} {
+      padding-left: {% if section.settings.remove_side_padding %}0{% else %}48px{% endif %};
+      padding-right: {% if section.settings.remove_side_padding %}0{% else %}48px{% endif %};
+    }
+  }
+
+  @media screen and (min-width: 1280px) {
+    .feature-grid-container-{{ section.id }} {
+      padding-left: {% if section.settings.remove_side_padding %}0{% else %}80px{% endif %};
+      padding-right: {% if section.settings.remove_side_padding %}0{% else %}80px{% endif %};
+    }
+  }
+
+  .feature-grid-main-{{ section.id }} {
+    display: grid;
+    grid-template-columns: 1fr;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  @media screen and (min-width: 1280px) {
+    .feature-grid-main-{{ section.id }} {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .feature-grid-cell-{{ section.id }} {
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  /* Cell 3 Visibility */
+  .feature-grid-cell-3-{{ section.id }} {
+    {% if section.settings.hide_cell3_mobile %}
+      display: none;
+    {% else %}
+      display: block;
+    {% endif %}
+  }
+
+  @media screen and (min-width: 1280px) {
+    .feature-grid-cell-3-{{ section.id }} {
+      {% if section.settings.hide_cell3_desktop %}
+        display: none;
+      {% else %}
+        display: block;
+      {% endif %}
+    }
+  }
+
+  /* Cell 4 Visibility */
+  .feature-grid-cell-4-{{ section.id }} {
+    {% if section.settings.hide_cell4_mobile %}
+      display: none;
+    {% else %}
+      display: block;
+    {% endif %}
+  }
+
+  @media screen and (min-width: 1280px) {
+    .feature-grid-cell-4-{{ section.id }} {
+      {% if section.settings.hide_cell4_desktop %}
+        display: none;
+      {% else %}
+        display: block;
+      {% endif %}
+    }
+  }
+
+  /* Adjust grid when cells are hidden on desktop */
+  @media screen and (min-width: 1280px) {
+    {% if section.settings.hide_cell3_desktop and section.settings.hide_cell4_desktop %}
+      .feature-grid-cell-content-{{ section.id }} {
+        border-bottom: none;
+      }
+      .feature-grid-cell-image-{{ section.id }} {
+        border-bottom: none;
+      }
+    {% endif %}
+
+    {% if section.settings.hide_cell3_desktop and section.settings.hide_cell4_desktop == false %}
+      .feature-grid-cell-4-{{ section.id }} {
+        grid-column: span 2;
+      }
+    {% endif %}
+
+    {% if section.settings.hide_cell4_desktop and section.settings.hide_cell3_desktop == false %}
+      .feature-grid-cell-3-{{ section.id }} {
+        grid-column: span 2;
+      }
+    {% endif %}
+  }
+
+  .feature-grid-cell-content-{{ section.id }} {
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #FFFFFF;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  @media screen and (min-width: 640px) {
+    .feature-grid-cell-content-{{ section.id }} {
+      padding: 48px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .feature-grid-cell-content-{{ section.id }} {
+      padding: 80px;
+      min-height: 500px;
+    }
+  }
+
+  @media screen and (min-width: 1280px) {
+    .feature-grid-cell-content-{{ section.id }} {
+      padding: 96px;
+      border-right: 1px solid rgba(0, 0, 0, 0.05);
+      border-bottom: none;
+    }
+  }
+
+  .feature-grid-label-row-{{ section.id }} {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  @media screen and (min-width: 640px) {
+    .feature-grid-label-row-{{ section.id }} {
+      margin-bottom: 32px;
+    }
+  }
+
+  .feature-grid-dot-{{ section.id }} {
+    width: 6px;
+    height: 6px;
+    background: {{ section.settings.dot_color }};
+    border-radius: 9999px;
+    flex-shrink: 0;
+  }
+
+  .feature-grid-label-text-{{ section.id }} {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: rgba(0, 0, 0, 0.6);
+    white-space: nowrap;
+  }
+
+  @media screen and (min-width: 640px) {
+    .feature-grid-label-text-{{ section.id }} {
+      font-size: 10px;
+    }
+  }
+
+  .feature-grid-cell-heading-{{ section.id }} {
+    font-size: 36px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    line-height: 0.85;
+    margin: 0 0 24px 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  @media screen and (min-width: 640px) {
+    .feature-grid-cell-heading-{{ section.id }} {
+      font-size: 48px;
+      margin-bottom: 32px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .feature-grid-cell-heading-{{ section.id }} {
+      font-size: 56px;
+    }
+  }
+
+  @media screen and (min-width: 1280px) {
+    .feature-grid-cell-heading-{{ section.id }} {
+      font-size: 64px;
+    }
+  }
+
+  .feature-grid-heading-primary-{{ section.id }} {
+    color: {{ section.settings.heading_primary_color }};
+  }
+
+  .feature-grid-heading-secondary-{{ section.id }} {
+    color: {{ section.settings.heading_secondary_color }};
+  }
+
+  .feature-grid-cell-description-{{ section.id }} {
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.5);
+    font-weight: 300;
+    line-height: 1.625;
+    max-width: 100%;
+    margin: 0 0 32px 0;
+  }
+
+  @media screen and (min-width: 640px) {
+    .feature-grid-cell-description-{{ section.id }} {
+      font-size: 18px;
+      max-width: 448px;
+      margin-bottom: 48px;
+    }
+  }
+
+  .feature-grid-stats-row-{{ section.id }} {
+    display: flex;
+    flex-direction: row;
+    gap: 32px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+  }
+
+  @media screen and (min-width: 640px) {
+    .feature-grid-stats-row-{{ section.id }} {
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .feature-grid-stats-row-{{ section.id }} {
+      gap: 64px;
+    }
+  }
+
+  .feature-grid-stat-item-{{ section.id }} {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .feature-grid-stat-number-{{ section.id }} {
+    font-size: 24px;
+    font-weight: 900;
+    color: {{ section.settings.stat_number_color }};
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin: 0;
+  }
+
+  @media screen and (min-width: 640px) {
+    .feature-grid-stat-number-{{ section.id }} {
+      font-size: 28px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .feature-grid-stat-number-{{ section.id }} {
+      font-size: 30px;
+    }
+  }
+
+  .feature-grid-stat-label-{{ section.id }} {
+    font-size: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: rgba(0, 0, 0, 0.4);
+    margin-top: 4px;
+  }
+
+  @media screen and (min-width: 640px) {
+    .feature-grid-stat-label-{{ section.id }} {
+      font-size: 9px;
+    }
+  }
+
+  .feature-grid-cell-button-{{ section.id }} {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background-color: {{ section.settings.button_bg_color }};
+    color: {{ section.settings.button_text_color }};
+    padding: 16px 32px;
+    font-size: 9px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    border: none;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    cursor: pointer;
+    width: fit-content;
+    white-space: nowrap;
+    transition: all 200ms ease;
+    text-decoration: none;
+  }
+
+  @media screen and (min-width: 640px) {
+    .feature-grid-cell-button-{{ section.id }} {
+      padding: 20px 40px;
+      font-size: 10px;
+      width: max-content;
+    }
+  }
+
+  .feature-grid-cell-button-{{ section.id }}:hover {
+    background-color: {{ section.settings.button_hover_bg_color }};
+    box-shadow: 0 20px 40px rgba(0, 185, 241, 0.2);
+  }
+
+  .feature-grid-button-arrow-{{ section.id }} {
+    width: 12px;
+    height: 12px;
+    transition: transform 200ms ease;
+  }
+
+  @media screen and (min-width: 640px) {
+    .feature-grid-button-arrow-{{ section.id }} {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  .feature-grid-cell-button-{{ section.id }}:hover .feature-grid-button-arrow-{{ section.id }} {
+    transform: translateX(4px);
+  }
+
+  .feature-grid-cell-image-{{ section.id }} {
+    position: relative;
+    min-height: 280px;
+    width: 100%;
+    overflow: hidden;
+    background: #000000;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  @media screen and (min-width: 640px) {
+    .feature-grid-cell-image-{{ section.id }} {
+      min-height: 350px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .feature-grid-cell-image-{{ section.id }} {
+      min-height: 400px;
+    }
+  }
+
+  @media screen and (min-width: 1280px) {
+    .feature-grid-cell-image-{{ section.id }} {
+      height: 100%;
+      border-bottom: none;
+    }
+  }
+
+  .feature-grid-cell-image-{{ section.id }} img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    filter: grayscale(100%);
+    opacity: 0.8;
+    transform: scale(1);
+    transition: all 1000ms ease;
+    display: block;
+  }
+
+  .feature-grid-cell-image-{{ section.id }}:hover img {
+    filter: grayscale(0%);
+    opacity: 1;
+    transform: scale(1.05);
+  }
+
+  .feature-grid-image-overlay-{{ section.id }} {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, transparent 50%, transparent 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .feature-grid-cell-image-placeholder-{{ section.id }} {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .feature-grid-cell-image-placeholder-{{ section.id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 300px;
+    max-height: 300px;
+  }
+
+  .feature-grid-badge-{{ section.id }} {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 10;
+  }
+
+  @media screen and (min-width: 640px) {
+    .feature-grid-badge-{{ section.id }} {
+      bottom: 24px;
+      left: 24px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .feature-grid-badge-{{ section.id }} {
+      bottom: 32px;
+      left: 32px;
+    }
+  }
+
+  .feature-grid-badge-dot-{{ section.id }} {
+    width: 6px;
+    height: 6px;
+    background: {{ section.settings.badge_dot_color }};
+    border-radius: 9999px;
+    animation: feature-grid-pulse-{{ section.id }} 2s infinite;
+  }
+
+  @media screen and (min-width: 640px) {
+    .feature-grid-badge-dot-{{ section.id }} {
+      width: 8px;
+      height: 8px;
+    }
+  }
+
+  @keyframes feature-grid-pulse-{{ section.id }} {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.5;
+      transform: scale(1.1);
+    }
+  }
+
+  .feature-grid-badge-text-{{ section.id }} {
+    color: #FFFFFF;
+    font-size: 8px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    white-space: nowrap;
+  }
+
+  @media screen and (min-width: 640px) {
+    .feature-grid-badge-text-{{ section.id }} {
+      font-size: 9px;
+    }
+  }
+
+  .feature-grid-product-{{ section.id }} {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    background: {{ section.settings.product_bg_color }};
+    overflow: hidden;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  @media screen and (min-width: 640px) {
+    .feature-grid-product-{{ section.id }} {
+      aspect-ratio: 16 / 10;
+    }
+  }
+
+  @media screen and (min-width: 1280px) {
+    .feature-grid-product-{{ section.id }} {
+      aspect-ratio: 16 / 9;
+      border-right: 1px solid rgba(0, 0, 0, 0.05);
+      border-bottom: none;
+    }
+  }
+
+  .feature-grid-product-tag-{{ section.id }} {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background: #000000;
+    color: #FFFFFF;
+    padding: 6px 10px;
+    font-size: 8px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    z-index: 10;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  }
+
+  @media screen and (min-width: 640px) {
+    .feature-grid-product-tag-{{ section.id }} {
+      top: 24px;
+      left: 24px;
+      padding: 6px 12px;
+      font-size: 9px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .feature-grid-product-tag-{{ section.id }} {
+      top: 32px;
+      left: 32px;
+    }
+  }
+
+  .feature-grid-product-bg-image-{{ section.id }} {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    mix-blend-mode: multiply;
+    opacity: 0.2;
+    transform: scale(1);
+    transition: all 700ms ease;
+  }
+
+  .feature-grid-product-{{ section.id }}:hover .feature-grid-product-bg-image-{{ section.id }} {
+    opacity: 0.4;
+    transform: scale(1.1);
+  }
+
+  .feature-grid-product-title-{{ section.id }} {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    z-index: 10;
+    font-size: 24px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    color: #000000;
+    margin: 0;
+  }
+
+  @media screen and (min-width: 640px) {
+    .feature-grid-product-title-{{ section.id }} {
+      bottom: 24px;
+      left: 24px;
+      font-size: 28px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .feature-grid-product-title-{{ section.id }} {
+      bottom: 32px;
+      left: 32px;
+      font-size: 30px;
+    }
+  }
+
+  .feature-grid-cta-{{ section.id }} {
+    aspect-ratio: 4 / 3;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: #FFFFFF;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: background 300ms ease;
+    width: 100%;
+    box-sizing: border-box;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  @media screen and (min-width: 640px) {
+    .feature-grid-cta-{{ section.id }} {
+      padding: 48px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .feature-grid-cta-{{ section.id }} {
+      padding: 64px;
+    }
+  }
+
+  @media screen and (min-width: 1280px) {
+    .feature-grid-cta-{{ section.id }} {
+      aspect-ratio: auto;
+      min-height: 280px;
+      padding: 96px;
+    }
+  }
+
+  .feature-grid-cta-{{ section.id }}:hover {
+    background: #F4F4F5;
+  }
+
+  .feature-grid-cta-decoration-{{ section.id }} {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 185, 241, 0.05);
+    z-index: 0;
+    transform: translateY(100%);
+    transition: transform 500ms ease;
+  }
+
+  .feature-grid-cta-{{ section.id }}:hover .feature-grid-cta-decoration-{{ section.id }} {
+    transform: translateY(0);
+  }
+
+  .feature-grid-cta-content-{{ section.id }} {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .feature-grid-cta-icon-box-{{ section.id }} {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 20px;
+    border: 2px solid rgba(0, 0, 0, 0.05);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #FFFFFF;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    transition: border-color 500ms ease;
+  }
+
+  @media screen and (min-width: 640px) {
+    .feature-grid-cta-icon-box-{{ section.id }} {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 24px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .feature-grid-cta-icon-box-{{ section.id }} {
+      width: 96px;
+      height: 96px;
+      margin-bottom: 32px;
+    }
+  }
+
+  .feature-grid-cta-{{ section.id }}:hover .feature-grid-cta-icon-box-{{ section.id }} {
+    border-color: #000000;
+  }
+
+  .feature-grid-cta-icon-{{ section.id }} {
+    width: 24px;
+    height: 24px;
+    stroke-width: 1;
+    color: #000000;
+  }
+
+  @media screen and (min-width: 640px) {
+    .feature-grid-cta-icon-{{ section.id }} {
+      width: 28px;
+      height: 28px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .feature-grid-cta-icon-{{ section.id }} {
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  .feature-grid-cta-title-{{ section.id }} {
+    font-size: 24px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: {{ section.settings.cta_title_color }};
+    text-align: center;
+    word-wrap: break-word;
+    margin: 0;
+  }
+
+  @media screen and (min-width: 640px) {
+    .feature-grid-cta-title-{{ section.id }} {
+      font-size: 28px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .feature-grid-cta-title-{{ section.id }} {
+      font-size: 30px;
+    }
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+{% endstyle %}
+
+<div class="feature-grid-wrapper-{{ section.id }}" {{ section.shopify_attributes }}>
+  <div class="feature-grid-container-{{ section.id }}">
+    <div class="feature-grid-main-{{ section.id }}">
+      
+      <!-- Cell 1: Content -->
+      <div class="feature-grid-cell-{{ section.id }}">
+        <div class="feature-grid-cell-content-{{ section.id }}">
+          {% if section.settings.cell1_label != blank %}
+            <div class="feature-grid-label-row-{{ section.id }}">
+              <div class="feature-grid-dot-{{ section.id }}"></div>
+              <span class="feature-grid-label-text-{{ section.id }}">{{ section.settings.cell1_label }}</span>
+            </div>
+          {% endif %}
+          
+          {% if section.settings.cell1_heading_part1 != blank or section.settings.cell1_heading_part2 != blank %}
+            <h2 class="feature-grid-cell-heading-{{ section.id }}">
+              <span class="feature-grid-heading-primary-{{ section.id }}">{{ section.settings.cell1_heading_part1 }}</span>
+              <span class="feature-grid-heading-secondary-{{ section.id }}">{{ section.settings.cell1_heading_part2 }}</span>
+            </h2>
+          {% endif %}
+          
+          {% if section.settings.cell1_description != blank %}
+            <p class="feature-grid-cell-description-{{ section.id }}">{{ section.settings.cell1_description }}</p>
+          {% endif %}
+
+          {% if section.settings.stat1_number != blank or section.settings.stat2_number != blank %}
+            <div class="feature-grid-stats-row-{{ section.id }}">
+              {% if section.settings.stat1_number != blank %}
+                <div class="feature-grid-stat-item-{{ section.id }}">
+                  <div class="feature-grid-stat-number-{{ section.id }}">{{ section.settings.stat1_number }}</div>
+                  <div class="feature-grid-stat-label-{{ section.id }}">{{ section.settings.stat1_label }}</div>
+                </div>
+              {% endif %}
+              {% if section.settings.stat2_number != blank %}
+                <div class="feature-grid-stat-item-{{ section.id }}">
+                  <div class="feature-grid-stat-number-{{ section.id }}">{{ section.settings.stat2_number }}</div>
+                  <div class="feature-grid-stat-label-{{ section.id }}">{{ section.settings.stat2_label }}</div>
+                </div>
+              {% endif %}
+            </div>
+          {% endif %}
+          
+          {% if section.settings.cell1_button_text != blank %}
+            <a href="{{ section.settings.cell1_button_link }}" class="feature-grid-cell-button-{{ section.id }}">
+              {{ section.settings.cell1_button_text }}
+              <svg class="feature-grid-button-arrow-{{ section.id }}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Cell 2: Hero Image -->
+      <div class="feature-grid-cell-{{ section.id }}">
+        <div class="feature-grid-cell-image-{{ section.id }}">
+          {% if section.settings.cell2_image %}
+            <img
+              src="{{ section.settings.cell2_image | image_url: width: 1200 }}"
+              alt="{{ section.settings.cell2_image.alt | escape }}"
+              loading="lazy"
+              width="{{ section.settings.cell2_image.width }}"
+              height="{{ section.settings.cell2_image.height }}"
+            >
+            <div class="feature-grid-image-overlay-{{ section.id }}"></div>
+          {% else %}
+            <div class="feature-grid-cell-image-placeholder-{{ section.id }}">
+              {{ 'hero-apparel-1' | placeholder_svg_tag }}
+            </div>
+          {% endif %}
+          
+          {% if section.settings.cell2_badge_text != blank %}
+            <div class="feature-grid-badge-{{ section.id }}">
+              <div class="feature-grid-badge-dot-{{ section.id }}"></div>
+              <span class="feature-grid-badge-text-{{ section.id }}">{{ section.settings.cell2_badge_text }}</span>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Cell 3: Product Feature -->
+      <div class="feature-grid-cell-{{ section.id }} feature-grid-cell-3-{{ section.id }}">
+        {% if section.settings.cell3_link != blank %}
+          <a href="{{ section.settings.cell3_link }}" class="feature-grid-product-{{ section.id }}">
+        {% else %}
+          <div class="feature-grid-product-{{ section.id }}">
+        {% endif %}
+          
+          {% if section.settings.cell3_tag != blank %}
+            <div class="feature-grid-product-tag-{{ section.id }}">{{ section.settings.cell3_tag }}</div>
+          {% endif %}
+          
+          {% if section.settings.cell3_bg_image %}
+            <img
+              src="{{ section.settings.cell3_bg_image | image_url: width: 1200 }}"
+              alt="{{ section.settings.cell3_bg_image.alt | escape }}"
+              loading="lazy"
+              class="feature-grid-product-bg-image-{{ section.id }}"
+              width="{{ section.settings.cell3_bg_image.width }}"
+              height="{{ section.settings.cell3_bg_image.height }}"
+            >
+          {% endif %}
+          
+          {% if section.settings.cell3_title != blank %}
+            <h3 class="feature-grid-product-title-{{ section.id }}">{{ section.settings.cell3_title }}</h3>
+          {% endif %}
+          
+        {% if section.settings.cell3_link != blank %}
+          </a>
+        {% else %}
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- Cell 4: CTA Card -->
+      <div class="feature-grid-cell-{{ section.id }} feature-grid-cell-4-{{ section.id }}">
+        {% if section.settings.cell4_link != blank %}
+          <a href="{{ section.settings.cell4_link }}" class="feature-grid-cta-{{ section.id }}">
+        {% else %}
+          <div class="feature-grid-cta-{{ section.id }}">
+        {% endif %}
+          <div class="feature-grid-cta-decoration-{{ section.id }}"></div>
+          <div class="feature-grid-cta-content-{{ section.id }}">
+            <div class="feature-grid-cta-icon-box-{{ section.id }}">
+              <svg class="feature-grid-cta-icon-{{ section.id }}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <rect x="7" y="7" width="10" height="10" rx="1" ry="1"></rect>
+              </svg>
+            </div>
+            {% if section.settings.cell4_title != blank %}
+              <h3 class="feature-grid-cta-title-{{ section.id }}">{{ section.settings.cell4_title }}</h3>
+            {% endif %}
+          </div>
+        {% if section.settings.cell4_link != blank %}
+          </a>
+        {% else %}
+          </div>
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Feature Grid 2x2",
+  "tag": "section",
+  "class": "section-feature-grid",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full Width",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "remove_side_padding",
+      "label": "Remove Side Padding",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Padding - Mobile"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Top Padding (Mobile)",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "default": 50,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Bottom Padding (Mobile)",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "default": 50,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Padding - Desktop"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "Top Padding (Desktop)",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "default": 100,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "Bottom Padding (Desktop)",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "default": 100,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Cell 1 - Content"
+    },
+    {
+      "type": "text",
+      "id": "cell1_label",
+      "label": "Label",
+      "default": "EXHIBITION SYSTEMS"
+    },
+    {
+      "type": "color",
+      "id": "dot_color",
+      "label": "Dot Accent Color",
+      "default": "#00B9F1"
+    },
+    {
+      "type": "text",
+      "id": "cell1_heading_part1",
+      "label": "Heading Part 1",
+      "default": "Trade Show "
+    },
+    {
+      "type": "text",
+      "id": "cell1_heading_part2",
+      "label": "Heading Part 2",
+      "default": "Matrix."
+    },
+    {
+      "type": "color",
+      "id": "heading_primary_color",
+      "label": "Heading Part 1 Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "heading_secondary_color",
+      "label": "Heading Part 2 Color",
+      "default": "#E5E5E5"
+    },
+    {
+      "type": "textarea",
+      "id": "cell1_description",
+      "label": "Description",
+      "default": "Modular frameworks engineered for rapid deployment. We build environments that convert."
+    },
+    {
+      "type": "header",
+      "content": "Statistics"
+    },
+    {
+      "type": "text",
+      "id": "stat1_number",
+      "label": "Stat 1 Number",
+      "default": "100%"
+    },
+    {
+      "type": "text",
+      "id": "stat1_label",
+      "label": "Stat 1 Label",
+      "default": "TOOL-FREE"
+    },
+    {
+      "type": "text",
+      "id": "stat2_number",
+      "label": "Stat 2 Number",
+      "default": "48H"
+    },
+    {
+      "type": "text",
+      "id": "stat2_label",
+      "label": "Stat 2 Label",
+      "default": "PRODUCTION"
+    },
+    {
+      "type": "color",
+      "id": "stat_number_color",
+      "label": "Stat Number Color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Cell 1 - Button"
+    },
+    {
+      "type": "text",
+      "id": "cell1_button_text",
+      "label": "Button Text",
+      "default": "REQUEST QUOTE"
+    },
+    {
+      "type": "url",
+      "id": "cell1_button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_color",
+      "label": "Button Hover Background",
+      "default": "#0891B2"
+    },
+    {
+      "type": "header",
+      "content": "Cell 2 - Hero Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "cell2_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "cell2_badge_text",
+      "label": "Badge Text",
+      "default": "ENTERPRISE CONFIG"
+    },
+    {
+      "type": "color",
+      "id": "badge_dot_color",
+      "label": "Badge Dot Color",
+      "default": "#00B9F1"
+    },
+    {
+      "type": "header",
+      "content": "Cell 3 - Product Feature"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_cell3_mobile",
+      "label": "Hide on Mobile",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_cell3_desktop",
+      "label": "Hide on Desktop",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "cell3_tag",
+      "label": "Product Tag",
+      "default": "10x10 KIT"
+    },
+    {
+      "type": "image_picker",
+      "id": "cell3_bg_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "text",
+      "id": "cell3_title",
+      "label": "Product Title",
+      "default": "POP-UP DISPLAY"
+    },
+    {
+      "type": "url",
+      "id": "cell3_link",
+      "label": "Link"
+    },
+    {
+      "type": "color",
+      "id": "product_bg_color",
+      "label": "Background Color",
+      "default": "#F4F4F5"
+    },
+    {
+      "type": "header",
+      "content": "Cell 4 - CTA Card"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_cell4_mobile",
+      "label": "Hide on Mobile",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_cell4_desktop",
+      "label": "Hide on Desktop",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "cell4_title",
+      "label": "Title",
+      "default": "CUSTOM FABRICATION"
+    },
+    {
+      "type": "url",
+      "id": "cell4_link",
+      "label": "Link"
+    },
+    {
+      "type": "color",
+      "id": "cta_title_color",
+      "label": "Title Color",
+      "default": "#000000"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Feature Grid 2x2"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,1672 @@
+{% doc %}
+  @prompt
+    tradeshow'
+    
+        Trade Show Banners
+        Trade Show Banners
+        3' x 2' Starts at $6.99
+        Customize
+        Trade Show Canopy Kit
+        Trade Show Canopy Kit
+        Starts at $1520.00
+        Customize
+        20 Ft Trade Show Booth - Design 9
+        20 Ft Trade Show Booth - Design 9
+        Starts at $2870.00
+        Customize
+        10 Ft Trade Show Booth - Design 7
+        10 Ft Trade Show Booth - Design 7
+        Starts at $1590.00
+        Customize
+        10 Ft Trade Show Booth - Design 9
+        10 Ft Trade Show Booth - Design 9
+        Starts at $1640.00
+        Customize
+        10 Ft Trade Show Booth - Design 5
+        10 Ft Trade Show Booth - Design 5
+        Starts at $1750.00
+        Customize
+        Display Package for 20 Ft x 10 Ft Trade Show Booth
+        Display Package for 20 Ft x 10 Ft Trade Show Booth
+        Starts at $1880.00
+        Customize
+        10 Ft Trade Show Booth - Design 8
+        10 Ft Trade Show Booth - Design 8
+        Starts at $1660.00
+        Customize
+        10 Ft Trade Show Booth - Design 3
+        10 Ft Trade Show Booth - Design 3
+        Starts at $1685.00
+        Customize
+        10 Ft Trade Show Booth - Design 1
+        10 Ft Trade Show Booth - Design 1
+        Starts at $1510.00
+        Customize
+        20 Ft Trade Show Booth Design 10
+        20 Ft Trade Show Booth Design 10
+        Starts at $2860.00
+        Customize
+        20 Ft Trade Show Booth - Design 3
+        20 Ft Trade Show Booth - Design 3
+        Starts at $3290.00
+        Customize
+        10 Ft Trade Show Booth - Design 6
+        10 Ft Trade Show Booth - Design 6
+        Starts at $1680.00
+        Customize
+        10ft Inline Trade Show Booth – Portable Backwall Display with LED Lights & Counter
+        10ft Inline Trade Show Booth – Portable Backwall Display with LED Lights & Counter
+        Starts at $2020.00
+        Customize
+        20 Ft Trade Show Booth - Design 6
+        20 Ft Trade Show Booth - Design 6
+        Starts at $2780.00
+        Customize
+        20 Ft Trade Show Booth - Design 5
+        20 Ft Trade Show Booth - Design 5
+        Starts at $2850.00
+        Customize
+        10 Ft Trade Show Booth - Dehelp me to create this whole section about trade show iwth amazingg , no there will be no product listing jist imagge grib with description and requestion quoate button aonitmated , looks good can you add some more frsutre an dlifely desing to it make sure it loooks really amaizng and elegant snad propfessional, can you make it more elgant and creative tooking and abit inreactive 
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-tradeshow-section-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    padding: {{ block.settings.section_padding_top }}px 0 {{ block.settings.section_padding_bottom }}px;
+    background: {{ block.settings.background_color }};
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ai-tradeshow-animated-bg-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.05;
+    pointer-events: none;
+    background: 
+      radial-gradient(circle at 20% 50%, {{ block.settings.accent_color }}40 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, {{ block.settings.accent_color_secondary }}40 0%, transparent 50%),
+      radial-gradient(circle at 40% 20%, {{ block.settings.accent_color }}30 0%, transparent 50%);
+    animation: ai-tradeshow-bg-float-{{ ai_gen_id }} 20s ease-in-out infinite;
+  }
+
+  @keyframes ai-tradeshow-bg-float-{{ ai_gen_id }} {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -30px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.9); }
+  }
+
+  .ai-tradeshow-container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.container_width }}px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .ai-tradeshow-header-{{ ai_gen_id }} {
+    text-align: {{ block.settings.header_alignment }};
+    margin-bottom: {{ block.settings.header_spacing }}px;
+    position: relative;
+  }
+
+  .ai-tradeshow-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_size }}px;
+    font-weight: {{ block.settings.title_weight }};
+    color: {{ block.settings.title_color }};
+    margin: 0 0 {{ block.settings.title_margin_bottom }}px;
+    text-transform: {{ block.settings.title_transform }};
+    letter-spacing: 3px;
+    position: relative;
+    display: inline-block;
+    background: linear-gradient(135deg, {{ block.settings.title_color }}, {{ block.settings.accent_color }});
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .ai-tradeshow-title-{{ ai_gen_id }}::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 5px;
+    background: linear-gradient(90deg, transparent, {{ block.settings.accent_color }}, {{ block.settings.accent_color_secondary }}, transparent);
+    border-radius: 3px;
+    animation: ai-tradeshow-line-pulse-{{ ai_gen_id }} 2s ease-in-out infinite;
+  }
+
+  @keyframes ai-tradeshow-line-pulse-{{ ai_gen_id }} {
+    0%, 100% { width: 100px; opacity: 1; }
+    50% { width: 140px; opacity: 0.7; }
+  }
+
+  .ai-tradeshow-subtitle-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subtitle_size }}px;
+    color: {{ block.settings.subtitle_color }};
+    margin: 0;
+    line-height: 1.8;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: 300;
+    opacity: 0;
+    animation: ai-tradeshow-fade-in-{{ ai_gen_id }} 1s ease forwards 0.3s;
+  }
+
+  @keyframes ai-tradeshow-fade-in-{{ ai_gen_id }} {
+    to { opacity: 1; }
+  }
+
+  .ai-tradeshow-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat({{ block.settings.columns_desktop }}, 1fr);
+    gap: {{ block.settings.grid_gap }}px;
+  }
+
+  .ai-tradeshow-item-{{ ai_gen_id }} {
+    background: {{ block.settings.card_background }};
+    border-radius: {{ block.settings.card_border_radius }}px;
+    overflow: hidden;
+    border: {{ block.settings.card_border_width }}px solid {{ block.settings.card_border_color }};
+    box-shadow: {{ block.settings.card_shadow }};
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+  }
+
+  .ai-tradeshow-item-{{ ai_gen_id }}::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(135deg, {{ block.settings.accent_color }}, {{ block.settings.accent_color_secondary }}, {{ block.settings.accent_color }});
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    z-index: -1;
+    border-radius: {{ block.settings.card_border_radius }}px;
+    filter: blur(10px);
+  }
+
+  .ai-tradeshow-item-{{ ai_gen_id }}:hover::before {
+    opacity: 0.6;
+  }
+
+  .ai-tradeshow-item-{{ ai_gen_id }}:hover {
+    transform: translateY(-{{ block.settings.hover_lift }}px) rotateX(2deg);
+    box-shadow: {{ block.settings.card_hover_shadow }};
+    border-color: {{ block.settings.accent_color }};
+  }
+
+  .ai-tradeshow-image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    padding-top: {{ block.settings.image_aspect_ratio }}%;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f5f5f5, #e8e8e8);
+  }
+
+  .ai-tradeshow-image-overlay-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, {{ block.settings.accent_color }}90, {{ block.settings.accent_color_secondary }}90);
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-tradeshow-item-{{ ai_gen_id }}:hover .ai-tradeshow-image-overlay-{{ ai_gen_id }} {
+    opacity: 1;
+  }
+
+  .ai-tradeshow-overlay-icon-{{ ai_gen_id }} {
+    width: 60px;
+    height: 60px;
+    color: #ffffff;
+    transform: scale(0) rotate(-180deg);
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .ai-tradeshow-item-{{ ai_gen_id }}:hover .ai-tradeshow-overlay-icon-{{ ai_gen_id }} {
+    transform: scale(1) rotate(0deg);
+  }
+
+  .ai-tradeshow-image-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    filter: brightness(1) saturate(1);
+  }
+
+  .ai-tradeshow-item-{{ ai_gen_id }}:hover .ai-tradeshow-image-{{ ai_gen_id }} {
+    transform: scale(1.15) rotate(2deg);
+    filter: brightness(1.2) saturate(1.3);
+  }
+
+  .ai-tradeshow-image-placeholder-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #f5f5f5, #e8e8e8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-tradeshow-image-placeholder-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.2;
+  }
+
+  .ai-tradeshow-badge-{{ ai_gen_id }} {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, {{ block.settings.badge_background }}, {{ block.settings.badge_background_secondary }});
+    color: {{ block.settings.badge_text_color }};
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    z-index: 3;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    animation: ai-tradeshow-badge-float-{{ ai_gen_id }} 3s ease-in-out infinite;
+    backdrop-filter: blur(10px);
+  }
+
+  @keyframes ai-tradeshow-badge-float-{{ ai_gen_id }} {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-8px) scale(1.05); }
+  }
+
+  .ai-tradeshow-content-{{ ai_gen_id }} {
+    padding: {{ block.settings.card_padding }}px;
+    position: relative;
+    z-index: 2;
+    background: linear-gradient(180deg, transparent, {{ block.settings.card_background }});
+  }
+
+  .ai-tradeshow-item-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.item_title_size }}px;
+    font-weight: {{ block.settings.item_title_weight }};
+    color: {{ block.settings.item_title_color }};
+    margin: 0 0 {{ block.settings.title_spacing }}px;
+    line-height: 1.4;
+    transition: all 0.4s ease;
+    position: relative;
+    padding-left: 20px;
+  }
+
+  .ai-tradeshow-item-title-{{ ai_gen_id }}::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 5px;
+    height: 0;
+    background: linear-gradient(180deg, {{ block.settings.accent_color }}, {{ block.settings.accent_color_secondary }});
+    border-radius: 3px;
+    transition: height 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .ai-tradeshow-item-{{ ai_gen_id }}:hover .ai-tradeshow-item-title-{{ ai_gen_id }}::before {
+    height: 100%;
+  }
+
+  .ai-tradeshow-item-{{ ai_gen_id }}:hover .ai-tradeshow-item-title-{{ ai_gen_id }} {
+    color: {{ block.settings.accent_color }};
+    transform: translateX(5px);
+  }
+
+  .ai-tradeshow-description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.description_size }}px;
+    color: {{ block.settings.description_color }};
+    line-height: 1.8;
+    margin: 0 0 {{ block.settings.description_spacing }}px;
+    font-weight: 400;
+  }
+
+  .ai-tradeshow-features-{{ ai_gen_id }} {
+    display: flex;
+    gap: 15px;
+    margin-bottom: {{ block.settings.description_spacing }}px;
+    flex-wrap: wrap;
+  }
+
+  .ai-tradeshow-feature-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: {{ block.settings.feature_color }};
+    font-weight: 600;
+    padding: 8px 14px;
+    background: linear-gradient(135deg, {{ block.settings.accent_color }}10, {{ block.settings.accent_color_secondary }}10);
+    border-radius: 20px;
+    border: 1px solid {{ block.settings.accent_color }}20;
+    transition: all 0.3s ease;
+  }
+
+  .ai-tradeshow-feature-{{ ai_gen_id }}:hover {
+    background: linear-gradient(135deg, {{ block.settings.accent_color }}20, {{ block.settings.accent_color_secondary }}20);
+    transform: translateY(-2px);
+  }
+
+  .ai-tradeshow-feature-icon-{{ ai_gen_id }} {
+    width: 16px;
+    height: 16px;
+    color: {{ block.settings.accent_color }};
+  }
+
+  .ai-tradeshow-quote-btn-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    padding: {{ block.settings.button_padding }}px;
+    background: linear-gradient(135deg, {{ block.settings.button_background }}, {{ block.settings.button_background_secondary }});
+    color: {{ block.settings.button_text_color }};
+    text-decoration: none;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    font-weight: 700;
+    font-size: {{ block.settings.button_font_size }}px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border: 2px solid transparent;
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  }
+
+  .ai-tradeshow-quote-btn-{{ ai_gen_id }}::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: {{ block.settings.button_hover_background }};
+    transition: width 0.6s ease, height 0.6s ease, top 0.6s ease, left 0.6s ease;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+  }
+
+  .ai-tradeshow-quote-btn-{{ ai_gen_id }}:hover::before {
+    width: 600px;
+    height: 600px;
+  }
+
+  .ai-tradeshow-quote-btn-{{ ai_gen_id }}::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.7s ease;
+    z-index: 1;
+  }
+
+  .ai-tradeshow-quote-btn-{{ ai_gen_id }}:hover::after {
+    left: 100%;
+  }
+
+  .ai-tradeshow-quote-btn-{{ ai_gen_id }}:hover {
+    color: {{ block.settings.button_hover_text_color }};
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    border-color: {{ block.settings.button_hover_background }};
+  }
+
+  .ai-tradeshow-btn-text-{{ ai_gen_id }} {
+    position: relative;
+    z-index: 2;
+  }
+
+  .ai-tradeshow-btn-icon-{{ ai_gen_id }} {
+    position: relative;
+    z-index: 2;
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    display: flex;
+    align-items: center;
+  }
+
+  .ai-tradeshow-quote-btn-{{ ai_gen_id }}:hover .ai-tradeshow-btn-icon-{{ ai_gen_id }} {
+    transform: translateX(8px) rotate(10deg) scale(1.2);
+  }
+
+  .ai-tradeshow-stats-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px 0;
+    margin-bottom: 20px;
+    border-top: 2px solid {{ block.settings.card_border_color }};
+    border-bottom: 2px solid {{ block.settings.card_border_color }};
+    background: linear-gradient(135deg, {{ block.settings.accent_color }}05, {{ block.settings.accent_color_secondary }}05);
+  }
+
+  .ai-tradeshow-stat-{{ ai_gen_id }} {
+    text-align: center;
+    flex: 1;
+    transition: transform 0.3s ease;
+  }
+
+  .ai-tradeshow-stat-{{ ai_gen_id }}:hover {
+    transform: scale(1.1);
+  }
+
+  .ai-tradeshow-stat-value-{{ ai_gen_id }} {
+    font-size: 22px;
+    font-weight: 800;
+    background: linear-gradient(135deg, {{ block.settings.accent_color }}, {{ block.settings.accent_color_secondary }});
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .ai-tradeshow-stat-label-{{ ai_gen_id }} {
+    font-size: 11px;
+    color: {{ block.settings.description_color }};
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+  }
+
+  .ai-tradeshow-corner-shine-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(225deg, {{ block.settings.accent_color }}30, transparent);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+  }
+
+  .ai-tradeshow-item-{{ ai_gen_id }}:hover .ai-tradeshow-corner-shine-{{ ai_gen_id }} {
+    opacity: 1;
+  }
+
+  .ai-tradeshow-floating-particles-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .ai-tradeshow-particle-{{ ai_gen_id }} {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: {{ block.settings.accent_color }};
+    border-radius: 50%;
+    opacity: 0;
+  }
+
+  .ai-tradeshow-item-{{ ai_gen_id }}:hover .ai-tradeshow-particle-{{ ai_gen_id }} {
+    animation: ai-tradeshow-particle-float-{{ ai_gen_id }} 2s ease-out forwards;
+  }
+
+  @keyframes ai-tradeshow-particle-float-{{ ai_gen_id }} {
+    0% {
+      opacity: 0;
+      transform: translateY(0) scale(0);
+    }
+    10% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-100px) scale(1);
+    }
+  }
+
+  @media screen and (max-width: 989px) {
+    .ai-tradeshow-grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat(2, 1fr);
+      gap: {{ block.settings.grid_gap | times: 0.8 }}px;
+    }
+
+    .ai-tradeshow-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size | times: 0.75 }}px;
+    }
+
+    .ai-tradeshow-subtitle-{{ ai_gen_id }} {
+      font-size: {{ block.settings.subtitle_size | times: 0.9 }}px;
+    }
+
+    .ai-tradeshow-item-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.item_title_size | times: 0.9 }}px;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-tradeshow-grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat({{ block.settings.columns_mobile }}, 1fr);
+      gap: {{ block.settings.grid_gap | times: 0.6 }}px;
+    }
+
+    .ai-tradeshow-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size | times: 0.6 }}px;
+    }
+
+    .ai-tradeshow-subtitle-{{ ai_gen_id }} {
+      font-size: {{ block.settings.subtitle_size | times: 0.85 }}px;
+    }
+
+    .ai-tradeshow-item-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.item_title_size | times: 0.85 }}px;
+    }
+
+    .ai-tradeshow-content-{{ ai_gen_id }} {
+      padding: {{ block.settings.card_padding | times: 0.7 }}px;
+    }
+
+    .ai-tradeshow-section-{{ ai_gen_id }} {
+      padding: {{ block.settings.section_padding_top | times: 0.6 }}px 0 {{ block.settings.section_padding_bottom | times: 0.6 }}px;
+    }
+
+    .ai-tradeshow-badge-{{ ai_gen_id }} {
+      top: 10px;
+      right: 10px;
+      padding: 8px 16px;
+      font-size: 9px;
+    }
+
+    .ai-tradeshow-features-{{ ai_gen_id }} {
+      gap: 10px;
+    }
+
+    .ai-tradeshow-feature-{{ ai_gen_id }} {
+      font-size: 11px;
+      padding: 6px 10px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-tradeshow-section-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-tradeshow-animated-bg-{{ ai_gen_id }}"></div>
+
+  <div class="ai-tradeshow-container-{{ ai_gen_id }}">
+    {% if block.settings.show_header %}
+      <div class="ai-tradeshow-header-{{ ai_gen_id }}">
+        {% if block.settings.section_title != blank %}
+          <h2 class="ai-tradeshow-title-{{ ai_gen_id }}">{{ block.settings.section_title }}</h2>
+        {% endif %}
+        {% if block.settings.section_subtitle != blank %}
+          <div class="ai-tradeshow-subtitle-{{ ai_gen_id }}">{{ block.settings.section_subtitle }}</div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="ai-tradeshow-grid-{{ ai_gen_id }}">
+      {% for i in (1..12) %}
+        {% assign image_key = 'item_image_' | append: i %}
+        {% assign title_key = 'item_title_' | append: i %}
+        {% assign description_key = 'item_description_' | append: i %}
+        {% assign badge_key = 'item_badge_' | append: i %}
+        {% assign link_key = 'item_link_' | append: i %}
+        {% assign show_key = 'show_item_' | append: i %}
+
+        {% if block.settings[show_key] %}
+          <div class="ai-tradeshow-item-{{ ai_gen_id }}">
+            <div class="ai-tradeshow-corner-shine-{{ ai_gen_id }}"></div>
+            
+            <div class="ai-tradeshow-floating-particles-{{ ai_gen_id }}">
+              {% for p in (1..6) %}
+                {% assign left = p | times: 15 | modulo: 100 %}
+                {% assign delay = p | times: 0.1 %}
+                <div class="ai-tradeshow-particle-{{ ai_gen_id }}" style="left: {{ left }}%; animation-delay: {{ delay }}s;"></div>
+              {% endfor %}
+            </div>
+            
+            <div class="ai-tradeshow-image-wrapper-{{ ai_gen_id }}">
+              {% if block.settings[image_key] %}
+                <img
+                  src="{{ block.settings[image_key] | image_url: width: 800 }}"
+                  alt="{{ block.settings[title_key] | escape }}"
+                  class="ai-tradeshow-image-{{ ai_gen_id }}"
+                  loading="lazy"
+                  width="800"
+                  height="{{ 800 | times: block.settings.image_aspect_ratio | divided_by: 100 }}"
+                >
+              {% else %}
+                <div class="ai-tradeshow-image-placeholder-{{ ai_gen_id }}">
+                  {{ 'product-1' | placeholder_svg_tag }}
+                </div>
+              {% endif %}
+
+              <div class="ai-tradeshow-image-overlay-{{ ai_gen_id }}">
+                <svg class="ai-tradeshow-overlay-icon-{{ ai_gen_id }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <path d="m21 21-4.35-4.35"></path>
+                  <line x1="11" y1="8" x2="11" y2="14"></line>
+                  <line x1="8" y1="11" x2="14" y2="11"></line>
+                </svg>
+              </div>
+
+              {% if block.settings[badge_key] != blank %}
+                <div class="ai-tradeshow-badge-{{ ai_gen_id }}">{{ block.settings[badge_key] }}</div>
+              {% endif %}
+            </div>
+
+            <div class="ai-tradeshow-content-{{ ai_gen_id }}">
+              {% if block.settings[title_key] != blank %}
+                <h3 class="ai-tradeshow-item-title-{{ ai_gen_id }}">{{ block.settings[title_key] }}</h3>
+              {% endif %}
+
+              {% if block.settings[description_key] != blank %}
+                <div class="ai-tradeshow-description-{{ ai_gen_id }}">{{ block.settings[description_key] }}</div>
+              {% endif %}
+
+              {% if block.settings.show_features %}
+                <div class="ai-tradeshow-features-{{ ai_gen_id }}">
+                  <div class="ai-tradeshow-feature-{{ ai_gen_id }}">
+                    <svg class="ai-tradeshow-feature-icon-{{ ai_gen_id }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+                    </svg>
+                    <span>Fast Setup</span>
+                  </div>
+                  <div class="ai-tradeshow-feature-{{ ai_gen_id }}">
+                    <svg class="ai-tradeshow-feature-icon-{{ ai_gen_id }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                    </svg>
+                    <span>Premium</span>
+                  </div>
+                  <div class="ai-tradeshow-feature-{{ ai_gen_id }}">
+                    <svg class="ai-tradeshow-feature-icon-{{ ai_gen_id }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    <span>Custom</span>
+                  </div>
+                </div>
+              {% endif %}
+
+              {% if block.settings.show_stats %}
+                <div class="ai-tradeshow-stats-{{ ai_gen_id }}">
+                  <div class="ai-tradeshow-stat-{{ ai_gen_id }}">
+                    <span class="ai-tradeshow-stat-value-{{ ai_gen_id }}">24h</span>
+                    <span class="ai-tradeshow-stat-label-{{ ai_gen_id }}">Delivery</span>
+                  </div>
+                  <div class="ai-tradeshow-stat-{{ ai_gen_id }}">
+                    <span class="ai-tradeshow-stat-value-{{ ai_gen_id }}">100%</span>
+                    <span class="ai-tradeshow-stat-label-{{ ai_gen_id }}">Custom</span>
+                  </div>
+                  <div class="ai-tradeshow-stat-{{ ai_gen_id }}">
+                    <span class="ai-tradeshow-stat-value-{{ ai_gen_id }}">5★</span>
+                    <span class="ai-tradeshow-stat-label-{{ ai_gen_id }}">Rated</span>
+                  </div>
+                </div>
+              {% endif %}
+
+              <a 
+                href="{% if block.settings[link_key] != blank %}{{ block.settings[link_key] }}{% else %}{{ block.settings.default_quote_link }}{% endif %}" 
+                class="ai-tradeshow-quote-btn-{{ ai_gen_id }}"
+              >
+                <span class="ai-tradeshow-btn-text-{{ ai_gen_id }}">{{ block.settings.button_text }}</span>
+                <span class="ai-tradeshow-btn-icon-{{ ai_gen_id }}">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </span>
+              </a>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Trade show grid",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section header"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_header",
+      "label": "Show header",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "section_title",
+      "label": "Title",
+      "default": "Trade Show Solutions"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "section_subtitle",
+      "label": "Subtitle",
+      "default": "Professional displays and booths for your next event"
+    },
+    {
+      "type": "select",
+      "id": "header_alignment",
+      "label": "Header alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "header_spacing",
+      "label": "Header spacing",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Features"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_features",
+      "label": "Show features",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_stats",
+      "label": "Show stats",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Button settings"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Request Quote"
+    },
+    {
+      "type": "url",
+      "id": "default_quote_link",
+      "label": "Default quote link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Columns on desktop",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Columns on mobile",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ],
+      "default": "1"
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "label": "Grid gap",
+      "min": 15,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "label": "Container width",
+      "min": 1000,
+      "max": 1800,
+      "step": 50,
+      "unit": "px",
+      "default": 1400
+    },
+    {
+      "type": "range",
+      "id": "image_aspect_ratio",
+      "label": "Image aspect ratio",
+      "min": 50,
+      "max": 150,
+      "step": 5,
+      "unit": "%",
+      "default": 75
+    },
+    {
+      "type": "header",
+      "content": "Item 1"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_item_1",
+      "label": "Show item",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "item_image_1",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "item_title_1",
+      "label": "Title",
+      "default": "Trade Show Banners"
+    },
+    {
+      "type": "textarea",
+      "id": "item_description_1",
+      "label": "Description",
+      "default": "High-quality custom banners starting at $6.99. Perfect for any trade show booth."
+    },
+    {
+      "type": "text",
+      "id": "item_badge_1",
+      "label": "Badge text"
+    },
+    {
+      "type": "url",
+      "id": "item_link_1",
+      "label": "Quote link"
+    },
+    {
+      "type": "header",
+      "content": "Item 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_item_2",
+      "label": "Show item",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "item_image_2",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "item_title_2",
+      "label": "Title",
+      "default": "Trade Show Canopy Kit"
+    },
+    {
+      "type": "textarea",
+      "id": "item_description_2",
+      "label": "Description",
+      "default": "Complete canopy kit starting at $1520. Includes frame and custom printed canopy."
+    },
+    {
+      "type": "text",
+      "id": "item_badge_2",
+      "label": "Badge text"
+    },
+    {
+      "type": "url",
+      "id": "item_link_2",
+      "label": "Quote link"
+    },
+    {
+      "type": "header",
+      "content": "Item 3"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_item_3",
+      "label": "Show item",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "item_image_3",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "item_title_3",
+      "label": "Title",
+      "default": "20 Ft Trade Show Booth"
+    },
+    {
+      "type": "textarea",
+      "id": "item_description_3",
+      "label": "Description",
+      "default": "Professional 20ft booth design starting at $2870. Make a big impression."
+    },
+    {
+      "type": "text",
+      "id": "item_badge_3",
+      "label": "Badge text",
+      "default": "Popular"
+    },
+    {
+      "type": "url",
+      "id": "item_link_3",
+      "label": "Quote link"
+    },
+    {
+      "type": "header",
+      "content": "Item 4"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_item_4",
+      "label": "Show item",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "item_image_4",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "item_title_4",
+      "label": "Title",
+      "default": "10 Ft Trade Show Booth"
+    },
+    {
+      "type": "textarea",
+      "id": "item_description_4",
+      "label": "Description",
+      "default": "Compact 10ft booth design starting at $1590. Perfect for smaller spaces."
+    },
+    {
+      "type": "text",
+      "id": "item_badge_4",
+      "label": "Badge text"
+    },
+    {
+      "type": "url",
+      "id": "item_link_4",
+      "label": "Quote link"
+    },
+    {
+      "type": "header",
+      "content": "Item 5"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_item_5",
+      "label": "Show item",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "item_image_5",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "item_title_5",
+      "label": "Title",
+      "default": "Portable Display Package"
+    },
+    {
+      "type": "textarea",
+      "id": "item_description_5",
+      "label": "Description",
+      "default": "Complete portable display package starting at $1880. Easy setup and transport."
+    },
+    {
+      "type": "text",
+      "id": "item_badge_5",
+      "label": "Badge text"
+    },
+    {
+      "type": "url",
+      "id": "item_link_5",
+      "label": "Quote link"
+    },
+    {
+      "type": "header",
+      "content": "Item 6"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_item_6",
+      "label": "Show item",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "item_image_6",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "item_title_6",
+      "label": "Title",
+      "default": "Custom Booth Design"
+    },
+    {
+      "type": "textarea",
+      "id": "item_description_6",
+      "label": "Description",
+      "default": "Fully customizable booth designs. Contact us for a personalized quote."
+    },
+    {
+      "type": "text",
+      "id": "item_badge_6",
+      "label": "Badge text",
+      "default": "New"
+    },
+    {
+      "type": "url",
+      "id": "item_link_6",
+      "label": "Quote link"
+    },
+    {
+      "type": "header",
+      "content": "Item 7"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_item_7",
+      "label": "Show item",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "item_image_7",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "item_title_7",
+      "label": "Title"
+    },
+    {
+      "type": "textarea",
+      "id": "item_description_7",
+      "label": "Description"
+    },
+    {
+      "type": "text",
+      "id": "item_badge_7",
+      "label": "Badge text"
+    },
+    {
+      "type": "url",
+      "id": "item_link_7",
+      "label": "Quote link"
+    },
+    {
+      "type": "header",
+      "content": "Item 8"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_item_8",
+      "label": "Show item",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "item_image_8",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "item_title_8",
+      "label": "Title"
+    },
+    {
+      "type": "textarea",
+      "id": "item_description_8",
+      "label": "Description"
+    },
+    {
+      "type": "text",
+      "id": "item_badge_8",
+      "label": "Badge text"
+    },
+    {
+      "type": "url",
+      "id": "item_link_8",
+      "label": "Quote link"
+    },
+    {
+      "type": "header",
+      "content": "Item 9"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_item_9",
+      "label": "Show item",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "item_image_9",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "item_title_9",
+      "label": "Title"
+    },
+    {
+      "type": "textarea",
+      "id": "item_description_9",
+      "label": "Description"
+    },
+    {
+      "type": "text",
+      "id": "item_badge_9",
+      "label": "Badge text"
+    },
+    {
+      "type": "url",
+      "id": "item_link_9",
+      "label": "Quote link"
+    },
+    {
+      "type": "header",
+      "content": "Item 10"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_item_10",
+      "label": "Show item",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "item_image_10",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "item_title_10",
+      "label": "Title"
+    },
+    {
+      "type": "textarea",
+      "id": "item_description_10",
+      "label": "Description"
+    },
+    {
+      "type": "text",
+      "id": "item_badge_10",
+      "label": "Badge text"
+    },
+    {
+      "type": "url",
+      "id": "item_link_10",
+      "label": "Quote link"
+    },
+    {
+      "type": "header",
+      "content": "Item 11"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_item_11",
+      "label": "Show item",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "item_image_11",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "item_title_11",
+      "label": "Title"
+    },
+    {
+      "type": "textarea",
+      "id": "item_description_11",
+      "label": "Description"
+    },
+    {
+      "type": "text",
+      "id": "item_badge_11",
+      "label": "Badge text"
+    },
+    {
+      "type": "url",
+      "id": "item_link_11",
+      "label": "Quote link"
+    },
+    {
+      "type": "header",
+      "content": "Item 12"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_item_12",
+      "label": "Show item",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "item_image_12",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "item_title_12",
+      "label": "Title"
+    },
+    {
+      "type": "textarea",
+      "id": "item_description_12",
+      "label": "Description"
+    },
+    {
+      "type": "text",
+      "id": "item_badge_12",
+      "label": "Badge text"
+    },
+    {
+      "type": "url",
+      "id": "item_link_12",
+      "label": "Quote link"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#f8f9fa"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Card border",
+      "default": "#e8e8e8"
+    },
+    {
+      "type": "color",
+      "id": "item_title_color",
+      "label": "Item title",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description",
+      "default": "#555555"
+    },
+    {
+      "type": "color",
+      "id": "feature_color",
+      "label": "Feature text",
+      "default": "#444444"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#16bcdc"
+    },
+    {
+      "type": "color",
+      "id": "accent_color_secondary",
+      "label": "Accent secondary",
+      "default": "#0ea5c9"
+    },
+    {
+      "type": "color",
+      "id": "badge_background",
+      "label": "Badge background",
+      "default": "#16bcdc"
+    },
+    {
+      "type": "color",
+      "id": "badge_background_secondary",
+      "label": "Badge background secondary",
+      "default": "#0ea5c9"
+    },
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Badge text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Button style"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Background",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "button_background_secondary",
+      "label": "Background secondary",
+      "default": "#2a2a2a"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_background",
+      "label": "Hover background",
+      "default": "#16bcdc"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Hover text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "button_padding",
+      "label": "Padding",
+      "min": 10,
+      "max": 25,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "label": "Font size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Section title size",
+      "min": 24,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "title_weight",
+      "label": "Title weight",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "default": 700
+    },
+    {
+      "type": "select",
+      "id": "title_transform",
+      "label": "Title transform",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "uppercase", "label": "Uppercase" },
+        { "value": "lowercase", "label": "Lowercase" },
+        { "value": "capitalize", "label": "Capitalize" }
+      ],
+      "default": "uppercase"
+    },
+    {
+      "type": "range",
+      "id": "title_margin_bottom",
+      "label": "Title spacing",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "label": "Subtitle size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 17
+    },
+    {
+      "type": "range",
+      "id": "item_title_size",
+      "label": "Item title size",
+      "min": 16,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 22
+    },
+    {
+      "type": "range",
+      "id": "item_title_weight",
+      "label": "Item title weight",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "default": 600
+    },
+    {
+      "type": "range",
+      "id": "title_spacing",
+      "label": "Item title spacing",
+      "min": 10,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "label": "Description size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "description_spacing",
+      "label": "Description spacing",
+      "min": 15,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Card style"
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "label": "Card padding",
+      "min": 15,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "card_border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "select",
+      "id": "card_shadow",
+      "label": "Card shadow",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "0 2px 8px rgba(0,0,0,0.08)", "label": "Light" },
+        { "value": "0 4px 15px rgba(0,0,0,0.1)", "label": "Medium" },
+        { "value": "0 8px 25px rgba(0,0,0,0.12)", "label": "Strong" }
+      ],
+      "default": "0 4px 15px rgba(0,0,0,0.1)"
+    },
+    {
+      "type": "select",
+      "id": "card_hover_shadow",
+      "label": "Card hover shadow",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "0 10px 30px rgba(0,0,0,0.15)", "label": "Light" },
+        { "value": "0 15px 40px rgba(0,0,0,0.2)", "label": "Medium" },
+        { "value": "0 20px 50px rgba(0,0,0,0.25)", "label": "Strong" }
+      ],
+      "default": "0 15px 40px rgba(0,0,0,0.2)"
+    },
+    {
+      "type": "range",
+      "id": "hover_lift",
+      "label": "Hover lift",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trade show grid"
+    }
+  ]
+}
+{% endschema %}

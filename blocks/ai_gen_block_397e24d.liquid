@@ -1,0 +1,1865 @@
+{% doc %}
+  @prompt
+    Create a solutions grid section with these EXACT specifications:
+    
+    WRAPPER:
+    - Full width, max-width 100vw, overflow-x hidden
+    - Background: white (#FFFFFF)
+    - Padding: 128px top and bottom
+    - Inner container: max-width 2200px, centered
+    - Padding horizontal: 16px mobile | 24px sm | 48px lg | 80px xl
+    
+    HEADER SECTION:
+    Subheading:
+    - Text: "CAPABILITIES"
+    - Font-size: 11px
+    - Font-weight: 700
+    - Uppercase, letter-spacing 0.4em
+    - Color: black 40% opacity
+    - Margin-bottom: 24px
+    
+    Main Heading:
+    - Text: "Industrial Solutions."
+    - Font-size: 36px mobile | 48px sm | 56px md
+    - Font-weight: 900
+    - Letter-spacing: tight
+    - Color: black, but "Solutions." word is cyan (#00B9F1)
+    - Margin-bottom: 32px
+    
+    Underline Accent:
+    - Width: 96px
+    - Height: 6px
+    - Background: cyan (#00B9F1)
+    - Margin-bottom: 48px
+    
+    SOLUTIONS GRID:
+    - CSS Grid: 2 columns mobile | 3 columns md | 5 columns lg
+    - Gap: 0 (no gap, using borders instead)
+    - Border-top: 1px solid black 5% opacity
+    - Border-left: 1px solid black 5% opacity
+    - Small box-shadow on entire grid
+    
+    SOLUTION CARDS (10 total):
+    - Padding: 24px mobile | 32px sm | 40px lg
+    - Border-right: 1px solid black 5% opacity
+    - Border-bottom: 1px solid black 5% opacity
+    - Min-height: 200px mobile | 240px sm | 280px lg
+    - Flex column, justify space-between
+    - Background: transparent
+    - Cursor: pointer
+    - Position: relative
+    - Overflow: hidden
+    
+    Font: Outfit (weights 700, 900)
+    Ensure fully responsive, no horizontal scroll., Add content structure to each solution card:
+    
+    CARD TOP SECTION (flex row, space-between):
+    
+    ID Number (left side):
+    - Text: "01", "02", "03", etc.
+    - Font-size: 10px
+    - Font-weight: 700
+    - Color: black 20% opacity
+    
+    Tag Badge (right side):
+    - Font-size: 9px
+    - Font-weight: 900
+    - Uppercase
+    - Letter-spacing: wide
+    - Padding: 4px 12px
+    - Border-radius: full (pill shape)
+    - Background: white
+    - Small shadow
+    - Border: 1px solid
+    
+    CARD BOTTOM SECTION:
+    
+    Title:
+    - Font-size: 18px mobile | 20px sm | 24px lg
+    - Font-weight: 900
+    - Color: black
+    - Margin-bottom: 16px
+    
+    CARD DATA (10 cards):
+    01 | CORE | Brand Identity
+    02 | DESIGN | Logo Design
+    03 | DIGITAL | Web Design
+    04 | CORE | Print Design
+    05 | DESIGN | Packaging
+    06 | DIGITAL | Marketing
+    07 | CORE | Signage
+    08 | DESIGN | Illustration
+    09 | DIGITAL | Photography
+    10 | CORE | Consulting, Add colors to tag badges based on type:
+    
+    CORE tags (cards 01, 04, 07, 10):
+    - Border: cyan 20% opacity
+    - Text: cyan-600 (#0891B2)
+    
+    DESIGN tags (cards 02, 05, 08):
+    - Border: magenta 20% opacity
+    - Text: magenta (#E6007E)
+    
+    DIGITAL tags (cards 03, 06, 09):
+    - Border: yellow 20% opacity
+    - Text: yellow-600 (#ca8a04), Add hover effects to solution cards:
+    
+    CARD HOVER:
+    - Background: zinc-50 (#F4F4F5)
+    - Transition: 500ms ease
+    
+    ACTION TEXT (appears on hover):
+    - Text: "Learn More" with arrow icon
+    - Font-size: 9px
+    - Font-weight: 700
+    - Uppercase
+    - Color: cyan-600 (#0891B2)
+    - Default: hidden (opacity 0, shifted down 4px)
+    - On hover: visible (opacity 1, normal position)
+    - Transition: 300ms, Add large watermark number to each card:
+    
+    WATERMARK:
+    - Same as card ID ("01", "02", etc.)
+    - Position: absolute, bottom-right corner
+    - Bottom: -32px
+    - Right: -16px
+    - Font-size: 80px mobile | 120px sm | 160px lg
+    - Font-weight: 900
+    - Color: black 2% opacity (very faint)
+    - On hover: black 4% opacity
+    - Transition: 200ms
+    - No pointer events
+    - Cannot be selected, Add Shopify schema settings:
+    
+    SECTION SETTINGS:
+    - Subheading text (default: "CAPABILITIES")
+    - Heading text line 1 (default: "Industrial")
+    - Heading text line 2 with accent color (default: "Solutions.")
+    - Accent color picker (default: cyan #00B9F1)
+    
+    BLOCK TYPE "solution_card" (limit 10):
+    - ID number (text field)
+    - Tag text (text field)
+    - Tag color type (dropdown: cyan, magenta, yellow)
+    - Card title (text field)
+    - Link URL (optional)
+    
+    Include 10 default blocks with the card data provided., Add header content to the right column:
+    
+    LABEL ROW:
+    - Display: flex, align-items center
+    - Gap: 16px
+    - Margin-bottom: 24px
+    
+    Decorative line:
+    - Width: 32px
+    - Height: 1px
+    - Background: yellow (#FFC107)
+    
+    Label text:
+    - Text: "GLOBAL BENCHMARK"
+    - Font-size: 9px
+    - Font-weight: 900
+    - Uppercase
+    - Letter-spacing: 0.5em
+    - Color: yellow (#FFC107)
+    
+    MAIN HEADING:
+    - Text: "INDUSTRY STANDARDS."
+    - Font-size: 36px mobile | 48px md
+    - Font-weight: 900
+    - Uppercase
+    - Letter-spacing: tight
+    - Font-style: italic
+    - Line-height: 0.9
+    - Color: black
+    - "STANDARDS." word: magenta (#E6007E)
+    - Margin-bottom: 32px
+    
+    DESCRIPTION:
+    - Text: "Global-scale production from the heart of Texas. We bridge the gap between creative UI/UX design and industrial-grade physical media."
+    - Font-size: 18px
+    - Color: black 40% opacity
+    - Font-weight: 300
+    - Line-height: 1.625, Add services grid below the description:
+    
+    SERVICES CONTAINER:
+    - Display: grid
+    - Columns: 1 (stacked)
+    - Gap: 24px
+    - Margin-top: 32px
+    
+    SERVICE ITEM (3 total):
+    - Display: flex
+    - Gap: 24px
+    - Cursor: pointer
+    
+    Icon box:
+    - Width & height: 64px
+    - Border-radius: 16px
+    - Background: white
+    - Border: 1px solid black 10% opacity
+    - Display: flex, center content
+    - Box-shadow: shadow-sm
+    - Flex-shrink: 0
+    
+    Icon:
+    - Size: 20px
+    
+    Content section:
+    - Padding-top: 4px
+    
+    Title:
+    - Font-size: 18px
+    - Font-weight: 900
+    - Uppercase
+    - Letter-spacing: 0.1em
+    - Color: black
+    
+    Description:
+    - Font-size: 14px
+    - Color: black 40% opacity
+    - Font-weight: 300
+    - Line-height: 1.625
+    - Max-width: 512px
+    
+    SERVICE DATA:
+    1. MousePointer icon (cyan) | "Strategic Design" | "Visual systems designed to scale across digital and print touchpoints."
+    2. Sparkle icon (magenta) | "Print-On-Demand" | "Rapid prototyping with industrial-grade output quality."
+    3. Globe icon (yellow) | "Digital Performance" | "Analytics-driven optimization for maximum conversion.", Add hover effects to the section:
+    
+    IMAGE HOVER:
+    - Scale: 105% on hover
+    - Transition: 2000ms ease
+    
+    Add gradient overlay on image:
+    - Position: absolute, full coverage
+    - Gradient: from black 50% opacity at top, to transparent
+    - Pointer-events: none
+    
+    Add background glow behind image:
+    - Position: absolute
+    - Inset: -80px (extends beyond image)
+    - Background: cyan 5% opacity
+    - Blur: 100px
+    - Border-radius: full circle
+    - Z-index: behind image
+    
+    SERVICE ITEM HOVER:
+    Icon box:
+    - Background: black on hover
+    - Icon color: white on hover
+    - Transition: 500ms
+    
+    Title:
+    - Color: cyan-600 (#0891B2) on hover
+    - Transition: 200ms, Add settings to customize this section:
+    
+    Allow editing:
+    - Label text
+    - Heading text
+    - Description text
+    - Image
+    
+    Allow adding service items with:
+    - Icon
+    - Title
+    - Description
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-solutions-wrapper-{{ ai_gen_id }} {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.padding_vertical }}px 0;
+  }
+
+  .ai-solutions-container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.max_width }}px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+
+  @media screen and (min-width: 640px) {
+    .ai-solutions-container-{{ ai_gen_id }} {
+      padding: 0 24px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .ai-solutions-container-{{ ai_gen_id }} {
+      padding: 0 48px;
+    }
+  }
+
+  @media screen and (min-width: 1280px) {
+    .ai-solutions-container-{{ ai_gen_id }} {
+      padding: 0 80px;
+    }
+  }
+
+  .ai-solutions-header-{{ ai_gen_id }} {
+    margin-bottom: 48px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    .ai-solutions-header-{{ ai_gen_id }} {
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+    }
+  }
+
+  .ai-solutions-header-left-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ai-solutions-header-right-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .ai-solutions-subheading-{{ ai_gen_id }} {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4em;
+    color: {{ block.settings.subheading_color }};
+    margin-bottom: 24px;
+  }
+
+  .ai-solutions-heading-{{ ai_gen_id }} {
+    font-size: 36px;
+    font-weight: 900;
+    letter-spacing: -0.025em;
+    color: {{ block.settings.heading_color }};
+    margin-bottom: 32px;
+    line-height: 1.1;
+  }
+
+  @media screen and (min-width: 640px) {
+    .ai-solutions-heading-{{ ai_gen_id }} {
+      font-size: 48px;
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    .ai-solutions-heading-{{ ai_gen_id }} {
+      font-size: 56px;
+    }
+  }
+
+  .ai-solutions-heading-accent-{{ ai_gen_id }} {
+    color: {{ block.settings.accent_color }};
+  }
+
+  .ai-solutions-underline-{{ ai_gen_id }} {
+    width: 96px;
+    height: 6px;
+    background-color: {{ block.settings.accent_color }};
+    margin-bottom: 48px;
+  }
+
+  .ai-solutions-label-row-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .ai-solutions-label-line-{{ ai_gen_id }} {
+    width: 32px;
+    height: 1px;
+    background-color: {{ block.settings.label_color }};
+  }
+
+  .ai-solutions-label-text-{{ ai_gen_id }} {
+    font-size: 9px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.5em;
+    color: {{ block.settings.label_color }};
+  }
+
+  .ai-solutions-right-heading-{{ ai_gen_id }} {
+    font-size: 36px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.025em;
+    font-style: italic;
+    line-height: 0.9;
+    color: {{ block.settings.right_heading_color }};
+    margin: 0 0 32px 0;
+  }
+
+  @media screen and (min-width: 768px) {
+    .ai-solutions-right-heading-{{ ai_gen_id }} {
+      font-size: 48px;
+    }
+  }
+
+  .ai-solutions-right-heading-accent-{{ ai_gen_id }} {
+    color: {{ block.settings.right_heading_accent_color }};
+  }
+
+  .ai-solutions-description-{{ ai_gen_id }} {
+    font-size: 18px;
+    color: {{ block.settings.description_color }};
+    font-weight: 300;
+    line-height: 1.625;
+    margin: 0;
+  }
+
+  .ai-solutions-image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    overflow: hidden;
+    border-radius: 24px;
+  }
+
+  .ai-solutions-image-glow-{{ ai_gen_id }} {
+    position: absolute;
+    inset: -80px;
+    background-color: {{ block.settings.image_glow_color }};
+    filter: blur(100px);
+    border-radius: 9999px;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .ai-solutions-image-container-{{ ai_gen_id }} {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    border-radius: 24px;
+  }
+
+  .ai-solutions-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 2000ms ease;
+  }
+
+  .ai-solutions-image-container-{{ ai_gen_id }}:hover .ai-solutions-image-{{ ai_gen_id }} {
+    transform: scale(1.05);
+  }
+
+  .ai-solutions-image-overlay-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, {{ block.settings.image_overlay_color }}, transparent);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .ai-solutions-image-placeholder-{{ ai_gen_id }} {
+    background-color: #f4f4f4;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 24px;
+  }
+
+  .ai-solutions-image-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 400px;
+    max-height: 400px;
+  }
+
+  .ai-solutions-services-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-top: 32px;
+  }
+
+  .ai-solutions-service-item-{{ ai_gen_id }} {
+    display: flex;
+    gap: 24px;
+    cursor: pointer;
+  }
+
+  .ai-solutions-service-icon-box-{{ ai_gen_id }} {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    background-color: {{ block.settings.service_icon_bg }};
+    border: 1px solid {{ block.settings.service_icon_border }};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    transition: background-color 500ms ease, border-color 500ms ease;
+  }
+
+  .ai-solutions-service-item-{{ ai_gen_id }}:hover .ai-solutions-service-icon-box-{{ ai_gen_id }} {
+    background-color: {{ block.settings.service_icon_hover_bg }};
+    border-color: {{ block.settings.service_icon_hover_bg }};
+  }
+
+  .ai-solutions-service-icon-{{ ai_gen_id }} {
+    width: 20px;
+    height: 20px;
+    transition: stroke 500ms ease;
+  }
+
+  .ai-solutions-service-item-{{ ai_gen_id }}:hover .ai-solutions-service-icon-{{ ai_gen_id }} {
+    stroke: {{ block.settings.service_icon_hover_color }};
+  }
+
+  .ai-solutions-service-content-{{ ai_gen_id }} {
+    padding-top: 4px;
+  }
+
+  .ai-solutions-service-title-{{ ai_gen_id }} {
+    font-size: 18px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: {{ block.settings.service_title_color }};
+    margin: 0 0 8px 0;
+    transition: color 200ms ease;
+  }
+
+  .ai-solutions-service-item-{{ ai_gen_id }}:hover .ai-solutions-service-title-{{ ai_gen_id }} {
+    color: {{ block.settings.service_title_hover_color }};
+  }
+
+  .ai-solutions-service-desc-{{ ai_gen_id }} {
+    font-size: 14px;
+    color: {{ block.settings.service_desc_color }};
+    font-weight: 300;
+    line-height: 1.625;
+    max-width: 512px;
+    margin: 0;
+  }
+
+  .ai-solutions-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    border-top: 1px solid {{ block.settings.border_color }};
+    border-left: 1px solid {{ block.settings.border_color }};
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  }
+
+  @media screen and (min-width: 768px) {
+    .ai-solutions-grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .ai-solutions-grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+
+  .ai-solutions-card-{{ ai_gen_id }} {
+    padding: 24px;
+    border-right: 1px solid {{ block.settings.border_color }};
+    border-bottom: 1px solid {{ block.settings.border_color }};
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: transparent;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: background-color 500ms ease, transform 500ms ease;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  @media screen and (min-width: 640px) {
+    .ai-solutions-card-{{ ai_gen_id }} {
+      padding: 32px;
+      min-height: 240px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .ai-solutions-card-{{ ai_gen_id }} {
+      padding: 40px;
+      min-height: 280px;
+    }
+  }
+
+  .ai-solutions-card-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.card_hover_bg }};
+    transform: translateY(-2px);
+  }
+
+  .ai-solutions-card-top-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .ai-solutions-card-id-{{ ai_gen_id }} {
+    font-size: 10px;
+    font-weight: 700;
+    color: {{ block.settings.id_color }};
+  }
+
+  .ai-solutions-card-tag-{{ ai_gen_id }} {
+    font-size: 9px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 4px 12px;
+    border-radius: 9999px;
+    background-color: {{ block.settings.tag_bg_color }};
+    border: 1px solid;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  }
+
+  .ai-solutions-card-tag-cyan-{{ ai_gen_id }} {
+    border-color: {{ block.settings.tag_cyan_border }};
+    color: {{ block.settings.tag_cyan_text }};
+  }
+
+  .ai-solutions-card-tag-magenta-{{ ai_gen_id }} {
+    border-color: {{ block.settings.tag_magenta_border }};
+    color: {{ block.settings.tag_magenta_text }};
+  }
+
+  .ai-solutions-card-tag-yellow-{{ ai_gen_id }} {
+    border-color: {{ block.settings.tag_yellow_border }};
+    color: {{ block.settings.tag_yellow_text }};
+  }
+
+  .ai-solutions-card-bottom-{{ ai_gen_id }} {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+    z-index: 2;
+  }
+
+  .ai-solutions-card-title-{{ ai_gen_id }} {
+    font-size: 18px;
+    font-weight: 900;
+    color: {{ block.settings.card_title_color }};
+    margin: 0 0 16px 0;
+    line-height: 1.2;
+  }
+
+  @media screen and (min-width: 640px) {
+    .ai-solutions-card-title-{{ ai_gen_id }} {
+      font-size: 20px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .ai-solutions-card-title-{{ ai_gen_id }} {
+      font-size: 24px;
+    }
+  }
+
+  .ai-solutions-card-{{ ai_gen_id }}:hover .ai-solutions-card-title-{{ ai_gen_id }} {
+    color: {{ block.settings.card_title_hover_color }};
+  }
+
+  .ai-solutions-card-action-{{ ai_gen_id }} {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: {{ block.settings.action_text_color }};
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 300ms ease, transform 300ms ease;
+  }
+
+  .ai-solutions-card-{{ ai_gen_id }}:hover .ai-solutions-card-action-{{ ai_gen_id }} {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .ai-solutions-card-action-arrow-{{ ai_gen_id }} {
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+  }
+
+  .ai-solutions-card-watermark-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: -32px;
+    right: -16px;
+    font-size: 80px;
+    font-weight: 900;
+    color: {{ block.settings.watermark_color }};
+    pointer-events: none;
+    user-select: none;
+    line-height: 1;
+    z-index: 1;
+    transition: color 200ms ease;
+  }
+
+  @media screen and (min-width: 640px) {
+    .ai-solutions-card-watermark-{{ ai_gen_id }} {
+      font-size: 120px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .ai-solutions-card-watermark-{{ ai_gen_id }} {
+      font-size: 160px;
+    }
+  }
+
+  .ai-solutions-card-{{ ai_gen_id }}:hover .ai-solutions-card-watermark-{{ ai_gen_id }} {
+    color: {{ block.settings.watermark_hover_color }};
+  }
+{% endstyle %}
+
+<solutions-grid-{{ ai_gen_id }} class="ai-solutions-wrapper-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-solutions-container-{{ ai_gen_id }}">
+    <div class="ai-solutions-header-{{ ai_gen_id }}">
+      <div class="ai-solutions-header-left-{{ ai_gen_id }}">
+        {% if block.settings.subheading != blank %}
+          <div class="ai-solutions-subheading-{{ ai_gen_id }}">{{ block.settings.subheading }}</div>
+        {% endif %}
+        
+        {% if block.settings.heading_line1 != blank or block.settings.heading_line2 != blank %}
+          <h2 class="ai-solutions-heading-{{ ai_gen_id }}">
+            {{ block.settings.heading_line1 }}{% if block.settings.heading_line2 != blank %} <span class="ai-solutions-heading-accent-{{ ai_gen_id }}">{{ block.settings.heading_line2 }}</span>{% endif %}
+          </h2>
+        {% endif %}
+        
+        <div class="ai-solutions-underline-{{ ai_gen_id }}"></div>
+
+        {% if block.settings.header_image != blank %}
+          <div class="ai-solutions-image-wrapper-{{ ai_gen_id }}">
+            <div class="ai-solutions-image-glow-{{ ai_gen_id }}"></div>
+            <div class="ai-solutions-image-container-{{ ai_gen_id }}">
+              <img
+                src="{{ block.settings.header_image | image_url: width: 1200 }}"
+                alt="{{ block.settings.header_image.alt | escape }}"
+                loading="lazy"
+                width="{{ block.settings.header_image.width }}"
+                height="{{ block.settings.header_image.height }}"
+                class="ai-solutions-image-{{ ai_gen_id }}"
+              >
+              <div class="ai-solutions-image-overlay-{{ ai_gen_id }}"></div>
+            </div>
+          </div>
+        {% else %}
+          <div class="ai-solutions-image-placeholder-{{ ai_gen_id }}">
+            {{ 'image' | placeholder_svg_tag }}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="ai-solutions-header-right-{{ ai_gen_id }}">
+        {% if block.settings.label_text != blank %}
+          <div class="ai-solutions-label-row-{{ ai_gen_id }}">
+            <div class="ai-solutions-label-line-{{ ai_gen_id }}"></div>
+            <div class="ai-solutions-label-text-{{ ai_gen_id }}">{{ block.settings.label_text }}</div>
+          </div>
+        {% endif %}
+
+        {% if block.settings.right_heading_line1 != blank or block.settings.right_heading_line2 != blank %}
+          <h3 class="ai-solutions-right-heading-{{ ai_gen_id }}">
+            {{ block.settings.right_heading_line1 }}{% if block.settings.right_heading_line2 != blank %} <span class="ai-solutions-right-heading-accent-{{ ai_gen_id }}">{{ block.settings.right_heading_line2 }}</span>{% endif %}
+          </h3>
+        {% endif %}
+
+        {% if block.settings.description != blank %}
+          <p class="ai-solutions-description-{{ ai_gen_id }}">{{ block.settings.description }}</p>
+        {% endif %}
+
+        <div class="ai-solutions-services-{{ ai_gen_id }}">
+          {% for i in (1..6) %}
+            {% assign icon_key = 'service_' | append: i | append: '_icon' %}
+            {% assign icon_color_key = 'service_' | append: i | append: '_icon_color' %}
+            {% assign title_key = 'service_' | append: i | append: '_title' %}
+            {% assign desc_key = 'service_' | append: i | append: '_description' %}
+            
+            {% assign icon_type = block.settings[icon_key] %}
+            {% assign icon_color_type = block.settings[icon_color_key] %}
+            {% assign service_title = block.settings[title_key] %}
+            {% assign service_desc = block.settings[desc_key] %}
+            
+            {% if service_title != blank %}
+              {% liquid
+                assign icon_color = '#0891B2'
+                if icon_color_type == 'magenta'
+                  assign icon_color = '#E6007E'
+                elsif icon_color_type == 'yellow'
+                  assign icon_color = '#ca8a04'
+                endif
+              %}
+
+              <div class="ai-solutions-service-item-{{ ai_gen_id }}">
+                <div class="ai-solutions-service-icon-box-{{ ai_gen_id }}">
+                  {% if icon_type == 'pointer' %}
+                    <svg class="ai-solutions-service-icon-{{ ai_gen_id }}" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M3 3L10.07 19.97L12.58 12.58L19.97 10.07L3 3Z" stroke="{{ icon_color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  {% elsif icon_type == 'sparkle' %}
+                    <svg class="ai-solutions-service-icon-{{ ai_gen_id }}" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke="{{ icon_color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  {% elsif icon_type == 'globe' %}
+                    <svg class="ai-solutions-service-icon-{{ ai_gen_id }}" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="12" cy="12" r="10" stroke="{{ icon_color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M2 12H22" stroke="{{ icon_color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M12 2C14.5013 4.73835 15.9228 8.29203 16 12C15.9228 15.708 14.5013 19.2616 12 22C9.49872 19.2616 8.07725 15.708 8 12C8.07725 8.29203 9.49872 4.73835 12 2Z" stroke="{{ icon_color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  {% elsif icon_type == 'target' %}
+                    <svg class="ai-solutions-service-icon-{{ ai_gen_id }}" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="12" cy="12" r="10" stroke="{{ icon_color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <circle cx="12" cy="12" r="6" stroke="{{ icon_color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <circle cx="12" cy="12" r="2" stroke="{{ icon_color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  {% elsif icon_type == 'layers' %}
+                    <svg class="ai-solutions-service-icon-{{ ai_gen_id }}" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="{{ icon_color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M2 17L12 22L22 17" stroke="{{ icon_color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M2 12L12 17L22 12" stroke="{{ icon_color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  {% elsif icon_type == 'zap' %}
+                    <svg class="ai-solutions-service-icon-{{ ai_gen_id }}" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="{{ icon_color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  {% endif %}
+                </div>
+                <div class="ai-solutions-service-content-{{ ai_gen_id }}">
+                  <h4 class="ai-solutions-service-title-{{ ai_gen_id }}">{{ service_title }}</h4>
+                  {% if service_desc != blank %}
+                    <p class="ai-solutions-service-desc-{{ ai_gen_id }}">{{ service_desc }}</p>
+                  {% endif %}
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <div class="ai-solutions-grid-{{ ai_gen_id }}">
+      {% for i in (1..10) %}
+        {% assign card_id_key = 'card_' | append: i | append: '_id' %}
+        {% assign card_tag_key = 'card_' | append: i | append: '_tag' %}
+        {% assign card_color_key = 'card_' | append: i | append: '_color' %}
+        {% assign card_title_key = 'card_' | append: i | append: '_title' %}
+        {% assign card_link_key = 'card_' | append: i | append: '_link' %}
+        
+        {% assign card_id = block.settings[card_id_key] %}
+        {% assign card_tag = block.settings[card_tag_key] %}
+        {% assign card_color = block.settings[card_color_key] %}
+        {% assign card_title = block.settings[card_title_key] %}
+        {% assign card_link = block.settings[card_link_key] %}
+        
+        {% if card_title != blank %}
+          {% assign tag_class = '' %}
+          
+          {% if card_color == 'cyan' %}
+            {% assign tag_class = 'ai-solutions-card-tag-cyan-' | append: ai_gen_id %}
+          {% elsif card_color == 'magenta' %}
+            {% assign tag_class = 'ai-solutions-card-tag-magenta-' | append: ai_gen_id %}
+          {% elsif card_color == 'yellow' %}
+            {% assign tag_class = 'ai-solutions-card-tag-yellow-' | append: ai_gen_id %}
+          {% endif %}
+          
+          {% if card_link != blank %}
+            <a href="{{ card_link }}" class="ai-solutions-card-{{ ai_gen_id }}">
+          {% else %}
+            <div class="ai-solutions-card-{{ ai_gen_id }}">
+          {% endif %}
+            <div class="ai-solutions-card-watermark-{{ ai_gen_id }}">{{ card_id }}</div>
+            
+            <div class="ai-solutions-card-top-{{ ai_gen_id }}">
+              {% if card_id != blank %}
+                <div class="ai-solutions-card-id-{{ ai_gen_id }}">{{ card_id }}</div>
+              {% endif %}
+              {% if card_tag != blank %}
+                <div class="ai-solutions-card-tag-{{ ai_gen_id }} {{ tag_class }}">{{ card_tag }}</div>
+              {% endif %}
+            </div>
+            <div class="ai-solutions-card-bottom-{{ ai_gen_id }}">
+              <h3 class="ai-solutions-card-title-{{ ai_gen_id }}">{{ card_title }}</h3>
+              <div class="ai-solutions-card-action-{{ ai_gen_id }}">
+                <span>{{ block.settings.action_text }}</span>
+                <svg class="ai-solutions-card-action-arrow-{{ ai_gen_id }}" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+          {% if card_link != blank %}
+            </a>
+          {% else %}
+            </div>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</solutions-grid-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class SolutionsGrid{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.style.display = 'block';
+      }
+    }
+
+    customElements.define('solutions-grid-{{ ai_gen_id }}', SolutionsGrid{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Industrial solutions grid",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Maximum width",
+      "min": 1200,
+      "max": 2400,
+      "step": 100,
+      "unit": "px",
+      "default": 2200
+    },
+    {
+      "type": "range",
+      "id": "padding_vertical",
+      "label": "Vertical padding",
+      "min": 0,
+      "max": 200,
+      "step": 8,
+      "unit": "px",
+      "default": 128
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Left header"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "CAPABILITIES"
+    },
+    {
+      "type": "text",
+      "id": "heading_line1",
+      "label": "Heading line 1",
+      "default": "Industrial"
+    },
+    {
+      "type": "text",
+      "id": "heading_line2",
+      "label": "Heading line 2",
+      "default": "Solutions."
+    },
+    {
+      "type": "image_picker",
+      "id": "header_image",
+      "label": "Image"
+    },
+    {
+      "type": "header",
+      "content": "Right header"
+    },
+    {
+      "type": "text",
+      "id": "label_text",
+      "label": "Label",
+      "default": "GLOBAL BENCHMARK"
+    },
+    {
+      "type": "text",
+      "id": "right_heading_line1",
+      "label": "Heading line 1",
+      "default": "INDUSTRY"
+    },
+    {
+      "type": "text",
+      "id": "right_heading_line2",
+      "label": "Heading line 2",
+      "default": "STANDARDS."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Global-scale production from the heart of Texas. We bridge the gap between creative UI/UX design and industrial-grade physical media."
+    },
+    {
+      "type": "header",
+      "content": "Service 1"
+    },
+    {
+      "type": "select",
+      "id": "service_1_icon",
+      "label": "Icon",
+      "options": [
+        { "value": "pointer", "label": "Pointer" },
+        { "value": "sparkle", "label": "Sparkle" },
+        { "value": "globe", "label": "Globe" },
+        { "value": "target", "label": "Target" },
+        { "value": "layers", "label": "Layers" },
+        { "value": "zap", "label": "Zap" }
+      ],
+      "default": "pointer"
+    },
+    {
+      "type": "select",
+      "id": "service_1_icon_color",
+      "label": "Icon color",
+      "options": [
+        { "value": "cyan", "label": "Cyan" },
+        { "value": "magenta", "label": "Magenta" },
+        { "value": "yellow", "label": "Yellow" }
+      ],
+      "default": "cyan"
+    },
+    {
+      "type": "text",
+      "id": "service_1_title",
+      "label": "Title",
+      "default": "Strategic Design"
+    },
+    {
+      "type": "textarea",
+      "id": "service_1_description",
+      "label": "Description",
+      "default": "Visual systems designed to scale across digital and print touchpoints."
+    },
+    {
+      "type": "header",
+      "content": "Service 2"
+    },
+    {
+      "type": "select",
+      "id": "service_2_icon",
+      "label": "Icon",
+      "options": [
+        { "value": "pointer", "label": "Pointer" },
+        { "value": "sparkle", "label": "Sparkle" },
+        { "value": "globe", "label": "Globe" },
+        { "value": "target", "label": "Target" },
+        { "value": "layers", "label": "Layers" },
+        { "value": "zap", "label": "Zap" }
+      ],
+      "default": "sparkle"
+    },
+    {
+      "type": "select",
+      "id": "service_2_icon_color",
+      "label": "Icon color",
+      "options": [
+        { "value": "cyan", "label": "Cyan" },
+        { "value": "magenta", "label": "Magenta" },
+        { "value": "yellow", "label": "Yellow" }
+      ],
+      "default": "magenta"
+    },
+    {
+      "type": "text",
+      "id": "service_2_title",
+      "label": "Title",
+      "default": "Print-On-Demand"
+    },
+    {
+      "type": "textarea",
+      "id": "service_2_description",
+      "label": "Description",
+      "default": "Rapid prototyping with industrial-grade output quality."
+    },
+    {
+      "type": "header",
+      "content": "Service 3"
+    },
+    {
+      "type": "select",
+      "id": "service_3_icon",
+      "label": "Icon",
+      "options": [
+        { "value": "pointer", "label": "Pointer" },
+        { "value": "sparkle", "label": "Sparkle" },
+        { "value": "globe", "label": "Globe" },
+        { "value": "target", "label": "Target" },
+        { "value": "layers", "label": "Layers" },
+        { "value": "zap", "label": "Zap" }
+      ],
+      "default": "globe"
+    },
+    {
+      "type": "select",
+      "id": "service_3_icon_color",
+      "label": "Icon color",
+      "options": [
+        { "value": "cyan", "label": "Cyan" },
+        { "value": "magenta", "label": "Magenta" },
+        { "value": "yellow", "label": "Yellow" }
+      ],
+      "default": "yellow"
+    },
+    {
+      "type": "text",
+      "id": "service_3_title",
+      "label": "Title",
+      "default": "Digital Performance"
+    },
+    {
+      "type": "textarea",
+      "id": "service_3_description",
+      "label": "Description",
+      "default": "Analytics-driven optimization for maximum conversion."
+    },
+    {
+      "type": "header",
+      "content": "Service 4"
+    },
+    {
+      "type": "select",
+      "id": "service_4_icon",
+      "label": "Icon",
+      "options": [
+        { "value": "pointer", "label": "Pointer" },
+        { "value": "sparkle", "label": "Sparkle" },
+        { "value": "globe", "label": "Globe" },
+        { "value": "target", "label": "Target" },
+        { "value": "layers", "label": "Layers" },
+        { "value": "zap", "label": "Zap" }
+      ],
+      "default": "target"
+    },
+    {
+      "type": "select",
+      "id": "service_4_icon_color",
+      "label": "Icon color",
+      "options": [
+        { "value": "cyan", "label": "Cyan" },
+        { "value": "magenta", "label": "Magenta" },
+        { "value": "yellow", "label": "Yellow" }
+      ],
+      "default": "cyan"
+    },
+    {
+      "type": "text",
+      "id": "service_4_title",
+      "label": "Title"
+    },
+    {
+      "type": "textarea",
+      "id": "service_4_description",
+      "label": "Description"
+    },
+    {
+      "type": "header",
+      "content": "Service 5"
+    },
+    {
+      "type": "select",
+      "id": "service_5_icon",
+      "label": "Icon",
+      "options": [
+        { "value": "pointer", "label": "Pointer" },
+        { "value": "sparkle", "label": "Sparkle" },
+        { "value": "globe", "label": "Globe" },
+        { "value": "target", "label": "Target" },
+        { "value": "layers", "label": "Layers" },
+        { "value": "zap", "label": "Zap" }
+      ],
+      "default": "layers"
+    },
+    {
+      "type": "select",
+      "id": "service_5_icon_color",
+      "label": "Icon color",
+      "options": [
+        { "value": "cyan", "label": "Cyan" },
+        { "value": "magenta", "label": "Magenta" },
+        { "value": "yellow", "label": "Yellow" }
+      ],
+      "default": "magenta"
+    },
+    {
+      "type": "text",
+      "id": "service_5_title",
+      "label": "Title"
+    },
+    {
+      "type": "textarea",
+      "id": "service_5_description",
+      "label": "Description"
+    },
+    {
+      "type": "header",
+      "content": "Service 6"
+    },
+    {
+      "type": "select",
+      "id": "service_6_icon",
+      "label": "Icon",
+      "options": [
+        { "value": "pointer", "label": "Pointer" },
+        { "value": "sparkle", "label": "Sparkle" },
+        { "value": "globe", "label": "Globe" },
+        { "value": "target", "label": "Target" },
+        { "value": "layers", "label": "Layers" },
+        { "value": "zap", "label": "Zap" }
+      ],
+      "default": "zap"
+    },
+    {
+      "type": "select",
+      "id": "service_6_icon_color",
+      "label": "Icon color",
+      "options": [
+        { "value": "cyan", "label": "Cyan" },
+        { "value": "magenta", "label": "Magenta" },
+        { "value": "yellow", "label": "Yellow" }
+      ],
+      "default": "yellow"
+    },
+    {
+      "type": "text",
+      "id": "service_6_title",
+      "label": "Title"
+    },
+    {
+      "type": "textarea",
+      "id": "service_6_description",
+      "label": "Description"
+    },
+    {
+      "type": "header",
+      "content": "Action text"
+    },
+    {
+      "type": "text",
+      "id": "action_text",
+      "label": "Action text",
+      "default": "Learn More"
+    },
+    {
+      "type": "header",
+      "content": "Card 1"
+    },
+    {
+      "type": "text",
+      "id": "card_1_id",
+      "label": "ID",
+      "default": "01"
+    },
+    {
+      "type": "text",
+      "id": "card_1_tag",
+      "label": "Tag",
+      "default": "CORE"
+    },
+    {
+      "type": "select",
+      "id": "card_1_color",
+      "label": "Tag color",
+      "options": [
+        { "value": "cyan", "label": "Cyan" },
+        { "value": "magenta", "label": "Magenta" },
+        { "value": "yellow", "label": "Yellow" }
+      ],
+      "default": "cyan"
+    },
+    {
+      "type": "text",
+      "id": "card_1_title",
+      "label": "Title",
+      "default": "Brand Identity"
+    },
+    {
+      "type": "url",
+      "id": "card_1_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Card 2"
+    },
+    {
+      "type": "text",
+      "id": "card_2_id",
+      "label": "ID",
+      "default": "02"
+    },
+    {
+      "type": "text",
+      "id": "card_2_tag",
+      "label": "Tag",
+      "default": "DESIGN"
+    },
+    {
+      "type": "select",
+      "id": "card_2_color",
+      "label": "Tag color",
+      "options": [
+        { "value": "cyan", "label": "Cyan" },
+        { "value": "magenta", "label": "Magenta" },
+        { "value": "yellow", "label": "Yellow" }
+      ],
+      "default": "magenta"
+    },
+    {
+      "type": "text",
+      "id": "card_2_title",
+      "label": "Title",
+      "default": "Logo Design"
+    },
+    {
+      "type": "url",
+      "id": "card_2_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Card 3"
+    },
+    {
+      "type": "text",
+      "id": "card_3_id",
+      "label": "ID",
+      "default": "03"
+    },
+    {
+      "type": "text",
+      "id": "card_3_tag",
+      "label": "Tag",
+      "default": "DIGITAL"
+    },
+    {
+      "type": "select",
+      "id": "card_3_color",
+      "label": "Tag color",
+      "options": [
+        { "value": "cyan", "label": "Cyan" },
+        { "value": "magenta", "label": "Magenta" },
+        { "value": "yellow", "label": "Yellow" }
+      ],
+      "default": "yellow"
+    },
+    {
+      "type": "text",
+      "id": "card_3_title",
+      "label": "Title",
+      "default": "Web Design"
+    },
+    {
+      "type": "url",
+      "id": "card_3_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Card 4"
+    },
+    {
+      "type": "text",
+      "id": "card_4_id",
+      "label": "ID",
+      "default": "04"
+    },
+    {
+      "type": "text",
+      "id": "card_4_tag",
+      "label": "Tag",
+      "default": "CORE"
+    },
+    {
+      "type": "select",
+      "id": "card_4_color",
+      "label": "Tag color",
+      "options": [
+        { "value": "cyan", "label": "Cyan" },
+        { "value": "magenta", "label": "Magenta" },
+        { "value": "yellow", "label": "Yellow" }
+      ],
+      "default": "cyan"
+    },
+    {
+      "type": "text",
+      "id": "card_4_title",
+      "label": "Title",
+      "default": "Print Design"
+    },
+    {
+      "type": "url",
+      "id": "card_4_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Card 5"
+    },
+    {
+      "type": "text",
+      "id": "card_5_id",
+      "label": "ID",
+      "default": "05"
+    },
+    {
+      "type": "text",
+      "id": "card_5_tag",
+      "label": "Tag",
+      "default": "DESIGN"
+    },
+    {
+      "type": "select",
+      "id": "card_5_color",
+      "label": "Tag color",
+      "options": [
+        { "value": "cyan", "label": "Cyan" },
+        { "value": "magenta", "label": "Magenta" },
+        { "value": "yellow", "label": "Yellow" }
+      ],
+      "default": "magenta"
+    },
+    {
+      "type": "text",
+      "id": "card_5_title",
+      "label": "Title",
+      "default": "Packaging"
+    },
+    {
+      "type": "url",
+      "id": "card_5_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Card 6"
+    },
+    {
+      "type": "text",
+      "id": "card_6_id",
+      "label": "ID",
+      "default": "06"
+    },
+    {
+      "type": "text",
+      "id": "card_6_tag",
+      "label": "Tag",
+      "default": "DIGITAL"
+    },
+    {
+      "type": "select",
+      "id": "card_6_color",
+      "label": "Tag color",
+      "options": [
+        { "value": "cyan", "label": "Cyan" },
+        { "value": "magenta", "label": "Magenta" },
+        { "value": "yellow", "label": "Yellow" }
+      ],
+      "default": "yellow"
+    },
+    {
+      "type": "text",
+      "id": "card_6_title",
+      "label": "Title",
+      "default": "Marketing"
+    },
+    {
+      "type": "url",
+      "id": "card_6_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Card 7"
+    },
+    {
+      "type": "text",
+      "id": "card_7_id",
+      "label": "ID",
+      "default": "07"
+    },
+    {
+      "type": "text",
+      "id": "card_7_tag",
+      "label": "Tag",
+      "default": "CORE"
+    },
+    {
+      "type": "select",
+      "id": "card_7_color",
+      "label": "Tag color",
+      "options": [
+        { "value": "cyan", "label": "Cyan" },
+        { "value": "magenta", "label": "Magenta" },
+        { "value": "yellow", "label": "Yellow" }
+      ],
+      "default": "cyan"
+    },
+    {
+      "type": "text",
+      "id": "card_7_title",
+      "label": "Title",
+      "default": "Signage"
+    },
+    {
+      "type": "url",
+      "id": "card_7_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Card 8"
+    },
+    {
+      "type": "text",
+      "id": "card_8_id",
+      "label": "ID",
+      "default": "08"
+    },
+    {
+      "type": "text",
+      "id": "card_8_tag",
+      "label": "Tag",
+      "default": "DESIGN"
+    },
+    {
+      "type": "select",
+      "id": "card_8_color",
+      "label": "Tag color",
+      "options": [
+        { "value": "cyan", "label": "Cyan" },
+        { "value": "magenta", "label": "Magenta" },
+        { "value": "yellow", "label": "Yellow" }
+      ],
+      "default": "magenta"
+    },
+    {
+      "type": "text",
+      "id": "card_8_title",
+      "label": "Title",
+      "default": "Illustration"
+    },
+    {
+      "type": "url",
+      "id": "card_8_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Card 9"
+    },
+    {
+      "type": "text",
+      "id": "card_9_id",
+      "label": "ID",
+      "default": "09"
+    },
+    {
+      "type": "text",
+      "id": "card_9_tag",
+      "label": "Tag",
+      "default": "DIGITAL"
+    },
+    {
+      "type": "select",
+      "id": "card_9_color",
+      "label": "Tag color",
+      "options": [
+        { "value": "cyan", "label": "Cyan" },
+        { "value": "magenta", "label": "Magenta" },
+        { "value": "yellow", "label": "Yellow" }
+      ],
+      "default": "yellow"
+    },
+    {
+      "type": "text",
+      "id": "card_9_title",
+      "label": "Title",
+      "default": "Photography"
+    },
+    {
+      "type": "url",
+      "id": "card_9_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Card 10"
+    },
+    {
+      "type": "text",
+      "id": "card_10_id",
+      "label": "ID",
+      "default": "10"
+    },
+    {
+      "type": "text",
+      "id": "card_10_tag",
+      "label": "Tag",
+      "default": "CORE"
+    },
+    {
+      "type": "select",
+      "id": "card_10_color",
+      "label": "Tag color",
+      "options": [
+        { "value": "cyan", "label": "Cyan" },
+        { "value": "magenta", "label": "Magenta" },
+        { "value": "yellow", "label": "Yellow" }
+      ],
+      "default": "cyan"
+    },
+    {
+      "type": "text",
+      "id": "card_10_title",
+      "label": "Title",
+      "default": "Consulting"
+    },
+    {
+      "type": "url",
+      "id": "card_10_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading",
+      "default": "#00000066"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#00B9F1"
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Label",
+      "default": "#FFC107"
+    },
+    {
+      "type": "color",
+      "id": "right_heading_color",
+      "label": "Right heading",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "right_heading_accent_color",
+      "label": "Right heading accent",
+      "default": "#E6007E"
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description",
+      "default": "#00000066"
+    },
+    {
+      "type": "color",
+      "id": "image_glow_color",
+      "label": "Image glow",
+      "default": "#00B9F10D"
+    },
+    {
+      "type": "color",
+      "id": "image_overlay_color",
+      "label": "Image overlay",
+      "default": "#00000080"
+    },
+    {
+      "type": "color",
+      "id": "service_icon_bg",
+      "label": "Service icon background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "service_icon_border",
+      "label": "Service icon border",
+      "default": "#0000001A"
+    },
+    {
+      "type": "color",
+      "id": "service_icon_hover_bg",
+      "label": "Service icon hover background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "service_icon_hover_color",
+      "label": "Service icon hover color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "service_title_color",
+      "label": "Service title",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "service_title_hover_color",
+      "label": "Service title hover",
+      "default": "#0891B2"
+    },
+    {
+      "type": "color",
+      "id": "service_desc_color",
+      "label": "Service description",
+      "default": "#00000066"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border",
+      "default": "#0000000D"
+    },
+    {
+      "type": "color",
+      "id": "card_hover_bg",
+      "label": "Card hover background",
+      "default": "#F4F4F5"
+    },
+    {
+      "type": "color",
+      "id": "id_color",
+      "label": "ID number",
+      "default": "#00000033"
+    },
+    {
+      "type": "color",
+      "id": "tag_bg_color",
+      "label": "Tag background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "card_title_color",
+      "label": "Card title",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "card_title_hover_color",
+      "label": "Card title hover",
+      "default": "#00B9F1"
+    },
+    {
+      "type": "color",
+      "id": "action_text_color",
+      "label": "Action text",
+      "default": "#0891B2"
+    },
+    {
+      "type": "color",
+      "id": "watermark_color",
+      "label": "Watermark",
+      "default": "#00000005"
+    },
+    {
+      "type": "color",
+      "id": "watermark_hover_color",
+      "label": "Watermark hover",
+      "default": "#0000000A"
+    },
+    {
+      "type": "color",
+      "id": "tag_cyan_border",
+      "label": "Tag cyan border",
+      "default": "#00B9F133"
+    },
+    {
+      "type": "color",
+      "id": "tag_cyan_text",
+      "label": "Tag cyan text",
+      "default": "#0891B2"
+    },
+    {
+      "type": "color",
+      "id": "tag_magenta_border",
+      "label": "Tag magenta border",
+      "default": "#E6007E33"
+    },
+    {
+      "type": "color",
+      "id": "tag_magenta_text",
+      "label": "Tag magenta text",
+      "default": "#E6007E"
+    },
+    {
+      "type": "color",
+      "id": "tag_yellow_border",
+      "label": "Tag yellow border",
+      "default": "#ca8a0433"
+    },
+    {
+      "type": "color",
+      "id": "tag_yellow_text",
+      "label": "Tag yellow text",
+      "default": "#ca8a04"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Industrial solutions grid"
+    }
+  ]
+}
+{% endschema %}

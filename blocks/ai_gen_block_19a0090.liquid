@@ -1,0 +1,1409 @@
+{% doc %}
+  @prompt
+    Create a 2x2 grid feature section with these EXACT specifications:
+    
+    CRITICAL RESPONSIVE RULES:
+    - Wrapper: width 100%, max-width 100vw, overflow-x hidden
+    - All content must stay within viewport - NO horizontal scroll
+    - Use box-sizing: border-box everywhere
+    
+    WRAPPER:
+    - Full width, max-width: 100vw
+    - Background: white (#FFFFFF)
+    - Padding-top: 48px mobile | 72px sm | 96px lg (py-12 sm:py-18 lg:py-24)
+    - Padding-bottom: 48px mobile | 72px sm | 96px lg
+    - Position: relative
+    - Overflow: hidden
+    
+    INNER CONTAINER:
+    - Max-width: 2200px
+    - Margin: 0 auto (centered)
+    - Padding-horizontal: 16px mobile | 24px sm | 48px lg | 80px xl (px-4 sm:px-6 lg:px-12 xl:px-20)
+    - Width: 100%
+    - Box-sizing: border-box
+    
+    MAIN GRID:
+    - Display: CSS Grid
+    - Grid-template-columns: 1fr (mobile) | repeat(2, 1fr) (xl+)
+    - Border: 1px solid rgba(0,0,0,0.05)
+    - Box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25) (shadow-2xl)
+    - Overflow: hidden
+    
+    GRID CELLS (4 total):
+    On mobile/tablet (< 1280px): Single column, all 4 cells stack vertically
+    On xl (1280px+): 2x2 grid layout
+    
+    Cell order on mobile:
+    1. Cell 1 (Content)
+    2. Cell 2 (Hero Image)
+    3. Cell 3 (Product Feature)
+    4. Cell 4 (CTA Card)
+    
+    Ensure fully responsive, no horizontal scroll on any device., Add Cell 1 (main content area) to the grid - top-left on desktop, first on mobile:
+    
+    CELL 1 CONTAINER:
+    - Padding: 32px mobile | 48px sm | 80px lg | 96px xl (p-8 sm:p-12 lg:p-20 xl:p-24)
+    - Display: flex
+    - Flex-direction: column
+    - Justify-content: center
+    - Background: white (#FFFFFF)
+    - Border-right: none mobile | 1px solid rgba(0,0,0,0.05) xl
+    - Border-bottom: 1px solid rgba(0,0,0,0.05) mobile | none xl
+    - Min-height: auto mobile | 500px lg
+    - Width: 100%
+    - Box-sizing: border-box
+    
+    LABEL ROW:
+    - Display: flex
+    - Align-items: center
+    - Gap: 12px (gap-3)
+    - Margin-bottom: 24px mobile | 32px sm (mb-6 sm:mb-8)
+    
+    Dot accent:
+    - Width: 6px
+    - Height: 6px
+    - Background: #00B9F1 (cyan-500)
+    - Border-radius: 9999px (full circle)
+    - Flex-shrink: 0
+    
+    Label text:
+    - Content: "EXHIBITION SYSTEMS"
+    - Font-size: 9px mobile | 10px sm
+    - Font-weight: 700 (bold)
+    - Text-transform: uppercase
+    - Letter-spacing: 0.3em
+    - Color: rgba(0,0,0,0.6)
+    - White-space: nowrap, Add heading and description to Cell 1:
+    
+    MAIN HEADING:
+    - Content: "Trade Show Matrix."
+    - Font-size: 36px mobile | 48px sm | 56px lg | 64px xl (text-4xl sm:text-5xl lg:text-6xl xl:text-7xl)
+    - Font-weight: 900 (black)
+    - Text-transform: uppercase
+    - Letter-spacing: -0.02em (tracking-tight)
+    - Line-height: 0.85
+    - Margin-bottom: 24px mobile | 32px sm (mb-6 sm:mb-8)
+    - Color: #000000
+    - Word-wrap: break-word
+    - Overflow-wrap: break-word
+    
+    Structure:
+    - "Trade Show" = black (#000000)
+    - "Matrix." = rgba(0,0,0,0.1) (very faint, 10% opacity)
+    
+    DESCRIPTION PARAGRAPH:
+    - Content: "Modular frameworks engineered for rapid deployment. We build environments that convert."
+    - Font-size: 16px mobile | 18px sm (text-base sm:text-lg)
+    - Color: rgba(0,0,0,0.5)
+    - Font-weight: 300 (light)
+    - Line-height: 1.625 (relaxed)
+    - Max-width: 100% mobile | 448px sm (max-w-full sm:max-w-md)
+    - Margin-bottom: 32px mobile | 48px sm (mb-8 sm:mb-12), Add statistics row to Cell 1:
+    
+    FEATURES ROW CONTAINER:
+    - Display: flex
+    - Flex-direction: row
+    - Gap: 32px mobile | 48px sm | 64px lg (gap-8 sm:gap-12 lg:gap-16)
+    - Margin-bottom: 32px mobile | 48px sm (mb-8 sm:mb-12)
+    - Flex-wrap: wrap
+    
+    FEATURE ITEM (2 total):
+    
+    Feature 1 - "100% Tool-Free":
+    Number:
+    - Content: "100%"
+    - Font-size: 24px mobile | 28px sm | 30px lg (text-2xl sm:text-3xl)
+    - Font-weight: 900 (black)
+    - Color: #000000
+    - Letter-spacing: -0.02em (tight)
+    - Line-height: 1
+    
+    Label:
+    - Content: "TOOL-FREE"
+    - Font-size: 8px mobile | 9px sm
+    - Font-weight: 700 (bold)
+    - Text-transform: uppercase
+    - Letter-spacing: 0.2em
+    - Color: rgba(0,0,0,0.4)
+    - Margin-top: 4px (mt-1)
+    
+    Feature 2 - "48H Production":
+    Number:
+    - Content: "48H"
+    - Same styling as Feature 1
+    
+    Label:
+    - Content: "PRODUCTION"
+    - Same styling as Feature 1, Add CTA button to Cell 1:
+    
+    BUTTON CONTAINER:
+    - Display: inline-flex
+    - Align-items: center
+    - Gap: 12px (gap-3)
+    - Background: #000000
+    - Color: #FFFFFF
+    - Padding: 16px 32px mobile | 20px 40px sm (py-4 px-8 sm:py-5 sm:px-10)
+    - Font-size: 9px mobile | 10px sm
+    - Font-weight: 900 (black)
+    - Text-transform: uppercase
+    - Letter-spacing: 0.25em
+    - Border: none
+    - Box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04) (shadow-xl)
+    - Cursor: pointer
+    - Width: fit-content mobile | max-content
+    - White-space: nowrap
+    - Transition: all 200ms ease
+    
+    ARROW ICON:
+    - Size: 12px mobile | 14px sm
+    - Color: inherit (white)
+    - Transition: transform 200ms ease
+    
+    BUTTON HOVER STATE:
+    - Background: #0891B2 (cyan-600)
+    - Box-shadow: 0 20px 40px rgba(0,185,241,0.2)
+    - Arrow: transform translateX(4px)
+    - Transition: all 200ms ease
+    
+    Button text: "REQUEST QUOTE" + ArrowRight icon, Add Cell 2 (hero image) - top-right on desktop, second on mobile:
+    
+    CELL 2 CONTAINER:
+    - Position: relative
+    - Min-height: 280px mobile | 350px sm | 400px lg (min-h-[280px] sm:min-h-[350px] lg:min-h-[400px])
+    - Height: auto mobile | 100% xl
+    - Overflow: hidden
+    - Border-bottom: 1px solid rgba(0,0,0,0.05) mobile | none xl
+    - Background: #000000
+    - Width: 100%
+    
+    IMAGE:
+    - Position: absolute
+    - Inset: 0
+    - Width: 100%
+    - Height: 100%
+    - Object-fit: cover
+    - Object-position: center
+    
+    Default state:
+    - Filter: grayscale(100%)
+    - Opacity: 0.8 (80%)
+    - Transform: scale(1)
+    
+    Hover state:
+    - Filter: grayscale(0%)
+    - Opacity: 1 (100%)
+    - Transform: scale(1.05)
+    - Transition: all 1000ms ease
+    
+    GRADIENT OVERLAY:
+    - Position: absolute
+    - Inset: 0
+    - Background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 50%, transparent 100%)
+    - Pointer-events: none
+    - Z-index: 1, Add label badge to Cell 2 (bottom-left corner):
+    
+    BADGE CONTAINER:
+    - Position: absolute
+    - Bottom: 16px mobile | 24px sm | 32px lg (bottom-4 sm:bottom-6 lg:bottom-8)
+    - Left: 16px mobile | 24px sm | 32px lg (left-4 sm:left-6 lg:left-8)
+    - Display: flex
+    - Align-items: center
+    - Gap: 8px (gap-2)
+    - Z-index: 10
+    
+    PULSING DOT:
+    - Width: 6px mobile | 8px sm (w-1.5 sm:w-2)
+    - Height: 6px mobile | 8px sm (h-1.5 sm:h-2)
+    - Background: #00B9F1 (cyan-500)
+    - Border-radius: 9999px (full)
+    - Animation: pulse 2s infinite
+    
+    Pulse animation keyframes:
+    - 0%, 100%: opacity 1, scale 1
+    - 50%: opacity 0.5, scale 1.1
+    
+    BADGE TEXT:
+    - Content: "ENTERPRISE CONFIG"
+    - Color: #FFFFFF
+    - Font-size: 8px mobile | 9px sm
+    - Font-weight: 900 (black)
+    - Text-transform: uppercase
+    - Letter-spacing: 0.2em
+    - White-space: nowrap, Add Cell 3 (product feature) - bottom-left on desktop, third on mobile:
+    
+    CELL 3 CONTAINER:
+    - Position: relative
+    - Aspect-ratio: 4/3 mobile | 16/10 sm | 16/9 xl
+    - Border-bottom: 1px solid rgba(0,0,0,0.05)
+    - Border-right: none mobile | 1px solid rgba(0,0,0,0.05) xl
+    - Background: #F4F4F5 (zinc-50)
+    - Overflow: hidden
+    - Cursor: pointer
+    - Width: 100%
+    
+    PRODUCT TAG (top-left):
+    - Position: absolute
+    - Top: 16px mobile | 24px sm | 32px lg (top-4 sm:top-6 lg:top-8)
+    - Left: 16px mobile | 24px sm | 32px lg (left-4 sm:left-6 lg:left-8)
+    - Background: #000000
+    - Color: #FFFFFF
+    - Padding: 6px 10px mobile | 6px 12px sm (py-1.5 px-2.5 sm:px-3)
+    - Font-size: 8px mobile | 9px sm
+    - Font-weight: 900 (black)
+    - Text-transform: uppercase
+    - Letter-spacing: 0.1em
+    - Z-index: 10
+    - Box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1)
+    - Content: "10x10 KIT"
+    
+    BACKGROUND IMAGE:
+    - Position: absolute
+    - Inset: 0
+    - Width: 100%
+    - Height: 100%
+    - Object-fit: cover
+    - Mix-blend-mode: multiply
+    
+    Default state:
+    - Opacity: 0.2 (20%)
+    - Transform: scale(1)
+    
+    Hover state:
+    - Opacity: 0.4 (40%)
+    - Transform: scale(1.1)
+    - Transition: all 700ms ease
+    
+    PRODUCT TITLE (bottom-left):
+    - Position: absolute
+    - Bottom: 16px mobile | 24px sm | 32px lg (bottom-4 sm:bottom-6 lg:bottom-8)
+    - Left: 16px mobile | 24px sm | 32px lg (left-4 sm:left-6 lg:left-8)
+    - Z-index: 10
+    - Content: "POP-UP DISPLAY"
+    - Font-size: 24px mobile | 28px sm | 30px lg (text-2xl sm:text-3xl)
+    - Font-weight: 900 (black)
+    - Text-transform: uppercase
+    - Letter-spacing: -0.02em (tight)
+    - Color: #000000, Add Cell 4 (CTA card) - bottom-right on desktop, fourth on mobile:
+    
+    CELL 4 CONTAINER:
+    - Aspect-ratio: 4/3 mobile | auto xl
+    - Min-height: auto mobile | 280px xl
+    - Padding: 32px mobile | 48px sm | 64px lg | 96px xl (p-8 sm:p-12 lg:p-16 xl:p-24)
+    - Display: flex
+    - Flex-direction: column
+    - Align-items: center
+    - Justify-content: center
+    - Text-align: center
+    - Background: #FFFFFF
+    - Cursor: pointer
+    - Position: relative
+    - Overflow: hidden
+    - Transition: background 300ms ease
+    - Width: 100%
+    - Box-sizing: border-box
+    
+    Hover state:
+    - Background: #F4F4F5 (zinc-50)
+    
+    HOVER DECORATION (cyan slide-up):
+    - Position: absolute
+    - Inset: 0
+    - Background: rgba(0,185,241,0.05) (cyan 5%)
+    - Z-index: 0
+    
+    Default state:
+    - Transform: translateY(100%)
+    
+    Hover state:
+    - Transform: translateY(0)
+    - Transition: transform 500ms ease, Add content to Cell 4:
+    
+    CONTENT WRAPPER:
+    - Position: relative
+    - Z-index: 10
+    - Display: flex
+    - Flex-direction: column
+    - Align-items: center
+    
+    ICON BOX:
+    - Width: 64px mobile | 80px sm | 96px lg (w-16 sm:w-20 lg:w-24)
+    - Height: 64px mobile | 80px sm | 96px lg (h-16 sm:h-20 lg:h-24)
+    - Margin-bottom: 20px mobile | 24px sm | 32px lg (mb-5 sm:mb-6 lg:mb-8)
+    - Border: 2px solid rgba(0,0,0,0.05)
+    - Border-radius: 16px (rounded-2xl)
+    - Display: flex
+    - Align-items: center
+    - Justify-content: center
+    - Background: #FFFFFF
+    - Box-shadow: 0 1px 2px rgba(0,0,0,0.05) (shadow-sm)
+    - Transition: border-color 500ms ease
+    
+    Hover state:
+    - Border-color: #000000
+    
+    ICON:
+    - Size: 24px mobile | 28px sm | 32px lg
+    - Stroke-width: 1
+    - Color: #000000
+    - Type: Layers or Stack icon
+    
+    TITLE:
+    - Content: "CUSTOM FABRICATION"
+    - Font-size: 24px mobile | 28px sm | 30px lg (text-2xl sm:text-3xl)
+    - Font-weight: 900 (black)
+    - Text-transform: uppercase
+    - Letter-spacing: -0.02em (tight)
+    - Line-height: 1.1
+    - Color: #000000
+    - Text-align: center
+    - Word-wrap: break-word, Add settings to customize this section:
+    
+    Allow editing:
+    - Label text
+    - Heading line 1
+    - Heading line 2
+    - Description text
+    - Stat 1 number and label
+    - Stat 2 number and label
+    - Button text
+    - Button link
+    - Hero image
+    - Badge text
+    - Product image
+    - Product tag text
+    - Product title
+    - Cell 4 title
+    - Cell 4 link
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-feature-grid-wrapper-{{ ai_gen_id }} {
+    width: 100%;
+    max-width: 100vw;
+    background-color: {{ block.settings.background_color }};
+    padding-top: 48px;
+    padding-bottom: 48px;
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  @media screen and (min-width: 640px) {
+    .ai-feature-grid-wrapper-{{ ai_gen_id }} {
+      padding-top: 72px;
+      padding-bottom: 72px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .ai-feature-grid-wrapper-{{ ai_gen_id }} {
+      padding-top: 96px;
+      padding-bottom: 96px;
+    }
+  }
+
+  .ai-feature-grid-container-{{ ai_gen_id }} {
+    max-width: 2200px;
+    margin: 0 auto;
+    padding-left: 16px;
+    padding-right: 16px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  @media screen and (min-width: 640px) {
+    .ai-feature-grid-container-{{ ai_gen_id }} {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .ai-feature-grid-container-{{ ai_gen_id }} {
+      padding-left: 48px;
+      padding-right: 48px;
+    }
+  }
+
+  @media screen and (min-width: 1280px) {
+    .ai-feature-grid-container-{{ ai_gen_id }} {
+      padding-left: 80px;
+      padding-right: 80px;
+    }
+  }
+
+  .ai-feature-grid-main-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  @media screen and (min-width: 1280px) {
+    .ai-feature-grid-main-{{ ai_gen_id }} {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .ai-feature-grid-cell-{{ ai_gen_id }} {
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  .ai-feature-grid-cell-content-{{ ai_gen_id }} {
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #FFFFFF;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  @media screen and (min-width: 640px) {
+    .ai-feature-grid-cell-content-{{ ai_gen_id }} {
+      padding: 48px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .ai-feature-grid-cell-content-{{ ai_gen_id }} {
+      padding: 80px;
+      min-height: 500px;
+    }
+  }
+
+  @media screen and (min-width: 1280px) {
+    .ai-feature-grid-cell-content-{{ ai_gen_id }} {
+      padding: 96px;
+      border-right: 1px solid rgba(0, 0, 0, 0.05);
+      border-bottom: none;
+    }
+  }
+
+  .ai-feature-grid-label-row-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  @media screen and (min-width: 640px) {
+    .ai-feature-grid-label-row-{{ ai_gen_id }} {
+      margin-bottom: 32px;
+    }
+  }
+
+  .ai-feature-grid-dot-{{ ai_gen_id }} {
+    width: 6px;
+    height: 6px;
+    background: {{ block.settings.dot_color }};
+    border-radius: 9999px;
+    flex-shrink: 0;
+  }
+
+  .ai-feature-grid-label-text-{{ ai_gen_id }} {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: rgba(0, 0, 0, 0.6);
+    white-space: nowrap;
+  }
+
+  @media screen and (min-width: 640px) {
+    .ai-feature-grid-label-text-{{ ai_gen_id }} {
+      font-size: 10px;
+    }
+  }
+
+  .ai-feature-grid-cell-heading-{{ ai_gen_id }} {
+    font-size: 36px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    line-height: 0.85;
+    margin: 0 0 24px 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  @media screen and (min-width: 640px) {
+    .ai-feature-grid-cell-heading-{{ ai_gen_id }} {
+      font-size: 48px;
+      margin-bottom: 32px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .ai-feature-grid-cell-heading-{{ ai_gen_id }} {
+      font-size: 56px;
+    }
+  }
+
+  @media screen and (min-width: 1280px) {
+    .ai-feature-grid-cell-heading-{{ ai_gen_id }} {
+      font-size: 64px;
+    }
+  }
+
+  .ai-feature-grid-heading-primary-{{ ai_gen_id }} {
+    color: {{ block.settings.heading_primary_color }};
+  }
+
+  .ai-feature-grid-heading-secondary-{{ ai_gen_id }} {
+    color: {{ block.settings.heading_secondary_color }};
+  }
+
+  .ai-feature-grid-cell-description-{{ ai_gen_id }} {
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.5);
+    font-weight: 300;
+    line-height: 1.625;
+    max-width: 100%;
+    margin: 0 0 32px 0;
+  }
+
+  @media screen and (min-width: 640px) {
+    .ai-feature-grid-cell-description-{{ ai_gen_id }} {
+      font-size: 18px;
+      max-width: 448px;
+      margin-bottom: 48px;
+    }
+  }
+
+  .ai-feature-grid-stats-row-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: row;
+    gap: 32px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+  }
+
+  @media screen and (min-width: 640px) {
+    .ai-feature-grid-stats-row-{{ ai_gen_id }} {
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .ai-feature-grid-stats-row-{{ ai_gen_id }} {
+      gap: 64px;
+    }
+  }
+
+  .ai-feature-grid-stat-item-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ai-feature-grid-stat-number-{{ ai_gen_id }} {
+    font-size: 24px;
+    font-weight: 900;
+    color: {{ block.settings.stat_number_color }};
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin: 0;
+  }
+
+  @media screen and (min-width: 640px) {
+    .ai-feature-grid-stat-number-{{ ai_gen_id }} {
+      font-size: 28px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .ai-feature-grid-stat-number-{{ ai_gen_id }} {
+      font-size: 30px;
+    }
+  }
+
+  .ai-feature-grid-stat-label-{{ ai_gen_id }} {
+    font-size: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: rgba(0, 0, 0, 0.4);
+    margin-top: 4px;
+  }
+
+  @media screen and (min-width: 640px) {
+    .ai-feature-grid-stat-label-{{ ai_gen_id }} {
+      font-size: 9px;
+    }
+  }
+
+  .ai-feature-grid-cell-button-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background-color: {{ block.settings.button_bg_color }};
+    color: {{ block.settings.button_text_color }};
+    padding: 16px 32px;
+    font-size: 9px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    border: none;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    cursor: pointer;
+    width: fit-content;
+    white-space: nowrap;
+    transition: all 200ms ease;
+    text-decoration: none;
+  }
+
+  @media screen and (min-width: 640px) {
+    .ai-feature-grid-cell-button-{{ ai_gen_id }} {
+      padding: 20px 40px;
+      font-size: 10px;
+      width: max-content;
+    }
+  }
+
+  .ai-feature-grid-cell-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_bg_color }};
+    box-shadow: 0 20px 40px rgba(0, 185, 241, 0.2);
+  }
+
+  .ai-feature-grid-button-arrow-{{ ai_gen_id }} {
+    width: 12px;
+    height: 12px;
+    transition: transform 200ms ease;
+  }
+
+  @media screen and (min-width: 640px) {
+    .ai-feature-grid-button-arrow-{{ ai_gen_id }} {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  .ai-feature-grid-cell-button-{{ ai_gen_id }}:hover .ai-feature-grid-button-arrow-{{ ai_gen_id }} {
+    transform: translateX(4px);
+  }
+
+  .ai-feature-grid-cell-image-{{ ai_gen_id }} {
+    position: relative;
+    min-height: 280px;
+    width: 100%;
+    overflow: hidden;
+    background: #000000;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  @media screen and (min-width: 640px) {
+    .ai-feature-grid-cell-image-{{ ai_gen_id }} {
+      min-height: 350px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .ai-feature-grid-cell-image-{{ ai_gen_id }} {
+      min-height: 400px;
+    }
+  }
+
+  @media screen and (min-width: 1280px) {
+    .ai-feature-grid-cell-image-{{ ai_gen_id }} {
+      height: 100%;
+      border-bottom: none;
+    }
+  }
+
+  .ai-feature-grid-cell-image-{{ ai_gen_id }} img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    filter: grayscale(100%);
+    opacity: 0.8;
+    transform: scale(1);
+    transition: all 1000ms ease;
+    display: block;
+  }
+
+  .ai-feature-grid-cell-image-{{ ai_gen_id }}:hover img {
+    filter: grayscale(0%);
+    opacity: 1;
+    transform: scale(1.05);
+  }
+
+  .ai-feature-grid-image-overlay-{{ ai_gen_id }} {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, transparent 50%, transparent 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .ai-feature-grid-cell-image-placeholder-{{ ai_gen_id }} {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-feature-grid-cell-image-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 300px;
+    max-height: 300px;
+  }
+
+  .ai-feature-grid-badge-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 10;
+  }
+
+  @media screen and (min-width: 640px) {
+    .ai-feature-grid-badge-{{ ai_gen_id }} {
+      bottom: 24px;
+      left: 24px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .ai-feature-grid-badge-{{ ai_gen_id }} {
+      bottom: 32px;
+      left: 32px;
+    }
+  }
+
+  .ai-feature-grid-badge-dot-{{ ai_gen_id }} {
+    width: 6px;
+    height: 6px;
+    background: {{ block.settings.badge_dot_color }};
+    border-radius: 9999px;
+    animation: ai-feature-grid-pulse-{{ ai_gen_id }} 2s infinite;
+  }
+
+  @media screen and (min-width: 640px) {
+    .ai-feature-grid-badge-dot-{{ ai_gen_id }} {
+      width: 8px;
+      height: 8px;
+    }
+  }
+
+  @keyframes ai-feature-grid-pulse-{{ ai_gen_id }} {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.5;
+      transform: scale(1.1);
+    }
+  }
+
+  .ai-feature-grid-badge-text-{{ ai_gen_id }} {
+    color: #FFFFFF;
+    font-size: 8px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    white-space: nowrap;
+  }
+
+  @media screen and (min-width: 640px) {
+    .ai-feature-grid-badge-text-{{ ai_gen_id }} {
+      font-size: 9px;
+    }
+  }
+
+  .ai-feature-grid-product-{{ ai_gen_id }} {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    background: {{ block.settings.product_bg_color }};
+    overflow: hidden;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  @media screen and (min-width: 640px) {
+    .ai-feature-grid-product-{{ ai_gen_id }} {
+      aspect-ratio: 16 / 10;
+    }
+  }
+
+  @media screen and (min-width: 1280px) {
+    .ai-feature-grid-product-{{ ai_gen_id }} {
+      aspect-ratio: 16 / 9;
+      border-right: 1px solid rgba(0, 0, 0, 0.05);
+    }
+  }
+
+  .ai-feature-grid-product-tag-{{ ai_gen_id }} {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background: #000000;
+    color: #FFFFFF;
+    padding: 6px 10px;
+    font-size: 8px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    z-index: 10;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  }
+
+  @media screen and (min-width: 640px) {
+    .ai-feature-grid-product-tag-{{ ai_gen_id }} {
+      top: 24px;
+      left: 24px;
+      padding: 6px 12px;
+      font-size: 9px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .ai-feature-grid-product-tag-{{ ai_gen_id }} {
+      top: 32px;
+      left: 32px;
+    }
+  }
+
+  .ai-feature-grid-product-bg-image-{{ ai_gen_id }} {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    mix-blend-mode: multiply;
+    opacity: 0.2;
+    transform: scale(1);
+    transition: all 700ms ease;
+  }
+
+  .ai-feature-grid-product-{{ ai_gen_id }}:hover .ai-feature-grid-product-bg-image-{{ ai_gen_id }} {
+    opacity: 0.4;
+    transform: scale(1.1);
+  }
+
+  .ai-feature-grid-product-title-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    z-index: 10;
+    font-size: 24px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    color: #000000;
+    margin: 0;
+  }
+
+  @media screen and (min-width: 640px) {
+    .ai-feature-grid-product-title-{{ ai_gen_id }} {
+      bottom: 24px;
+      left: 24px;
+      font-size: 28px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .ai-feature-grid-product-title-{{ ai_gen_id }} {
+      bottom: 32px;
+      left: 32px;
+      font-size: 30px;
+    }
+  }
+
+  .ai-feature-grid-cta-{{ ai_gen_id }} {
+    aspect-ratio: 4 / 3;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: #FFFFFF;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: background 300ms ease;
+    width: 100%;
+    box-sizing: border-box;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  @media screen and (min-width: 640px) {
+    .ai-feature-grid-cta-{{ ai_gen_id }} {
+      padding: 48px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .ai-feature-grid-cta-{{ ai_gen_id }} {
+      padding: 64px;
+    }
+  }
+
+  @media screen and (min-width: 1280px) {
+    .ai-feature-grid-cta-{{ ai_gen_id }} {
+      aspect-ratio: auto;
+      min-height: 280px;
+      padding: 96px;
+    }
+  }
+
+  .ai-feature-grid-cta-{{ ai_gen_id }}:hover {
+    background: #F4F4F5;
+  }
+
+  .ai-feature-grid-cta-decoration-{{ ai_gen_id }} {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 185, 241, 0.05);
+    z-index: 0;
+    transform: translateY(100%);
+    transition: transform 500ms ease;
+  }
+
+  .ai-feature-grid-cta-{{ ai_gen_id }}:hover .ai-feature-grid-cta-decoration-{{ ai_gen_id }} {
+    transform: translateY(0);
+  }
+
+  .ai-feature-grid-cta-content-{{ ai_gen_id }} {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .ai-feature-grid-cta-icon-box-{{ ai_gen_id }} {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 20px;
+    border: 2px solid rgba(0, 0, 0, 0.05);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #FFFFFF;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    transition: border-color 500ms ease;
+  }
+
+  @media screen and (min-width: 640px) {
+    .ai-feature-grid-cta-icon-box-{{ ai_gen_id }} {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 24px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .ai-feature-grid-cta-icon-box-{{ ai_gen_id }} {
+      width: 96px;
+      height: 96px;
+      margin-bottom: 32px;
+    }
+  }
+
+  .ai-feature-grid-cta-{{ ai_gen_id }}:hover .ai-feature-grid-cta-icon-box-{{ ai_gen_id }} {
+    border-color: #000000;
+  }
+
+  .ai-feature-grid-cta-icon-{{ ai_gen_id }} {
+    width: 24px;
+    height: 24px;
+    stroke-width: 1;
+    color: #000000;
+  }
+
+  @media screen and (min-width: 640px) {
+    .ai-feature-grid-cta-icon-{{ ai_gen_id }} {
+      width: 28px;
+      height: 28px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .ai-feature-grid-cta-icon-{{ ai_gen_id }} {
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  .ai-feature-grid-cta-title-{{ ai_gen_id }} {
+    font-size: 24px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: {{ block.settings.cta_title_color }};
+    text-align: center;
+    word-wrap: break-word;
+    margin: 0;
+  }
+
+  @media screen and (min-width: 640px) {
+    .ai-feature-grid-cta-title-{{ ai_gen_id }} {
+      font-size: 28px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .ai-feature-grid-cta-title-{{ ai_gen_id }} {
+      font-size: 30px;
+    }
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+{% endstyle %}
+
+<div class="ai-feature-grid-wrapper-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-feature-grid-container-{{ ai_gen_id }}">
+    <div class="ai-feature-grid-main-{{ ai_gen_id }}">
+      
+      <div class="ai-feature-grid-cell-{{ ai_gen_id }}">
+        <div class="ai-feature-grid-cell-content-{{ ai_gen_id }}">
+          <div class="ai-feature-grid-label-row-{{ ai_gen_id }}">
+            <div class="ai-feature-grid-dot-{{ ai_gen_id }}"></div>
+            <span class="ai-feature-grid-label-text-{{ ai_gen_id }}">{{ block.settings.cell1_label }}</span>
+          </div>
+          
+          {% if block.settings.cell1_heading_part1 != blank or block.settings.cell1_heading_part2 != blank %}
+            <h2 class="ai-feature-grid-cell-heading-{{ ai_gen_id }}">
+              <span class="ai-feature-grid-heading-primary-{{ ai_gen_id }}">{{ block.settings.cell1_heading_part1 }}</span>
+              <span class="ai-feature-grid-heading-secondary-{{ ai_gen_id }}">{{ block.settings.cell1_heading_part2 }}</span>
+            </h2>
+          {% endif %}
+          
+          {% if block.settings.cell1_description != blank %}
+            <p class="ai-feature-grid-cell-description-{{ ai_gen_id }}">{{ block.settings.cell1_description }}</p>
+          {% endif %}
+
+          <div class="ai-feature-grid-stats-row-{{ ai_gen_id }}">
+            <div class="ai-feature-grid-stat-item-{{ ai_gen_id }}">
+              <div class="ai-feature-grid-stat-number-{{ ai_gen_id }}">{{ block.settings.stat1_number }}</div>
+              <div class="ai-feature-grid-stat-label-{{ ai_gen_id }}">{{ block.settings.stat1_label }}</div>
+            </div>
+            <div class="ai-feature-grid-stat-item-{{ ai_gen_id }}">
+              <div class="ai-feature-grid-stat-number-{{ ai_gen_id }}">{{ block.settings.stat2_number }}</div>
+              <div class="ai-feature-grid-stat-label-{{ ai_gen_id }}">{{ block.settings.stat2_label }}</div>
+            </div>
+          </div>
+          
+          {% if block.settings.cell1_button_text != blank %}
+            <a href="{{ block.settings.cell1_button_link }}" class="ai-feature-grid-cell-button-{{ ai_gen_id }}">
+              {{ block.settings.cell1_button_text }}
+              <svg class="ai-feature-grid-button-arrow-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="ai-feature-grid-cell-{{ ai_gen_id }}">
+        <div class="ai-feature-grid-cell-image-{{ ai_gen_id }}">
+          {% if block.settings.cell2_image %}
+            <img
+              src="{{ block.settings.cell2_image | image_url: width: 1200 }}"
+              alt="{{ block.settings.cell2_image.alt | escape }}"
+              loading="lazy"
+              width="{{ block.settings.cell2_image.width }}"
+              height="{{ block.settings.cell2_image.height }}"
+            >
+            <div class="ai-feature-grid-image-overlay-{{ ai_gen_id }}"></div>
+          {% else %}
+            <div class="ai-feature-grid-cell-image-placeholder-{{ ai_gen_id }}">
+              {{ 'hero-apparel-1' | placeholder_svg_tag }}
+            </div>
+          {% endif %}
+          
+          {% if block.settings.cell2_badge_text != blank %}
+            <div class="ai-feature-grid-badge-{{ ai_gen_id }}">
+              <div class="ai-feature-grid-badge-dot-{{ ai_gen_id }}"></div>
+              <span class="ai-feature-grid-badge-text-{{ ai_gen_id }}">{{ block.settings.cell2_badge_text }}</span>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="ai-feature-grid-cell-{{ ai_gen_id }}">
+        <div class="ai-feature-grid-product-{{ ai_gen_id }}">
+          {% if block.settings.cell3_tag != blank %}
+            <div class="ai-feature-grid-product-tag-{{ ai_gen_id }}">{{ block.settings.cell3_tag }}</div>
+          {% endif %}
+          
+          {% if block.settings.cell3_bg_image %}
+            <img
+              src="{{ block.settings.cell3_bg_image | image_url: width: 1200 }}"
+              alt="{{ block.settings.cell3_bg_image.alt | escape }}"
+              loading="lazy"
+              class="ai-feature-grid-product-bg-image-{{ ai_gen_id }}"
+              width="{{ block.settings.cell3_bg_image.width }}"
+              height="{{ block.settings.cell3_bg_image.height }}"
+            >
+          {% endif %}
+          
+          {% if block.settings.cell3_title != blank %}
+            <h3 class="ai-feature-grid-product-title-{{ ai_gen_id }}">{{ block.settings.cell3_title }}</h3>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="ai-feature-grid-cell-{{ ai_gen_id }}">
+        {% if block.settings.cell4_link != blank %}
+          <a href="{{ block.settings.cell4_link }}" class="ai-feature-grid-cta-{{ ai_gen_id }}">
+        {% else %}
+          <div class="ai-feature-grid-cta-{{ ai_gen_id }}">
+        {% endif %}
+          <div class="ai-feature-grid-cta-decoration-{{ ai_gen_id }}"></div>
+          <div class="ai-feature-grid-cta-content-{{ ai_gen_id }}">
+            <div class="ai-feature-grid-cta-icon-box-{{ ai_gen_id }}">
+              <svg class="ai-feature-grid-cta-icon-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <rect x="7" y="7" width="10" height="10" rx="1" ry="1"></rect>
+              </svg>
+            </div>
+            {% if block.settings.cell4_title != blank %}
+              <h3 class="ai-feature-grid-cta-title-{{ ai_gen_id }}">{{ block.settings.cell4_title }}</h3>
+            {% endif %}
+          </div>
+        {% if block.settings.cell4_link != blank %}
+          </a>
+        {% else %}
+          </div>
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Feature grid 2x2",
+  "settings": [
+    {
+      "type": "header",
+      "content": "General"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Cell 1 - Content"
+    },
+    {
+      "type": "text",
+      "id": "cell1_label",
+      "label": "Label",
+      "default": "EXHIBITION SYSTEMS"
+    },
+    {
+      "type": "color",
+      "id": "dot_color",
+      "label": "Dot accent color",
+      "default": "#00B9F1"
+    },
+    {
+      "type": "text",
+      "id": "cell1_heading_part1",
+      "label": "Heading part 1",
+      "default": "Trade Show "
+    },
+    {
+      "type": "text",
+      "id": "cell1_heading_part2",
+      "label": "Heading part 2",
+      "default": "Matrix."
+    },
+    {
+      "type": "color",
+      "id": "heading_primary_color",
+      "label": "Heading part 1 color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "heading_secondary_color",
+      "label": "Heading part 2 color",
+      "default": "rgba(0, 0, 0, 0.1)"
+    },
+    {
+      "type": "textarea",
+      "id": "cell1_description",
+      "label": "Description",
+      "default": "Modular frameworks engineered for rapid deployment. We build environments that convert."
+    },
+    {
+      "type": "header",
+      "content": "Statistics"
+    },
+    {
+      "type": "text",
+      "id": "stat1_number",
+      "label": "Stat 1 number",
+      "default": "100%"
+    },
+    {
+      "type": "text",
+      "id": "stat1_label",
+      "label": "Stat 1 label",
+      "default": "TOOL-FREE"
+    },
+    {
+      "type": "text",
+      "id": "stat2_number",
+      "label": "Stat 2 number",
+      "default": "48H"
+    },
+    {
+      "type": "text",
+      "id": "stat2_label",
+      "label": "Stat 2 label",
+      "default": "PRODUCTION"
+    },
+    {
+      "type": "color",
+      "id": "stat_number_color",
+      "label": "Stat number color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Cell 1 button"
+    },
+    {
+      "type": "text",
+      "id": "cell1_button_text",
+      "label": "Button text",
+      "default": "REQUEST QUOTE"
+    },
+    {
+      "type": "url",
+      "id": "cell1_button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Cell 2 - Hero image"
+    },
+    {
+      "type": "image_picker",
+      "id": "cell2_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "cell2_badge_text",
+      "label": "Badge text",
+      "default": "ENTERPRISE CONFIG"
+    },
+    {
+      "type": "color",
+      "id": "badge_dot_color",
+      "label": "Badge dot color",
+      "default": "#00B9F1"
+    },
+    {
+      "type": "header",
+      "content": "Cell 3 - Product feature"
+    },
+    {
+      "type": "text",
+      "id": "cell3_tag",
+      "label": "Product tag",
+      "default": "10x10 KIT"
+    },
+    {
+      "type": "image_picker",
+      "id": "cell3_bg_image",
+      "label": "Background image"
+    },
+    {
+      "type": "text",
+      "id": "cell3_title",
+      "label": "Product title",
+      "default": "POP-UP DISPLAY"
+    },
+    {
+      "type": "color",
+      "id": "product_bg_color",
+      "label": "Background",
+      "default": "#F4F4F5"
+    },
+    {
+      "type": "header",
+      "content": "Cell 4 - CTA card"
+    },
+    {
+      "type": "text",
+      "id": "cell4_title",
+      "label": "Title",
+      "default": "CUSTOM FABRICATION"
+    },
+    {
+      "type": "url",
+      "id": "cell4_link",
+      "label": "Link"
+    },
+    {
+      "type": "color",
+      "id": "cta_title_color",
+      "label": "Title color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Button style"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_color",
+      "label": "Hover background",
+      "default": "#0891B2"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Feature grid 2x2"
+    }
+  ]
+}
+{% endschema %}

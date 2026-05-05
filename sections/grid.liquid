@@ -1,0 +1,410 @@
+{%- comment -%}
+  Industrial Solutions Section
+  Features: 5-Column Grid, Hover Effects, Number Watermarks.
+  Design: React/Tailwind conversion for Industrial aesthetics.
+  Protocol: Sticky Header Protection applied.
+{%- endcomment -%}
+
+{%- style -%}
+  #section-{{ section.id }} {
+    /* Colors */
+    --color-accent: {{ section.settings.color_accent }};
+    --color-magenta: #d946ef;
+    --color-yellow: #ca8a04;
+    --color-bg: {{ section.settings.color_bg }};
+    --color-border: rgba(0,0,0,0.05);
+    
+    /* Layout */
+    --padding-top: {{ section.settings.padding_top }}px;
+    --padding-bottom: {{ section.settings.padding_bottom }}px;
+    --header-offset: {{ section.settings.header_offset }}px;
+  }
+{%- endstyle -%}
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
+
+  #section-{{ section.id }} * { box-sizing: border-box; }
+
+  .solutions-section {
+    /* STICKY HEADER PROTECTION */
+    position: relative;
+    z-index: 0;
+    isolation: isolate;
+    
+    width: 100%;
+    background-color: var(--color-bg);
+    padding-top: calc(var(--padding-top) + var(--header-offset));
+    padding-bottom: var(--padding-bottom);
+  }
+
+  .container-wide {
+    max-width: 2200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  @media (min-width: 1024px) { .container-wide { padding: 0 3rem; } }
+  @media (min-width: 1280px) { .container-wide { padding: 0 5rem; } }
+
+  /* --- HEADER --- */
+  .section-header {
+    margin-bottom: 5rem;
+  }
+
+  .sub-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4em;
+    color: rgba(0,0,0,0.4);
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .main-heading {
+    font-family: 'Inter', sans-serif;
+    font-size: 3.75rem; /* 6xl */
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    color: black;
+    line-height: 1;
+    margin: 0 0 2rem 0;
+  }
+
+  .main-heading span { color: var(--color-accent); }
+
+  @media (min-width: 768px) { .main-heading { font-size: 4.5rem; } }
+
+  .decor-bar {
+    width: 6rem;
+    height: 0.375rem;
+    background-color: var(--color-accent);
+  }
+
+  /* --- GRID --- */
+  .solutions-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    border-top: 1px solid var(--color-border);
+    border-left: 1px solid var(--color-border);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  }
+
+  @media (min-width: 768px) {
+    .solutions-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .solutions-grid {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+
+  /* --- GRID ITEM --- */
+  .solution-item {
+    position: relative;
+    padding: 2.5rem;
+    border-right: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    cursor: pointer;
+    transition: background-color 0.5s;
+    text-decoration: none;
+    background-color: white;
+  }
+
+  .solution-item:hover {
+    background-color: #FAFAFA; /* zinc-50 */
+  }
+
+  /* Top Row (ID & Badge) */
+  .item-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+    z-index: 10;
+  }
+
+  .item-id {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.625rem;
+    font-weight: 700;
+    color: rgba(0,0,0,0.2);
+  }
+
+  .item-badge {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.5625rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    background-color: white;
+    border: 1px solid;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  }
+
+  /* Badge Styles (Cycled) */
+  .badge-cyan { border-color: rgba(6, 182, 212, 0.2); color: var(--color-accent); }
+  .badge-magenta { border-color: rgba(217, 70, 239, 0.2); color: var(--color-magenta); }
+  .badge-yellow { border-color: rgba(202, 138, 4, 0.2); color: var(--color-yellow); }
+
+  /* Bottom Content */
+  .item-content {
+    position: relative;
+    z-index: 10;
+    margin-top: auto;
+  }
+
+  .item-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: black;
+    margin: 0 0 1rem 0;
+    line-height: 1.1;
+  }
+
+  .item-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.5625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-accent);
+    opacity: 0;
+    transform: translateY(1rem);
+    transition: all 0.3s;
+  }
+
+  .solution-item:hover .item-link {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .icon-arrow { width: 0.75rem; height: 0.75rem; }
+
+  /* Background Watermark */
+  .bg-watermark {
+    position: absolute;
+    bottom: -2rem;
+    right: -1rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 10rem;
+    font-weight: 900;
+    color: rgba(0,0,0,0.02);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+    letter-spacing: -0.05em;
+    transition: color 0.3s;
+  }
+
+  .solution-item:hover .bg-watermark {
+    color: rgba(0,0,0,0.04);
+  }
+
+</style>
+
+<section id="section-{{ section.id }}" class="solutions-section">
+  <div class="container-wide">
+    
+    <!-- HEADER -->
+    <div class="section-header">
+      <span class="sub-label">{{ section.settings.sub_label }}</span>
+      <h2 class="main-heading">
+        {{ section.settings.heading_main }} <span>{{ section.settings.heading_highlight }}</span>
+      </h2>
+      <div class="decor-bar"></div>
+    </div>
+
+    <!-- GRID -->
+    <div class="solutions-grid">
+      {%- for block in section.blocks -%}
+        <!-- Cycle classes for badges -->
+        {%- capture badge_class -%}
+          {%- cycle 'badge-cyan', 'badge-magenta', 'badge-yellow' -%}
+        {%- endcapture -%}
+
+        <a href="{{ block.settings.url | default: '#' }}" class="solution-item group">
+          
+          <div class="item-top">
+            <span class="item-id">
+              {%- if block.settings.custom_id != blank -%}
+                {{ block.settings.custom_id }}
+              {%- else -%}
+                {% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}
+              {%- endif -%}
+            </span>
+            <span class="item-badge {{ badge_class }}">
+              {{ block.settings.tag }}
+            </span>
+          </div>
+
+          <div class="item-content">
+            <h3 class="item-title">{{ block.settings.title }}</h3>
+            <div class="item-link">
+              Specs <svg class="icon-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </div>
+          </div>
+
+          <!-- Large Watermark Number -->
+          <span class="bg-watermark">
+            {%- if block.settings.custom_id != blank -%}
+              {{ block.settings.custom_id }}
+            {%- else -%}
+              {% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}
+            {%- endif -%}
+          </span>
+
+        </a>
+      {%- endfor -%}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Industrial Solutions",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Navbar Fix Controls"
+    },
+    {
+      "type": "range",
+      "id": "header_offset",
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "label": "Top Spacing (Push Down)",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "sub_label",
+      "default": "Capabilities",
+      "label": "Small Label"
+    },
+    {
+      "type": "text",
+      "id": "heading_main",
+      "default": "Industrial",
+      "label": "Heading Main"
+    },
+    {
+      "type": "text",
+      "id": "heading_highlight",
+      "default": "Solutions.",
+      "label": "Heading Highlight (Cyan)"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "color_accent",
+      "label": "Accent Color",
+      "default": "#06b6d4"
+    },
+    {
+      "type": "color",
+      "id": "color_bg",
+      "label": "Background Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 120
+    }
+  ],
+  "blocks": [
+    {
+      "type": "solution",
+      "name": "Solution Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Brand Identity"
+        },
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Tag",
+          "default": "CORE"
+        },
+        {
+          "type": "text",
+          "id": "custom_id",
+          "label": "Custom ID (Optional)",
+          "info": "Leave blank to auto-number (01, 02...)"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Industrial Solutions",
+      "blocks": [
+        { "type": "solution", "settings": { "title": "Brand Identity", "tag": "CORE" } },
+        { "type": "solution", "settings": { "title": "Logo Design", "tag": "AESTHETIC" } },
+        { "type": "solution", "settings": { "title": "Web Design", "tag": "DIGITAL" } },
+        { "type": "solution", "settings": { "title": "UI/UX Audit", "tag": "STRATEGY" } },
+        { "type": "solution", "settings": { "title": "SEO Strategy", "tag": "GROWTH" } },
+        { "type": "solution", "settings": { "title": "Print Media", "tag": "PHYSICAL" } },
+        { "type": "solution", "settings": { "title": "Business Cards", "tag": "PREMIUM" } },
+        { "type": "solution", "settings": { "title": "Vinyl Banners", "tag": "IMPACT" } },
+        { "type": "solution", "settings": { "title": "Social Media", "tag": "SOCIAL" } },
+        { "type": "solution", "settings": { "title": "Packaging", "tag": "PRODUCT" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

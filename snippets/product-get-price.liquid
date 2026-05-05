@@ -1,0 +1,23 @@
+{%- assign starting_at = product.metafields.custom.starting_at -%}
+{%- assign starting_at_value = starting_at.value | default: starting_at -%}
+{%- if starting_at_value == blank -%}
+  {%- assign starting_at_value = product.metafields.custom["starting_at"] -%}
+{%- endif -%}
+
+{%- if starting_at_value != blank -%}
+  <div class="price starting-at" style="display: block !important;">
+    <span class="starting-at-label" style="font-size: 11px; color: #777; font-weight: 500; font-style: italic; margin-right: 2px;">from</span>
+    <span class="current" style="font-weight: 600; color: #111; font-size: 14px;">{{ starting_at_value | money }}</span>
+  </div>
+
+{%- elsif compare_at_price > price -%}
+  <span class="price price--sale" data-js-product-price>
+    <span class="current">{{ price | money }}</span> 
+    <span class="compare">{{ compare_at_price | money }}</span>
+  </span>
+
+{%- else -%}
+  <span class="price" data-js-product-price>
+    <span>{{ price | money }}</span>
+  </span>
+{%- endif -%}

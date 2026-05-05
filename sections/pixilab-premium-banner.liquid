@@ -1,0 +1,489 @@
+{%- liquid
+  assign sid = section.id
+  assign section_blocks = section.blocks
+  assign banner_blocks = section_blocks | where: "type", "banner_img"
+  
+  assign height_mode = section.settings.height_mode
+  assign d_height = section.settings.d_height
+  assign t_height = section.settings.t_height
+  assign m_height = section.settings.m_height
+  assign overlay_opacity = section.settings.overlay_opacity | divided_by: 100.0
+
+  assign autoplay = section.settings.autoplay
+  assign autoplay_speed = section.settings.autoplay_speed | times: 1000
+  assign arrows = section.settings.arrows
+  assign dots = section.settings.dots
+-%}
+
+<section id="pixilab-banner-{{ sid }}" class="pixilab-premium-banner">
+  <div class="{% if section.settings.full_width %}full_width_container{% else %}container{% endif %}">
+    <div class="banner-slider" 
+         data-autoplay="{{ autoplay }}" 
+         data-speed="{{ autoplay_speed }}" 
+         data-arrows="{{ arrows }}" 
+         data-dots="{{ dots }}">
+      
+      {%- for block in banner_blocks -%}
+        {%- liquid
+          assign image = block.settings.image
+          assign link = block.settings.link
+          assign target = block.settings.target
+          assign h_pos = block.settings.h_position
+          assign v_pos = block.settings.v_position
+          assign txt_align = block.settings.txt_align
+          assign bg_size = block.settings.bg_size
+          assign bg_pos = block.settings.bg_pos
+          
+          # Find content blocks for this slide
+          # Note: In Shopify 2.0, blocks are flat. We'll associate content blocks 
+          # that follow a banner_img block to that slide.
+          # To keep it simple for the user, I'll allow adding Heading/Text/Button 
+          # but for a SLIDESHOW, it's better to put content settings INSIDE the banner_img block.
+        -%}
+
+        <div class="banner-slide" {{ block.shopify_attributes }}>
+          <div class="banner-wrapper">
+            
+            {%- if link != blank -%}
+              <a href="{{ link }}" target="{{ target }}" class="banner-main-link"></a>
+            {%- endif -%}
+
+            <div class="banner-image-container">
+               {%- if image != blank -%}
+                  <div class="banner-img" 
+                       style="background-image: url({{ image | img_url: '2000x' }});">
+                  </div>
+               {%- else -%}
+                  <div class="banner-img placeholder-bg">
+                      {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                  </div>
+               {%- endif -%}
+               <div class="banner-overlay" style="background-color: rgba(0,0,0,{{ overlay_opacity }});"></div>
+            </div>
+
+            <div class="banner-content-overlay v-{{ v_pos }} h-{{ h_pos }} align-{{ txt_align }}">
+              <div class="content-inner">
+                 {%- if block.settings.heading != blank -%}
+                   <h2 class="banner-heading" style="color: {{ block.settings.h_color }}; font-size: {{ block.settings.h_size }}px; font-weight: {{ block.settings.h_weight }}; margin-bottom: 10px;">
+                     {{ block.settings.heading }}
+                   </h2>
+                 {%- endif -%}
+
+                 {%- if block.settings.subtext != blank -%}
+                   <div class="banner-text" style="color: {{ block.settings.s_color }}; font-size: {{ block.settings.s_size }}px; margin-bottom: 20px;">
+                     {{ block.settings.subtext }}
+                   </div>
+                 {%- endif -%}
+
+                 {%- if block.settings.btn_label != blank -%}
+                   <a href="{{ block.settings.btn_link }}" class="banner-btn" style="background: {{ block.settings.btn_bg }}; color: {{ block.settings.btn_txt }}; border-radius: 4px;">
+                     {{ block.settings.btn_label }}
+                   </a>
+                 {%- endif -%}
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      {%- endfor -%}
+
+    </div>
+  </div>
+</section>
+
+{% style %}
+  .pixilab-premium-banner {
+      overflow: hidden;
+      position: relative;
+  }
+  .pixilab-premium-banner .full_width_container {
+      width: 100%;
+      padding: 0;
+  }
+  #pixilab-banner-{{ sid }} .banner-wrapper {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    {% if height_mode == 'adapt' %}
+      {% if image != blank %}
+        padding-top: {{ 1 | divided_by: image.aspect_ratio | times: 100 }}%;
+      {% else %}
+        padding-top: 40%;
+      {% endif %}
+    {% else %}
+      height: {{ d_height }}px;
+    {% endif %}
+  }
+
+  @media (max-width: 1024px) {
+    #pixilab-banner-{{ sid }} .banner-wrapper {
+      {% if height_mode != 'adapt' %}
+        height: {{ t_height }}px;
+      {% endif %}
+    }
+  }
+
+  @media (max-width: 767px) {
+    #pixilab-banner-{{ sid }} .banner-wrapper {
+      {% if height_mode != 'adapt' %}
+        height: {{ m_height }}px;
+      {% endif %}
+    }
+    .pixilab-premium-banner .banner-content-overlay {
+        padding: 20px !important;
+    }
+  }
+
+  .pixilab-premium-banner .banner-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: {{ bg_size | default: 'cover' }};
+    background-position: {{ bg_pos | default: 'center center' }};
+    background-repeat: no-repeat;
+    z-index: 1;
+  }
+  
+  .pixilab-premium-banner .banner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+  }
+
+  .pixilab-premium-banner .banner-main-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    cursor: pointer;
+  }
+
+  .pixilab-premium-banner .banner-content-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    padding: 60px;
+    z-index: 5;
+    pointer-events: none;
+  }
+
+  .pixilab-premium-banner .content-inner {
+    max-width: 800px;
+    pointer-events: auto;
+  }
+
+  .pixilab-premium-banner .v-top { align-items: flex-start; }
+  .pixilab-premium-banner .v-middle { align-items: center; }
+  .pixilab-premium-banner .v-bottom { align-items: flex-end; }
+
+  .pixilab-premium-banner .h-left { justify-content: flex-start; }
+  .pixilab-premium-banner .h-center { justify-content: center; }
+  .pixilab-premium-banner .h-right { justify-content: flex-end; }
+
+  .pixilab-premium-banner .align-left { text-align: left; }
+  .pixilab-premium-banner .align-center { text-align: center; }
+  .pixilab-premium-banner .align-right { text-align: right; }
+
+  .pixilab-premium-banner .banner-heading { 
+      margin: 0;
+      line-height: 1.2;
+  }
+  .pixilab-premium-banner .banner-text {
+      line-height: 1.5;
+  }
+
+  .pixilab-premium-banner .banner-btn {
+    display: inline-block;
+    padding: 14px 35px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 14px;
+  }
+  
+  .pixilab-premium-banner .banner-btn:hover { 
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  }
+
+  /* Slick Customization */
+  .pixilab-premium-banner .slick-prev,
+  .pixilab-premium-banner .slick-next {
+      z-index: 100;
+      width: 50px;
+      height: 50px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+      transition: background 0.3s;
+  }
+  .pixilab-premium-banner .slick-prev:hover,
+  .pixilab-premium-banner .slick-next:hover {
+      background: rgba(255,255,255,0.5);
+  }
+  .pixilab-premium-banner .slick-prev { left: 20px; }
+  .pixilab-premium-banner .slick-next { right: 20px; }
+  
+  .pixilab-premium-banner .slick-dots {
+      bottom: 20px;
+      z-index: 100;
+  }
+  .pixilab-premium-banner .slick-dots li button:before {
+      color: #fff;
+      font-size: 12px;
+      opacity: 0.5;
+  }
+  .pixilab-premium-banner .slick-dots li.slick-active button:before {
+      opacity: 1;
+      color: #fff;
+  }
+
+  @media (max-width: 767px) {
+    .pixilab-premium-banner .banner-heading { font-size: 32px !important; }
+    .pixilab-premium-banner .content-inner { max-width: 100%; }
+    .pixilab-premium-banner .slick-prev,
+    .pixilab-premium-banner .slick-next { display: none !important; }
+  }
+{% endstyle %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var $slider = $('#pixilab-banner-{{ sid }} .banner-slider');
+    if ($slider.length && typeof $.fn.slick === 'function') {
+      $slider.slick({
+        autoplay: $slider.data('autoplay'),
+        autoplaySpeed: $slider.data('speed'),
+        arrows: $slider.data('arrows'),
+        dots: $slider.data('dots'),
+        fade: true,
+        cssEase: 'linear',
+        infinite: true,
+        pauseOnHover: false
+      });
+    }
+  });
+
+  // Re-init for Shopify Editor
+  document.addEventListener('shopify:section:load', function(event) {
+    if (event.detail.sectionId === '{{ sid }}') {
+      var $slider = $('#pixilab-banner-{{ sid }} .banner-slider');
+      if ($slider.length && typeof $.fn.slick === 'function') {
+        $slider.slick({
+          autoplay: $slider.data('autoplay'),
+          autoplaySpeed: $slider.data('speed'),
+          arrows: $slider.data('arrows'),
+          dots: $slider.data('dots'),
+          fade: true,
+          cssEase: 'linear',
+          infinite: true,
+          pauseOnHover: false
+        });
+      }
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Pixilab Premium Slider",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full Width",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "height_mode",
+      "label": "Height Mode",
+      "default": "fixed",
+      "options": [
+        { "value": "fixed", "label": "Custom Heights" },
+        { "value": "adapt", "label": "Adapt to Image" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "d_height",
+      "label": "Desktop Height",
+      "min": 200,
+      "max": 1000,
+      "step": 10,
+      "default": 600,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "t_height",
+      "label": "Tablet Height",
+      "min": 200,
+      "max": 800,
+      "step": 10,
+      "default": 500,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "m_height",
+      "label": "Mobile Height",
+      "min": 100,
+      "max": 600,
+      "step": 10,
+      "default": 350,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Dark Overlay Opacity",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "default": 0,
+      "unit": "%"
+    },
+    {
+      "type": "header",
+      "content": "Slider Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Autoplay Speed",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "default": 5,
+      "unit": "sec"
+    },
+    {
+      "type": "checkbox",
+      "id": "arrows",
+      "label": "Show Arrows",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "dots",
+      "label": "Show Dots",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "banner_img",
+      "name": "Slide",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "url", "id": "link", "label": "Slide Link (Entire Image)" },
+        {
+          "type": "select",
+          "id": "target",
+          "label": "Open Link In",
+          "default": "_self",
+          "options": [
+            { "value": "_self", "label": "Same Window" },
+            { "value": "_blank", "label": "New Window" }
+          ]
+        },
+        { "type": "header", "content": "Content" },
+        { "type": "text", "id": "heading", "label": "Heading Text", "default": "Slide Title" },
+        { "type": "color", "id": "h_color", "label": "Heading Color", "default": "#ffffff" },
+        { "type": "range", "id": "h_size", "label": "Heading Font Size", "min": 20, "max": 100, "default": 60 },
+        { "type": "range", "id": "h_weight", "label": "Heading Font Weight", "min": 300, "max": 900, "step": 100, "default": 800 },
+        { "type": "textarea", "id": "subtext", "label": "Subtext", "default": "Add your description here." },
+        { "type": "color", "id": "s_color", "label": "Subtext Color", "default": "#ffffff" },
+        { "type": "range", "id": "s_size", "label": "Subtext Font Size", "min": 12, "max": 40, "default": 24 },
+        { "type": "header", "content": "Button" },
+        { "type": "text", "id": "btn_label", "label": "Button Label", "default": "Shop Now" },
+        { "type": "url", "id": "btn_link", "label": "Button Link" },
+        { "type": "color", "id": "btn_bg", "label": "Button Background", "default": "#000000" },
+        { "type": "color", "id": "btn_txt", "label": "Button Text", "default": "#ffffff" },
+        { "type": "header", "content": "Positioning" },
+        {
+          "type": "select",
+          "id": "h_position",
+          "label": "Horizontal Position",
+          "default": "center",
+          "options": [
+            { "value": "left", "label": "Left" },
+            { "value": "center", "label": "Center" },
+            { "value": "right", "label": "Right" }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "v_position",
+          "label": "Vertical Position",
+          "default": "middle",
+          "options": [
+            { "value": "top", "label": "Top" },
+            { "value": "middle", "label": "Middle" },
+            { "value": "bottom", "label": "Bottom" }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "txt_align",
+          "label": "Text Alignment",
+          "default": "center",
+          "options": [
+            { "value": "left", "label": "Left" },
+            { "value": "center", "label": "Center" },
+            { "value": "right", "label": "Right" }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "bg_size",
+          "label": "Background Size",
+          "default": "cover",
+          "options": [
+            { "value": "cover", "label": "Cover (Fill)" },
+            { "value": "contain", "label": "Contain (Fit)" }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "bg_pos",
+          "label": "Background Position",
+          "default": "center center",
+          "options": [
+            { "value": "top center", "label": "Top" },
+            { "value": "center center", "label": "Center" },
+            { "value": "bottom center", "label": "Bottom" }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Pixilab Premium Slider",
+      "blocks": [
+        { "type": "banner_img" },
+        { "type": "banner_img" }
+      ]
+    }
+  ]
+}
+{% endschema %}

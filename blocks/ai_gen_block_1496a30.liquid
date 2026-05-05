@@ -1,0 +1,892 @@
+{% doc %}
+  @prompt
+    create huge block which will in detail about
+    Design Systems.
+    Branding
+    Branding
+    Industrial-grade branding systems engineered for high impact.
+    
+    Print Media
+    Print Media
+    High-fidelity print solutions for physical presence.
+    
+    Web Design
+    Web Design
+    Immersive digital experiences and ecommerce.
+    
+    Marketing
+    Marketing
+    Data-driven growth strategies and analytics.
+    
+    Signage
+    Signage
+    Large format displays and architectural graphics.
+    
+    all of this section detail an din well written also make sure thi block matches overall site layout and designs add some animtation feautures in that and also add one cta button which willl say Get in touch make sure it looks realistic and morden , add some more amazing features and animations and hover effect , when clicked on learn more it opens popup and give me complete infokrmation about it
+    
+    also add option to change colours in theme editor 
+    
+    also make sure it sis reposive in mobile view 
+    
+    also can you add some more feature like parralx scroll and amazing effects in this section , okay this looks good don't change anything just add an option to odd more cards
+    
+    also in mobile  view in theme editor give option if card slider
+    
+    keep rest of the layout same , okay this looks good don't change anything just add an option to add more cards
+    
+    
+    , also in mobile view give option for card slider in mobile view
+    , give dotted option in mobile slider 
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-design-systems-{{ai_gen_id}} {
+    display: block;
+    width: 100%;
+    background: {{ block.settings.section_bg }};
+    padding: {{ block.settings.section_padding_top }}px 0 {{ block.settings.section_padding_bottom }}px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ai-design-systems-container-{{ai_gen_id}} {
+    max-width: {{ block.settings.container_width }}px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .ai-design-systems-header-{{ai_gen_id}} {
+    text-align: center;
+    margin-bottom: 60px;
+    opacity: 0;
+    animation: ai-fadeInUp-{{ai_gen_id}} 0.8s ease forwards;
+  }
+
+  .ai-design-systems-title-{{ai_gen_id}} {
+    font-size: {{ block.settings.title_size }}px;
+    font-weight: {{ block.settings.title_weight }};
+    color: {{ block.settings.title_color }};
+    margin: 0 0 20px;
+    letter-spacing: -0.5px;
+  }
+
+  .ai-design-systems-subtitle-{{ai_gen_id}} {
+    font-size: {{ block.settings.subtitle_size }}px;
+    color: {{ block.settings.subtitle_color }};
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .ai-design-systems-grid-{{ai_gen_id}} {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 60px;
+  }
+
+  .ai-design-card-{{ai_gen_id}} {
+    background: {{ block.settings.card_bg }};
+    border-radius: {{ block.settings.card_border_radius }}px;
+    padding: 40px 30px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    transform: translateY(30px);
+    animation: ai-fadeInUp-{{ai_gen_id}} 0.6s ease forwards;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  .ai-design-card-{{ai_gen_id}}:nth-child(1) { animation-delay: 0.1s; }
+  .ai-design-card-{{ai_gen_id}}:nth-child(2) { animation-delay: 0.2s; }
+  .ai-design-card-{{ai_gen_id}}:nth-child(3) { animation-delay: 0.3s; }
+  .ai-design-card-{{ai_gen_id}}:nth-child(4) { animation-delay: 0.4s; }
+  .ai-design-card-{{ai_gen_id}}:nth-child(5) { animation-delay: 0.5s; }
+  .ai-design-card-{{ai_gen_id}}:nth-child(6) { animation-delay: 0.6s; }
+  .ai-design-card-{{ai_gen_id}}:nth-child(7) { animation-delay: 0.7s; }
+  .ai-design-card-{{ai_gen_id}}:nth-child(8) { animation-delay: 0.8s; }
+
+  .ai-design-card-{{ai_gen_id}}::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: {{ block.settings.accent_color }};
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+
+  .ai-design-card-{{ai_gen_id}}:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  .ai-design-card-{{ai_gen_id}}:hover::before {
+    transform: scaleX(1);
+  }
+
+  .ai-design-card-icon-{{ai_gen_id}} {
+    width: 70px;
+    height: 70px;
+    background: {{ block.settings.icon_bg }};
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+    transition: all 0.4s ease;
+  }
+
+  .ai-design-card-{{ai_gen_id}}:hover .ai-design-card-icon-{{ai_gen_id}} {
+    transform: scale(1.1) rotate(5deg);
+    background: {{ block.settings.accent_color }};
+  }
+
+  .ai-design-card-icon-{{ai_gen_id}} svg {
+    width: 35px;
+    height: 35px;
+    fill: {{ block.settings.icon_color }};
+    transition: fill 0.4s ease;
+  }
+
+  .ai-design-card-{{ai_gen_id}}:hover .ai-design-card-icon-{{ai_gen_id}} svg {
+    fill: #ffffff;
+  }
+
+  .ai-design-card-title-{{ai_gen_id}} {
+    font-size: {{ block.settings.card_title_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.card_title_color }};
+    margin: 0 0 15px;
+  }
+
+  .ai-design-card-desc-{{ai_gen_id}} {
+    font-size: {{ block.settings.card_desc_size }}px;
+    color: {{ block.settings.card_desc_color }};
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .ai-design-cta-{{ai_gen_id}} {
+    text-align: center;
+    opacity: 0;
+    animation: ai-fadeInUp-{{ai_gen_id}} 0.8s ease forwards 0.6s;
+  }
+
+  .ai-design-cta-btn-{{ai_gen_id}} {
+    display: inline-block;
+    padding: 18px 50px;
+    background: {{ block.settings.cta_bg }};
+    color: {{ block.settings.cta_color }};
+    text-decoration: none;
+    border-radius: {{ block.settings.cta_border_radius }}px;
+    font-size: {{ block.settings.cta_size }}px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .ai-design-cta-btn-{{ai_gen_id}}::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: {{ block.settings.cta_hover_bg }};
+    transition: left 0.4s ease;
+    z-index: -1;
+  }
+
+  .ai-design-cta-btn-{{ai_gen_id}}:hover {
+    color: {{ block.settings.cta_hover_color }};
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  .ai-design-cta-btn-{{ai_gen_id}}:hover::before {
+    left: 0;
+  }
+
+  .ai-design-dots-{{ai_gen_id}} {
+    display: none;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    padding: 10px 0;
+  }
+
+  .ai-design-dot-{{ai_gen_id}} {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #d0d0d0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .ai-design-dot-{{ai_gen_id}}.active {
+    background: {{ block.settings.accent_color }};
+    transform: scale(1.3);
+  }
+
+  @keyframes ai-fadeInUp-{{ai_gen_id}} {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-design-systems-title-{{ai_gen_id}} {
+      font-size: {{ block.settings.title_size | times: 0.7 }}px;
+    }
+
+    .ai-design-card-{{ai_gen_id}} {
+      padding: 30px 20px;
+    }
+
+    {% if block.settings.enable_mobile_slider %}
+      .ai-design-systems-grid-{{ai_gen_id}} {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 20px;
+        padding-bottom: 10px;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+
+      .ai-design-systems-grid-{{ai_gen_id}}::-webkit-scrollbar {
+        display: none;
+      }
+
+      .ai-design-card-{{ai_gen_id}} {
+        min-width: 280px;
+        flex-shrink: 0;
+        scroll-snap-align: start;
+      }
+
+      .ai-design-dots-{{ai_gen_id}} {
+        display: flex;
+      }
+    {% else %}
+      .ai-design-systems-grid-{{ai_gen_id}} {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+    {% endif %}
+  }
+{% endstyle %}
+
+<design-systems-{{ai_gen_id}} class="ai-design-systems-{{ai_gen_id}}" {{ block.shopify_attributes }}>
+  <div class="ai-design-systems-container-{{ai_gen_id}}">
+    <div class="ai-design-systems-header-{{ai_gen_id}}">
+      <h2 class="ai-design-systems-title-{{ai_gen_id}}">{{ block.settings.main_title }}</h2>
+      <p class="ai-design-systems-subtitle-{{ai_gen_id}}">{{ block.settings.main_subtitle }}</p>
+    </div>
+
+    <div class="ai-design-systems-grid-{{ai_gen_id}}" data-slider>
+      {% for i in (1..8) %}
+        {% assign card_enabled = 'card_' | append: i | append: '_enabled' %}
+        {% assign card_icon = 'card_' | append: i | append: '_icon' %}
+        {% assign card_title = 'card_' | append: i | append: '_title' %}
+        {% assign card_desc = 'card_' | append: i | append: '_desc' %}
+        
+        {% if block.settings[card_enabled] %}
+          <div class="ai-design-card-{{ai_gen_id}}" data-card>
+            <div class="ai-design-card-icon-{{ai_gen_id}}">
+              {{ block.settings[card_icon] }}
+            </div>
+            <h3 class="ai-design-card-title-{{ai_gen_id}}">{{ block.settings[card_title] }}</h3>
+            <p class="ai-design-card-desc-{{ai_gen_id}}">{{ block.settings[card_desc] }}</p>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="ai-design-dots-{{ai_gen_id}}" data-dots></div>
+
+    <div class="ai-design-cta-{{ai_gen_id}}">
+      <a href="{{ block.settings.cta_link }}" class="ai-design-cta-btn-{{ai_gen_id}}">
+        {{ block.settings.cta_text }}
+      </a>
+    </div>
+  </div>
+</design-systems-{{ai_gen_id}}>
+
+<script>
+  (function() {
+    class DesignSystems{{ai_gen_id}} extends HTMLElement {
+      constructor() {
+        super();
+        this.slider = null;
+        this.dotsContainer = null;
+        this.cards = [];
+        this.currentIndex = 0;
+      }
+
+      connectedCallback() {
+        this.initParallax();
+        this.initMobileSlider();
+      }
+
+      initParallax() {
+        const cards = this.querySelectorAll('.ai-design-card-{{ai_gen_id}}');
+        
+        window.addEventListener('scroll', () => {
+          const scrolled = window.pageYOffset;
+          const rect = this.getBoundingClientRect();
+          
+          if (rect.top < window.innerHeight && rect.bottom > 0) {
+            cards.forEach((card, index) => {
+              const speed = 0.5 + (index * 0.1);
+              const yPos = -(scrolled * speed * 0.05);
+              card.style.transform = `translateY(${yPos}px)`;
+            });
+          }
+        });
+      }
+
+      initMobileSlider() {
+        if (window.innerWidth > 768) return;
+
+        this.slider = this.querySelector('[data-slider]');
+        this.dotsContainer = this.querySelector('[data-dots]');
+        this.cards = Array.from(this.querySelectorAll('[data-card]'));
+
+        if (!this.slider || this.cards.length === 0) return;
+
+        this.createDots();
+        this.updateActiveDot();
+
+        this.slider.addEventListener('scroll', () => {
+          this.handleScroll();
+        });
+      }
+
+      createDots() {
+        this.dotsContainer.innerHTML = '';
+        this.cards.forEach((card, index) => {
+          const dot = document.createElement('div');
+          dot.className = 'ai-design-dot-{{ai_gen_id}}';
+          dot.addEventListener('click', () => this.scrollToCard(index));
+          this.dotsContainer.appendChild(dot);
+        });
+      }
+
+      handleScroll() {
+        const scrollLeft = this.slider.scrollLeft;
+        const cardWidth = this.cards[0].offsetWidth + 20;
+        this.currentIndex = Math.round(scrollLeft / cardWidth);
+        this.updateActiveDot();
+      }
+
+      updateActiveDot() {
+        const dots = this.dotsContainer.querySelectorAll('.ai-design-dot-{{ai_gen_id}}');
+        dots.forEach((dot, index) => {
+          if (index === this.currentIndex) {
+            dot.classList.add('active');
+          } else {
+            dot.classList.remove('active');
+          }
+        });
+      }
+
+      scrollToCard(index) {
+        const cardWidth = this.cards[0].offsetWidth + 20;
+        this.slider.scrollTo({
+          left: cardWidth * index,
+          behavior: 'smooth'
+        });
+      }
+    }
+
+    customElements.define('design-systems-{{ai_gen_id}}', DesignSystems{{ai_gen_id}});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Design systems",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section settings"
+    },
+    {
+      "type": "color",
+      "id": "section_bg",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "label": "Container width",
+      "min": 1000,
+      "max": 1800,
+      "step": 50,
+      "unit": "px",
+      "default": 1400
+    },
+    {
+      "type": "header",
+      "content": "Mobile settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_mobile_slider",
+      "label": "Enable slider on mobile",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "text",
+      "id": "main_title",
+      "label": "Title",
+      "default": "Design Systems"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title size",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "title_weight",
+      "label": "Title weight",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "default": 700
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#222222"
+    },
+    {
+      "type": "textarea",
+      "id": "main_subtitle",
+      "label": "Subtitle",
+      "default": "Industrial-grade design solutions engineered for maximum impact across all mediums"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "label": "Subtitle size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle color",
+      "default": "#777777"
+    },
+    {
+      "type": "header",
+      "content": "Card style"
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#16bcdc"
+    },
+    {
+      "type": "color",
+      "id": "icon_bg",
+      "label": "Icon background",
+      "default": "#f4f5f7"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon color",
+      "default": "#16bcdc"
+    },
+    {
+      "type": "range",
+      "id": "card_title_size",
+      "label": "Card title size",
+      "min": 16,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 22
+    },
+    {
+      "type": "color",
+      "id": "card_title_color",
+      "label": "Card title color",
+      "default": "#222222"
+    },
+    {
+      "type": "range",
+      "id": "card_desc_size",
+      "label": "Description size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "color",
+      "id": "card_desc_color",
+      "label": "Description color",
+      "default": "#777777"
+    },
+    {
+      "type": "header",
+      "content": "Card 1"
+    },
+    {
+      "type": "checkbox",
+      "id": "card_1_enabled",
+      "label": "Enable card 1",
+      "default": true
+    },
+    {
+      "type": "html",
+      "id": "card_1_icon",
+      "label": "Icon SVG",
+      "default": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z'/></svg>"
+    },
+    {
+      "type": "text",
+      "id": "card_1_title",
+      "label": "Title",
+      "default": "Branding"
+    },
+    {
+      "type": "textarea",
+      "id": "card_1_desc",
+      "label": "Description",
+      "default": "Industrial-grade branding systems engineered for high impact. Strategic identity development that resonates across all touchpoints."
+    },
+    {
+      "type": "header",
+      "content": "Card 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "card_2_enabled",
+      "label": "Enable card 2",
+      "default": true
+    },
+    {
+      "type": "html",
+      "id": "card_2_icon",
+      "label": "Icon SVG",
+      "default": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5.04-6.71l-2.75 3.54-1.96-2.36L6.5 17h11l-3.54-4.71z'/></svg>"
+    },
+    {
+      "type": "text",
+      "id": "card_2_title",
+      "label": "Title",
+      "default": "Print Media"
+    },
+    {
+      "type": "textarea",
+      "id": "card_2_desc",
+      "label": "Description",
+      "default": "High-fidelity print solutions for physical presence. From business cards to large-format publications with precision and quality."
+    },
+    {
+      "type": "header",
+      "content": "Card 3"
+    },
+    {
+      "type": "checkbox",
+      "id": "card_3_enabled",
+      "label": "Enable card 3",
+      "default": true
+    },
+    {
+      "type": "html",
+      "id": "card_3_icon",
+      "label": "Icon SVG",
+      "default": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 14H4v-4h11v4zm0-5H4V9h11v4zm5 5h-4V9h4v9z'/></svg>"
+    },
+    {
+      "type": "text",
+      "id": "card_3_title",
+      "label": "Title",
+      "default": "Web Design"
+    },
+    {
+      "type": "textarea",
+      "id": "card_3_desc",
+      "label": "Description",
+      "default": "Immersive digital experiences and ecommerce. Responsive, accessible, and conversion-optimized web solutions."
+    },
+    {
+      "type": "header",
+      "content": "Card 4"
+    },
+    {
+      "type": "checkbox",
+      "id": "card_4_enabled",
+      "label": "Enable card 4",
+      "default": true
+    },
+    {
+      "type": "html",
+      "id": "card_4_icon",
+      "label": "Icon SVG",
+      "default": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z'/></svg>"
+    },
+    {
+      "type": "text",
+      "id": "card_4_title",
+      "label": "Title",
+      "default": "Marketing"
+    },
+    {
+      "type": "textarea",
+      "id": "card_4_desc",
+      "label": "Description",
+      "default": "Data-driven growth strategies and analytics. Comprehensive campaigns that deliver measurable results and ROI."
+    },
+    {
+      "type": "header",
+      "content": "Card 5"
+    },
+    {
+      "type": "checkbox",
+      "id": "card_5_enabled",
+      "label": "Enable card 5",
+      "default": true
+    },
+    {
+      "type": "html",
+      "id": "card_5_icon",
+      "label": "Icon SVG",
+      "default": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H3V5h18v14zM5 10h5v7H5zm7-5h7v3h-7zm0 4h7v8h-7z'/></svg>"
+    },
+    {
+      "type": "text",
+      "id": "card_5_title",
+      "label": "Title",
+      "default": "Signage"
+    },
+    {
+      "type": "textarea",
+      "id": "card_5_desc",
+      "label": "Description",
+      "default": "Large format displays and architectural graphics. Environmental design that transforms spaces and enhances brand presence."
+    },
+    {
+      "type": "header",
+      "content": "Card 6"
+    },
+    {
+      "type": "checkbox",
+      "id": "card_6_enabled",
+      "label": "Enable card 6",
+      "default": false
+    },
+    {
+      "type": "html",
+      "id": "card_6_icon",
+      "label": "Icon SVG",
+      "default": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z'/></svg>"
+    },
+    {
+      "type": "text",
+      "id": "card_6_title",
+      "label": "Title",
+      "default": "Packaging"
+    },
+    {
+      "type": "textarea",
+      "id": "card_6_desc",
+      "label": "Description",
+      "default": "Premium packaging design that protects and promotes. Sustainable solutions that enhance product value and shelf appeal."
+    },
+    {
+      "type": "header",
+      "content": "Card 7"
+    },
+    {
+      "type": "checkbox",
+      "id": "card_7_enabled",
+      "label": "Enable card 7",
+      "default": false
+    },
+    {
+      "type": "html",
+      "id": "card_7_icon",
+      "label": "Icon SVG",
+      "default": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 2l-5.5 9h11z'/><circle cx='17.5' cy='17.5' r='4.5'/><path d='M3 13.5h8v8H3z'/></svg>"
+    },
+    {
+      "type": "text",
+      "id": "card_7_title",
+      "label": "Title",
+      "default": "Illustration"
+    },
+    {
+      "type": "textarea",
+      "id": "card_7_desc",
+      "label": "Description",
+      "default": "Custom illustrations and visual storytelling. Unique artwork that brings concepts to life and engages audiences."
+    },
+    {
+      "type": "header",
+      "content": "Card 8"
+    },
+    {
+      "type": "checkbox",
+      "id": "card_8_enabled",
+      "label": "Enable card 8",
+      "default": false
+    },
+    {
+      "type": "html",
+      "id": "card_8_icon",
+      "label": "Icon SVG",
+      "default": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z'/></svg>"
+    },
+    {
+      "type": "text",
+      "id": "card_8_title",
+      "label": "Title",
+      "default": "Motion Graphics"
+    },
+    {
+      "type": "textarea",
+      "id": "card_8_desc",
+      "label": "Description",
+      "default": "Dynamic animations and video content. Engaging motion design that captures attention and communicates effectively."
+    },
+    {
+      "type": "header",
+      "content": "Call to action"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Button text",
+      "default": "Get in touch"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link"
+    },
+    {
+      "type": "range",
+      "id": "cta_size",
+      "label": "Button text size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "cta_bg",
+      "label": "Button background",
+      "default": "#222222"
+    },
+    {
+      "type": "color",
+      "id": "cta_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "cta_hover_bg",
+      "label": "Hover background",
+      "default": "#16bcdc"
+    },
+    {
+      "type": "color",
+      "id": "cta_hover_color",
+      "label": "Hover text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "cta_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    }
+  ],
+  "presets": [
+    {
+      "name": "Design systems"
+    }
+  ]
+}
+{% endschema %}

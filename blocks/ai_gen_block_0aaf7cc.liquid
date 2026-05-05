@@ -1,0 +1,1013 @@
+{% doc %}
+  @prompt
+    Create a hero section with these EXACT specifications:
+    
+    WRAPPER:
+    - Full width, max-width 100vw, overflow-x hidden
+    - Background: white (#FFFFFF)
+    - Padding: 100px top mobile | 160px top lg, 48px bottom mobile | 96px bottom lg
+    - Position: relative
+    
+    INNER CONTAINER:
+    - Max-width: 2200px, centered
+    - Padding-horizontal: 16px mobile | 24px sm | 48px lg | 80px xl
+    
+    BACKGROUND GLOWS:
+    - Cyan glow: 300px mobile | 600px lg, top-right, blur 100px-150px, cyan 10% opacity, pulse animation
+    - Magenta glow: 200px mobile | 400px lg, bottom-left, blur 80px-120px, magenta 10% opacity
+    - Both: position absolute, z-index -10, pointer-events none
+    
+    MAIN GRID:
+    - 1 column mobile | 2 columns lg
+    - Gap: 40px mobile | 64px lg | 128px xl
+    - Align-items: center
+    
+    LEFT COLUMN CONTENT:
+    
+    1. Badge:
+    - Inline-flex, gap 10px, padding 10px 20px
+    - Background: zinc-50 (#FAFAFA), border 1px solid black/5, shadow-sm, rounded
+    - Sparkle icon: 14px, cyan (#00B9F1)
+    - Text: "TEXAS PREMIERE PRINT AGENCY", 10px, font-weight 900, uppercase, letter-spacing 0.2em
+    - Margin-bottom: 32px
+    
+    2. Heading:
+    - Text: "BEYOND IMAGINATION."
+    - Size: 40px mobile | 48px sm | 64px lg | 80px xl
+    - Font-weight: 900, line-height 0.9, tracking-tight, black
+    - "IMAGINATION." is italic
+    - Margin-bottom: 32px
+    
+    3. Description:
+    - Text: "We specialize in Design, high-impact Print Media, and strategic Marketing solutions for elite brands."
+    - Size: 16px mobile | 20px lg, font-weight 300, line-height 1.625, black/50
+    - Highlighted words with colored underlines:
+      - "Design": 2px cyan (#00B9F1) bottom border
+      - "Print Media": 2px magenta (#E6007E) bottom border
+      - "Marketing": 2px yellow (#FCD34D) bottom border
+    - Margin-bottom: 48px
+    
+    Ensure fully responsive, no horizontal scroll., Add two buttons below the description:
+    
+    BUTTONS CONTAINER:
+    - Display: flex
+    - Direction: column mobile | row sm
+    - Gap: 12px mobile | 16px lg
+    - Width: 100% mobile | auto sm
+    
+    BUTTON 1 - "SHOP NOW":
+    Default:
+    - Background: black, color: white
+    - Padding: 16px 28px mobile | 20px 40px lg
+    - Font-size: 14px mobile | 18px lg, font-weight 900
+    - Display: flex, align-items center, gap 12px
+    - ArrowRight icon: 16px mobile | 20px lg
+    - Box-shadow: shadow-xl
+    - Width: 100% mobile | auto sm
+    
+    Hover:
+    - Background: cyan (#00B9F1), color: black
+    - Transform: translateY(-4px)
+    - Box-shadow: 0 20px 40px rgba(0,185,241,0.3)
+    - Transition: all 300ms
+    
+    BUTTON 2 - "EXPLORE CATALOG":
+    Default:
+    - Background: white, color: black
+    - Border: 1px solid black/10
+    - Padding: 16px 28px mobile | 20px 40px lg
+    - Font-size: 11px mobile | 14px lg, font-weight 900
+    - Uppercase, letter-spacing widest
+    - Width: 100% mobile | auto sm
+    
+    Hover:
+    - Background: black, color: white
+    - Transform: translateY(-4px)
+    - Box-shadow: shadow-xl
+    - Transition: all 300ms, Add image carousel to right column:
+    
+    IMAGE CONTAINER:
+    - Position: relative
+    - Width: 100%
+    - Height: 300px mobile | 400px sm | 500px md | 600px lg
+    - Background: zinc-100 (#F4F4F5)
+    - Overflow: hidden
+    - Box-shadow: 0 30px 60px rgba(0,0,0,0.1)
+    
+    IMAGE SLIDES (3 total):
+    - Position: absolute, inset 0
+    - Width & height: 100%
+    - Object-fit: cover
+    
+    Inactive slide:
+    - Opacity: 0
+    
+    Active slide:
+    - Opacity: 1
+    - Transition: opacity 1000ms ease-in-out
+    
+    Image hover effect (on container hover):
+    - Default: scale 105%
+    - Hover: scale 100%
+    - Transition: transform 2000ms
+    
+    Black overlay on images:
+    - Position: absolute, inset 0
+    - Background: black 5% opacity
+    - Pointer-events: none
+    
+    AUTO-ROTATION:
+    - Interval: 4000ms (4 seconds)
+    - Loops infinitely
+    - First slide active by default
+    
+    SLIDE INDICATORS (bottom-left):
+    - Position: absolute, bottom 16px mobile | 32px lg, left 16px mobile | 32px lg
+    - Display: flex, gap 6px mobile | 8px sm
+    - Z-index: 20
+    
+    Individual dot:
+    - Height: 3px mobile | 4px sm
+    
+    Inactive:
+    - Width: 12px mobile | 16px sm
+    - Background: white 40%
+    
+    Active:
+    - Width: 32px mobile | 48px sm
+    - Background: white 100%
+    - Transition: all 300ms
+    
+    Clicking dot navigates to that slide., Add settings to customize this section:
+    
+    Section settings:
+    - Badge text (default: "TEXAS PREMIERE PRINT AGENCY")
+    - Heading line 1 (default: "BEYOND")
+    - Heading line 2 (default: "IMAGINATION.")
+    - Description text
+    - Button 1 text (default: "SHOP NOW")
+    - Button 1 link
+    - Button 2 text (default: "EXPLORE CATALOG")
+    - Button 2 link
+    
+    Carousel images (repeatable blocks, limit 6):
+    - Image picker
+    - Alt text
+    
+    Include 3 default image blocks.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-hero-wrapper-{{ ai_gen_id }} {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+    background: #FFFFFF;
+    padding: 100px 0 48px;
+    position: relative;
+  }
+
+  @media screen and (min-width: 990px) {
+    .ai-hero-wrapper-{{ ai_gen_id }} {
+      padding: 160px 0 96px;
+    }
+  }
+
+  .ai-hero-container-{{ ai_gen_id }} {
+    max-width: 2200px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .ai-hero-container-{{ ai_gen_id }} {
+      padding: 0 24px;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .ai-hero-container-{{ ai_gen_id }} {
+      padding: 0 48px;
+    }
+  }
+
+  @media screen and (min-width: 1200px) {
+    .ai-hero-container-{{ ai_gen_id }} {
+      padding: 0 80px;
+    }
+  }
+
+  .ai-hero-glow-cyan-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 300px;
+    background: rgba(0, 185, 241, 0.1);
+    filter: blur(100px);
+    border-radius: 50%;
+    z-index: -10;
+    pointer-events: none;
+    animation: ai-hero-pulse-{{ ai_gen_id }} 4s ease-in-out infinite;
+  }
+
+  @media screen and (min-width: 990px) {
+    .ai-hero-glow-cyan-{{ ai_gen_id }} {
+      width: 600px;
+      height: 600px;
+      filter: blur(150px);
+    }
+  }
+
+  .ai-hero-glow-magenta-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 200px;
+    height: 200px;
+    background: rgba(230, 0, 126, 0.1);
+    filter: blur(80px);
+    border-radius: 50%;
+    z-index: -10;
+    pointer-events: none;
+  }
+
+  @media screen and (min-width: 990px) {
+    .ai-hero-glow-magenta-{{ ai_gen_id }} {
+      width: 400px;
+      height: 400px;
+      filter: blur(120px);
+    }
+  }
+
+  @keyframes ai-hero-pulse-{{ ai_gen_id }} {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.8;
+      transform: scale(1.1);
+    }
+  }
+
+  .ai-hero-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+
+  @media screen and (min-width: 990px) {
+    .ai-hero-grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+    }
+  }
+
+  @media screen and (min-width: 1200px) {
+    .ai-hero-grid-{{ ai_gen_id }} {
+      gap: 128px;
+    }
+  }
+
+  .ai-hero-badge-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    background: #FAFAFA;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    border-radius: 9999px;
+    margin-bottom: 32px;
+  }
+
+  .ai-hero-badge-icon-{{ ai_gen_id }} {
+    width: 14px;
+    height: 14px;
+    color: #00B9F1;
+  }
+
+  .ai-hero-badge-text-{{ ai_gen_id }} {
+    font-size: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: #000000;
+  }
+
+  .ai-hero-heading-{{ ai_gen_id }} {
+    font-size: 40px;
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -0.025em;
+    color: #000000;
+    margin: 0 0 32px 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .ai-hero-heading-{{ ai_gen_id }} {
+      font-size: 48px;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .ai-hero-heading-{{ ai_gen_id }} {
+      font-size: 64px;
+    }
+  }
+
+  @media screen and (min-width: 1200px) {
+    .ai-hero-heading-{{ ai_gen_id }} {
+      font-size: 80px;
+    }
+  }
+
+  .ai-hero-heading-italic-{{ ai_gen_id }} {
+    font-style: italic;
+  }
+
+  .ai-hero-description-{{ ai_gen_id }} {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.625;
+    color: rgba(0, 0, 0, 0.5);
+    margin: 0 0 48px 0;
+  }
+
+  @media screen and (min-width: 990px) {
+    .ai-hero-description-{{ ai_gen_id }} {
+      font-size: 20px;
+    }
+  }
+
+  .ai-hero-buttons-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  @media screen and (min-width: 750px) {
+    .ai-hero-buttons-{{ ai_gen_id }} {
+      flex-direction: row;
+      width: auto;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .ai-hero-buttons-{{ ai_gen_id }} {
+      gap: 16px;
+    }
+  }
+
+  .ai-hero-btn-primary-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 16px 28px;
+    background: #000000;
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: 900;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    transition: all 300ms ease;
+    width: 100%;
+  }
+
+  @media screen and (min-width: 750px) {
+    .ai-hero-btn-primary-{{ ai_gen_id }} {
+      width: auto;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .ai-hero-btn-primary-{{ ai_gen_id }} {
+      padding: 20px 40px;
+      font-size: 18px;
+    }
+  }
+
+  .ai-hero-btn-primary-{{ ai_gen_id }}:hover {
+    background: #00B9F1;
+    color: #000000;
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 185, 241, 0.3);
+  }
+
+  .ai-hero-btn-icon-{{ ai_gen_id }} {
+    width: 16px;
+    height: 16px;
+  }
+
+  @media screen and (min-width: 990px) {
+    .ai-hero-btn-icon-{{ ai_gen_id }} {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  .ai-hero-btn-secondary-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 28px;
+    background: #FFFFFF;
+    color: #000000;
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 300ms ease;
+    width: 100%;
+  }
+
+  @media screen and (min-width: 750px) {
+    .ai-hero-btn-secondary-{{ ai_gen_id }} {
+      width: auto;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .ai-hero-btn-secondary-{{ ai_gen_id }} {
+      padding: 20px 40px;
+      font-size: 14px;
+    }
+  }
+
+  .ai-hero-btn-secondary-{{ ai_gen_id }}:hover {
+    background: #000000;
+    color: #FFFFFF;
+    transform: translateY(-4px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+
+  .ai-hero-carousel-container-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    background: #F4F4F5;
+    overflow: hidden;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+  }
+
+  @media screen and (min-width: 750px) {
+    .ai-hero-carousel-container-{{ ai_gen_id }} {
+      height: 400px;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .ai-hero-carousel-container-{{ ai_gen_id }} {
+      height: 500px;
+    }
+  }
+
+  @media screen and (min-width: 1200px) {
+    .ai-hero-carousel-container-{{ ai_gen_id }} {
+      height: 600px;
+    }
+  }
+
+  .ai-hero-carousel-slide-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1000ms ease-in-out;
+  }
+
+  .ai-hero-carousel-slide-{{ ai_gen_id }}.active {
+    opacity: 1;
+  }
+
+  .ai-hero-carousel-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.05);
+    transition: transform 2000ms ease;
+  }
+
+  .ai-hero-carousel-container-{{ ai_gen_id }}:hover .ai-hero-carousel-image-{{ ai_gen_id }} {
+    transform: scale(1);
+  }
+
+  .ai-hero-carousel-overlay-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.05);
+    pointer-events: none;
+  }
+
+  .ai-hero-carousel-indicators-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    display: flex;
+    gap: 6px;
+    z-index: 20;
+  }
+
+  @media screen and (min-width: 750px) {
+    .ai-hero-carousel-indicators-{{ ai_gen_id }} {
+      gap: 8px;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .ai-hero-carousel-indicators-{{ ai_gen_id }} {
+      bottom: 32px;
+      left: 32px;
+    }
+  }
+
+  .ai-hero-carousel-dot-{{ ai_gen_id }} {
+    height: 3px;
+    width: 12px;
+    background: rgba(255, 255, 255, 0.4);
+    border: none;
+    cursor: pointer;
+    transition: all 300ms ease;
+    padding: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .ai-hero-carousel-dot-{{ ai_gen_id }} {
+      height: 4px;
+      width: 16px;
+    }
+  }
+
+  .ai-hero-carousel-dot-{{ ai_gen_id }}.active {
+    width: 32px;
+    background: rgba(255, 255, 255, 1);
+  }
+
+  @media screen and (min-width: 750px) {
+    .ai-hero-carousel-dot-{{ ai_gen_id }}.active {
+      width: 48px;
+    }
+  }
+
+  .ai-hero-carousel-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #F4F4F5;
+  }
+
+  .ai-hero-carousel-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 300px;
+    max-height: 300px;
+  }
+{% endstyle %}
+
+<hero-carousel-{{ ai_gen_id }} class="ai-hero-wrapper-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-hero-glow-cyan-{{ ai_gen_id }}"></div>
+  <div class="ai-hero-glow-magenta-{{ ai_gen_id }}"></div>
+  
+  <div class="ai-hero-container-{{ ai_gen_id }}">
+    <div class="ai-hero-grid-{{ ai_gen_id }}">
+      <div class="ai-hero-content-{{ ai_gen_id }}">
+        {% if block.settings.badge_text != blank %}
+          <div class="ai-hero-badge-{{ ai_gen_id }}">
+            <svg class="ai-hero-badge-icon-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M9.153 5.408C10.42 3.136 11.053 2 12 2c.947 0 1.58 1.136 2.847 3.408l.328.588c.36.646.54.969.82 1.182.28.213.63.292 1.33.45l.636.144c2.46.557 3.689.835 3.982 1.776.292.94-.546 1.921-2.223 3.882l-.434.507c-.476.557-.715.836-.822 1.18-.107.345-.071.717.001 1.46l.066.677c.253 2.617.38 3.925-.386 4.506-.766.582-1.918.051-4.22-1.009l-.597-.274c-.654-.302-.981-.452-1.328-.452-.347 0-.674.15-1.329.452l-.595.274c-2.303 1.06-3.455 1.59-4.22 1.01-.767-.582-.64-1.89-.387-4.507l.066-.676c.072-.744.108-1.116 0-1.46-.106-.345-.345-.624-.821-1.18l-.434-.508c-1.677-1.96-2.515-2.941-2.223-3.882.293-.941 1.523-1.22 3.983-1.776l.636-.144c.699-.158 1.048-.237 1.329-.45.28-.213.46-.536.82-1.182l.328-.588z"/>
+            </svg>
+            <span class="ai-hero-badge-text-{{ ai_gen_id }}">{{ block.settings.badge_text }}</span>
+          </div>
+        {% endif %}
+
+        {% if block.settings.heading_line1 != blank or block.settings.heading_line2 != blank %}
+          <h1 class="ai-hero-heading-{{ ai_gen_id }}">
+            {{ block.settings.heading_line1 }} <span class="ai-hero-heading-italic-{{ ai_gen_id }}">{{ block.settings.heading_line2 }}</span>
+          </h1>
+        {% endif %}
+
+        {% if block.settings.description != blank %}
+          <div class="ai-hero-description-{{ ai_gen_id }}">
+            {{ block.settings.description }}
+          </div>
+        {% endif %}
+
+        <div class="ai-hero-buttons-{{ ai_gen_id }}">
+          {% if block.settings.button1_text != blank %}
+            {% if block.settings.button1_link != blank %}
+              <a href="{{ block.settings.button1_link }}" class="ai-hero-btn-primary-{{ ai_gen_id }}">
+                {{ block.settings.button1_text }}
+                <svg class="ai-hero-btn-icon-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+            {% else %}
+              <button class="ai-hero-btn-primary-{{ ai_gen_id }}">
+                {{ block.settings.button1_text }}
+                <svg class="ai-hero-btn-icon-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </button>
+            {% endif %}
+          {% endif %}
+
+          {% if block.settings.button2_text != blank %}
+            {% if block.settings.button2_link != blank %}
+              <a href="{{ block.settings.button2_link }}" class="ai-hero-btn-secondary-{{ ai_gen_id }}">
+                {{ block.settings.button2_text }}
+              </a>
+            {% else %}
+              <button class="ai-hero-btn-secondary-{{ ai_gen_id }}">
+                {{ block.settings.button2_text }}
+              </button>
+            {% endif %}
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="ai-hero-carousel-container-{{ ai_gen_id }}" data-carousel>
+        {% assign has_images = false %}
+        {% if block.settings.carousel_image1 or block.settings.carousel_image2 or block.settings.carousel_image3 or block.settings.carousel_image4 or block.settings.carousel_image5 or block.settings.carousel_image6 %}
+          {% assign has_images = true %}
+        {% endif %}
+
+        {% if has_images %}
+          {% if block.settings.carousel_image1 %}
+            <div class="ai-hero-carousel-slide-{{ ai_gen_id }} active" data-slide="0">
+              <img
+                src="{{ block.settings.carousel_image1 | image_url: width: 1200 }}"
+                alt="{{ block.settings.carousel_alt1 | default: block.settings.carousel_image1.alt | escape }}"
+                loading="lazy"
+                width="{{ block.settings.carousel_image1.width }}"
+                height="{{ block.settings.carousel_image1.height }}"
+                class="ai-hero-carousel-image-{{ ai_gen_id }}"
+              >
+              <div class="ai-hero-carousel-overlay-{{ ai_gen_id }}"></div>
+            </div>
+          {% endif %}
+
+          {% if block.settings.carousel_image2 %}
+            <div class="ai-hero-carousel-slide-{{ ai_gen_id }}" data-slide="1">
+              <img
+                src="{{ block.settings.carousel_image2 | image_url: width: 1200 }}"
+                alt="{{ block.settings.carousel_alt2 | default: block.settings.carousel_image2.alt | escape }}"
+                loading="lazy"
+                width="{{ block.settings.carousel_image2.width }}"
+                height="{{ block.settings.carousel_image2.height }}"
+                class="ai-hero-carousel-image-{{ ai_gen_id }}"
+              >
+              <div class="ai-hero-carousel-overlay-{{ ai_gen_id }}"></div>
+            </div>
+          {% endif %}
+
+          {% if block.settings.carousel_image3 %}
+            <div class="ai-hero-carousel-slide-{{ ai_gen_id }}" data-slide="2">
+              <img
+                src="{{ block.settings.carousel_image3 | image_url: width: 1200 }}"
+                alt="{{ block.settings.carousel_alt3 | default: block.settings.carousel_image3.alt | escape }}"
+                loading="lazy"
+                width="{{ block.settings.carousel_image3.width }}"
+                height="{{ block.settings.carousel_image3.height }}"
+                class="ai-hero-carousel-image-{{ ai_gen_id }}"
+              >
+              <div class="ai-hero-carousel-overlay-{{ ai_gen_id }}"></div>
+            </div>
+          {% endif %}
+
+          {% if block.settings.carousel_image4 %}
+            <div class="ai-hero-carousel-slide-{{ ai_gen_id }}" data-slide="3">
+              <img
+                src="{{ block.settings.carousel_image4 | image_url: width: 1200 }}"
+                alt="{{ block.settings.carousel_alt4 | default: block.settings.carousel_image4.alt | escape }}"
+                loading="lazy"
+                width="{{ block.settings.carousel_image4.width }}"
+                height="{{ block.settings.carousel_image4.height }}"
+                class="ai-hero-carousel-image-{{ ai_gen_id }}"
+              >
+              <div class="ai-hero-carousel-overlay-{{ ai_gen_id }}"></div>
+            </div>
+          {% endif %}
+
+          {% if block.settings.carousel_image5 %}
+            <div class="ai-hero-carousel-slide-{{ ai_gen_id }}" data-slide="4">
+              <img
+                src="{{ block.settings.carousel_image5 | image_url: width: 1200 }}"
+                alt="{{ block.settings.carousel_alt5 | default: block.settings.carousel_image5.alt | escape }}"
+                loading="lazy"
+                width="{{ block.settings.carousel_image5.width }}"
+                height="{{ block.settings.carousel_image5.height }}"
+                class="ai-hero-carousel-image-{{ ai_gen_id }}"
+              >
+              <div class="ai-hero-carousel-overlay-{{ ai_gen_id }}"></div>
+            </div>
+          {% endif %}
+
+          {% if block.settings.carousel_image6 %}
+            <div class="ai-hero-carousel-slide-{{ ai_gen_id }}" data-slide="5">
+              <img
+                src="{{ block.settings.carousel_image6 | image_url: width: 1200 }}"
+                alt="{{ block.settings.carousel_alt6 | default: block.settings.carousel_image6.alt | escape }}"
+                loading="lazy"
+                width="{{ block.settings.carousel_image6.width }}"
+                height="{{ block.settings.carousel_image6.height }}"
+                class="ai-hero-carousel-image-{{ ai_gen_id }}"
+              >
+              <div class="ai-hero-carousel-overlay-{{ ai_gen_id }}"></div>
+            </div>
+          {% endif %}
+
+          <div class="ai-hero-carousel-indicators-{{ ai_gen_id }}">
+            {% if block.settings.carousel_image1 %}
+              <button class="ai-hero-carousel-dot-{{ ai_gen_id }} active" data-dot="0" aria-label="Go to slide 1"></button>
+            {% endif %}
+            {% if block.settings.carousel_image2 %}
+              <button class="ai-hero-carousel-dot-{{ ai_gen_id }}" data-dot="1" aria-label="Go to slide 2"></button>
+            {% endif %}
+            {% if block.settings.carousel_image3 %}
+              <button class="ai-hero-carousel-dot-{{ ai_gen_id }}" data-dot="2" aria-label="Go to slide 3"></button>
+            {% endif %}
+            {% if block.settings.carousel_image4 %}
+              <button class="ai-hero-carousel-dot-{{ ai_gen_id }}" data-dot="3" aria-label="Go to slide 4"></button>
+            {% endif %}
+            {% if block.settings.carousel_image5 %}
+              <button class="ai-hero-carousel-dot-{{ ai_gen_id }}" data-dot="4" aria-label="Go to slide 5"></button>
+            {% endif %}
+            {% if block.settings.carousel_image6 %}
+              <button class="ai-hero-carousel-dot-{{ ai_gen_id }}" data-dot="5" aria-label="Go to slide 6"></button>
+            {% endif %}
+          </div>
+        {% else %}
+          <div class="ai-hero-carousel-placeholder-{{ ai_gen_id }}">
+            {{ 'image' | placeholder_svg_tag }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</hero-carousel-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class HeroCarousel{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.currentSlide = 0;
+        this.autoplayInterval = null;
+      }
+
+      connectedCallback() {
+        this.carousel = this.querySelector('[data-carousel]');
+        if (!this.carousel) return;
+
+        this.slides = this.querySelectorAll('.ai-hero-carousel-slide-{{ ai_gen_id }}');
+        this.dots = this.querySelectorAll('.ai-hero-carousel-dot-{{ ai_gen_id }}');
+
+        if (this.slides.length === 0) return;
+
+        this.setupEventListeners();
+        
+        if (this.slides.length > 1) {
+          this.startAutoplay();
+        }
+      }
+
+      disconnectedCallback() {
+        this.stopAutoplay();
+      }
+
+      setupEventListeners() {
+        this.dots.forEach((dot) => {
+          dot.addEventListener('click', (e) => {
+            const slideIndex = parseInt(e.target.getAttribute('data-dot'));
+            this.goToSlide(slideIndex);
+            this.stopAutoplay();
+            this.startAutoplay();
+          });
+        });
+      }
+
+      goToSlide(index) {
+        this.slides.forEach((slide, i) => {
+          if (i === index) {
+            slide.classList.add('active');
+          } else {
+            slide.classList.remove('active');
+          }
+        });
+
+        this.dots.forEach((dot, i) => {
+          if (i === index) {
+            dot.classList.add('active');
+          } else {
+            dot.classList.remove('active');
+          }
+        });
+
+        this.currentSlide = index;
+      }
+
+      nextSlide() {
+        const nextIndex = (this.currentSlide + 1) % this.slides.length;
+        this.goToSlide(nextIndex);
+      }
+
+      startAutoplay() {
+        this.autoplayInterval = setInterval(() => {
+          this.nextSlide();
+        }, 4000);
+      }
+
+      stopAutoplay() {
+        if (this.autoplayInterval) {
+          clearInterval(this.autoplayInterval);
+        }
+      }
+    }
+
+    customElements.define('hero-carousel-{{ ai_gen_id }}', HeroCarousel{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Hero section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Badge"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge text",
+      "default": "TEXAS PREMIERE PRINT AGENCY"
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading_line1",
+      "label": "Heading line 1",
+      "default": "BEYOND"
+    },
+    {
+      "type": "text",
+      "id": "heading_line2",
+      "label": "Heading line 2 (italic)",
+      "default": "IMAGINATION."
+    },
+    {
+      "type": "header",
+      "content": "Description"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description text",
+      "default": "<p>We specialize in Design, high-impact Print Media, and strategic Marketing solutions for elite brands.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Button 1"
+    },
+    {
+      "type": "text",
+      "id": "button1_text",
+      "label": "Button 1 text",
+      "default": "SHOP NOW"
+    },
+    {
+      "type": "url",
+      "id": "button1_link",
+      "label": "Button 1 link"
+    },
+    {
+      "type": "header",
+      "content": "Button 2"
+    },
+    {
+      "type": "text",
+      "id": "button2_text",
+      "label": "Button 2 text",
+      "default": "EXPLORE CATALOG"
+    },
+    {
+      "type": "url",
+      "id": "button2_link",
+      "label": "Button 2 link"
+    },
+    {
+      "type": "header",
+      "content": "Carousel image 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "carousel_image1",
+      "label": "Image 1"
+    },
+    {
+      "type": "text",
+      "id": "carousel_alt1",
+      "label": "Alt text 1"
+    },
+    {
+      "type": "header",
+      "content": "Carousel image 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "carousel_image2",
+      "label": "Image 2"
+    },
+    {
+      "type": "text",
+      "id": "carousel_alt2",
+      "label": "Alt text 2"
+    },
+    {
+      "type": "header",
+      "content": "Carousel image 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "carousel_image3",
+      "label": "Image 3"
+    },
+    {
+      "type": "text",
+      "id": "carousel_alt3",
+      "label": "Alt text 3"
+    },
+    {
+      "type": "header",
+      "content": "Carousel image 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "carousel_image4",
+      "label": "Image 4"
+    },
+    {
+      "type": "text",
+      "id": "carousel_alt4",
+      "label": "Alt text 4"
+    },
+    {
+      "type": "header",
+      "content": "Carousel image 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "carousel_image5",
+      "label": "Image 5"
+    },
+    {
+      "type": "text",
+      "id": "carousel_alt5",
+      "label": "Alt text 5"
+    },
+    {
+      "type": "header",
+      "content": "Carousel image 6"
+    },
+    {
+      "type": "image_picker",
+      "id": "carousel_image6",
+      "label": "Image 6"
+    },
+    {
+      "type": "text",
+      "id": "carousel_alt6",
+      "label": "Alt text 6"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero section"
+    }
+  ]
+}
+{% endschema %}

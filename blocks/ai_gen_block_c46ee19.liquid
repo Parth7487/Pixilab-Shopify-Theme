@@ -1,0 +1,352 @@
+{% doc %}
+  @prompt
+    Create a contact section with these EXACT specifications:
+    
+    WRAPPER:
+    - Full width, max-width 100vw, overflow-x hidden
+    - Background: white (#FFFFFF)
+    - Padding: 80px top and bottom (py-20)
+    - Inner container: max-width 2200px, centered
+    - Padding horizontal: 16px mobile | 24px sm | 64px lg | 96px xl
+    - Position: relative (for decorative elements)
+    
+    TITLE SECTION:
+    - Centered text, margin-bottom 64px
+    - Animation: fade-in slide-up, 1000ms duration
+    - Label container: inline-block, border-top and border-bottom 2px solid black/10, padding 16px 48px
+    - Label text: "TEXAS PREMIERE STUDIO", 14px, font-weight 900, uppercase, letter-spacing 0.6em, black/40 opacity
+    
+    CONTACT GRID:
+    - CSS Grid: 1 column mobile | 2 columns md | 4 columns lg
+    - Gap: 24px
+    
+    CONTACT CARDS (4 total) - DEFAULT STATE:
+    - Background: zinc-50 (#FAFAFA)
+    - Border: 1px solid black/5
+    - Border-radius: 32px
+    - Padding: 32px mobile | 40px xl
+    - Box-shadow: shadow-sm
+    - Flex column, justify space-between
+    - Min-height: 220px
+    - Aspect-ratio: square on mobile, auto on lg+
+    - Cursor: pointer
+    - Position: relative
+    - Overflow: hidden
+    
+    CARD CONTENT STRUCTURE:
+    - Icon at top: 28px size, margin-bottom 24px, opacity 30%
+    - Content section pushed to bottom (margin-top: auto)
+    - Label text: 10px, font-weight 900, uppercase, letter-spacing 0.4em, opacity 40%, margin-bottom 12px
+    - Value text: 20px mobile | 24px xl, font-weight 900, tracking-tight, line-height 1, word-wrap break-word
+    
+    CARD DATA:
+    1. Phone icon | "Direct Phone" | "+1 469-432-6283"
+    2. Mail icon | "Email Address" | "hello@texaspremiere.com"
+    3. MapPin icon | "Studio Location" | "Dallas, Texas"
+    4. Clock icon | "Business Hours" | "Mon-Fri 9AM-6PM"
+    
+    Font: Outfit (weight 900)
+    Ensure fully responsive, no horizontal scroll on mobile., Add hover effects to the contact cards:
+    
+    CARD HOVER:
+    - Background changes to black (#000000)
+    - Text changes to white (#FFFFFF)
+    - Box-shadow: 0 30px 60px rgba(0,0,0,0.3)
+    - Transition: all 700ms ease
+    
+    ICON HOVER:
+    - Opacity changes from 30% to 100%
+    - Scale increases to 1.1
+    - Transition: 500ms
+    
+    LABEL HOVER:
+    - Opacity changes from 40% to 60%
+    
+    All colors inherit from parent card on hover.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@900&display=swap');
+
+  .ai-contact-wrapper-{{ ai_gen_id }} {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+    background-color: #FFFFFF;
+    padding: 80px 0;
+    position: relative;
+    font-family: 'Outfit', sans-serif;
+  }
+
+  .ai-contact-container-{{ ai_gen_id }} {
+    max-width: 2200px;
+    margin: 0 auto;
+    padding: 0 16px;
+    position: relative;
+  }
+
+  @media (min-width: 640px) {
+    .ai-contact-container-{{ ai_gen_id }} {
+      padding: 0 24px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .ai-contact-container-{{ ai_gen_id }} {
+      padding: 0 64px;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .ai-contact-container-{{ ai_gen_id }} {
+      padding: 0 96px;
+    }
+  }
+
+  .ai-contact-title-section-{{ ai_gen_id }} {
+    text-align: center;
+    margin-bottom: 64px;
+    animation: ai-contact-fade-in-{{ ai_gen_id }} 1000ms ease-out;
+  }
+
+  @keyframes ai-contact-fade-in-{{ ai_gen_id }} {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .ai-contact-label-container-{{ ai_gen_id }} {
+    display: inline-block;
+    border-top: 2px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+    padding: 16px 48px;
+  }
+
+  .ai-contact-label-text-{{ ai_gen_id }} {
+    font-size: 14px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.6em;
+    color: rgba(0, 0, 0, 0.4);
+    margin: 0;
+  }
+
+  .ai-contact-grid-wrapper-{{ ai_gen_id }} {
+    position: relative;
+  }
+
+  .ai-contact-decoration-horizontal-{{ ai_gen_id }} {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: rgba(0, 0, 0, 0.05);
+    transform: translateY(-50%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .ai-contact-decoration-vertical-{{ ai_gen_id }} {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.05);
+    transform: translateX(-50%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .ai-contact-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    position: relative;
+    z-index: 2;
+  }
+
+  @media (min-width: 768px) {
+    .ai-contact-grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .ai-contact-grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .ai-contact-card-{{ ai_gen_id }} {
+    background-color: #FAFAFA;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 32px;
+    padding: 32px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 220px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 700ms ease;
+    text-decoration: none;
+    color: #000000;
+  }
+
+  @media (max-width: 1023px) {
+    .ai-contact-card-{{ ai_gen_id }} {
+      aspect-ratio: 1 / 1;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .ai-contact-card-{{ ai_gen_id }} {
+      padding: 40px;
+    }
+  }
+
+  .ai-contact-card-{{ ai_gen_id }}:hover {
+    background-color: #000000;
+    color: #FFFFFF;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+  }
+
+  .ai-contact-icon-{{ ai_gen_id }} {
+    width: 28px;
+    height: 28px;
+    margin-bottom: 24px;
+    opacity: 0.3;
+    transition: all 500ms ease;
+  }
+
+  .ai-contact-card-{{ ai_gen_id }}:hover .ai-contact-icon-{{ ai_gen_id }} {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+
+  .ai-contact-content-{{ ai_gen_id }} {
+    margin-top: auto;
+  }
+
+  .ai-contact-label-{{ ai_gen_id }} {
+    font-size: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.4em;
+    opacity: 0.4;
+    margin-bottom: 12px;
+    transition: opacity 200ms ease;
+  }
+
+  .ai-contact-card-{{ ai_gen_id }}:hover .ai-contact-label-{{ ai_gen_id }} {
+    opacity: 0.6;
+  }
+
+  .ai-contact-value-{{ ai_gen_id }} {
+    font-size: 20px;
+    font-weight: 900;
+    line-height: 1;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  @media (min-width: 1280px) {
+    .ai-contact-value-{{ ai_gen_id }} {
+      font-size: 24px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-contact-wrapper-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-contact-container-{{ ai_gen_id }}">
+    <div class="ai-contact-title-section-{{ ai_gen_id }}">
+      <div class="ai-contact-label-container-{{ ai_gen_id }}">
+        <p class="ai-contact-label-text-{{ ai_gen_id }}">TEXAS PREMIERE STUDIO</p>
+      </div>
+    </div>
+
+    <div class="ai-contact-grid-wrapper-{{ ai_gen_id }}">
+      <div class="ai-contact-decoration-horizontal-{{ ai_gen_id }}"></div>
+      <div class="ai-contact-decoration-vertical-{{ ai_gen_id }}"></div>
+
+      <div class="ai-contact-grid-{{ ai_gen_id }}">
+        <div class="ai-contact-card-{{ ai_gen_id }}">
+          <svg class="ai-contact-icon-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+          </svg>
+          <div class="ai-contact-content-{{ ai_gen_id }}">
+            <div class="ai-contact-label-{{ ai_gen_id }}">DIRECT PHONE</div>
+            <div class="ai-contact-value-{{ ai_gen_id }}">+1 469-432-6283</div>
+          </div>
+        </div>
+
+        <div class="ai-contact-card-{{ ai_gen_id }}">
+          <svg class="ai-contact-icon-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+          <div class="ai-contact-content-{{ ai_gen_id }}">
+            <div class="ai-contact-label-{{ ai_gen_id }}">EMAIL ADDRESS</div>
+            <div class="ai-contact-value-{{ ai_gen_id }}">hello@texaspremiere.com</div>
+          </div>
+        </div>
+
+        <div class="ai-contact-card-{{ ai_gen_id }}">
+          <svg class="ai-contact-icon-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+            <circle cx="12" cy="10" r="3"></circle>
+          </svg>
+          <div class="ai-contact-content-{{ ai_gen_id }}">
+            <div class="ai-contact-label-{{ ai_gen_id }}">STUDIO LOCATION</div>
+            <div class="ai-contact-value-{{ ai_gen_id }}">Dallas, Texas</div>
+          </div>
+        </div>
+
+        <div class="ai-contact-card-{{ ai_gen_id }}">
+          <svg class="ai-contact-icon-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          <div class="ai-contact-content-{{ ai_gen_id }}">
+            <div class="ai-contact-label-{{ ai_gen_id }}">BUSINESS HOURS</div>
+            <div class="ai-contact-value-{{ ai_gen_id }}">Mon-Fri 9AM-6PM</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Contact section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact section"
+    }
+  ],
+  "tag": null
+}
+{% endschema %}

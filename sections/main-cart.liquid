@@ -1,0 +1,370 @@
+<style>
+  /* 🏗️ MASTER LAYOUT RULES */
+  .is-pricing-unit { display: none !important; visibility: hidden !important; height: 0 !important; overflow: hidden !important; }
+  
+  /* Fallback: Hide any row that mentions "Pricing Unit" */
+  tr:has(dt:contains("Pricing Unit")), 
+  tr:has(dd:contains("Pricing Unit")),
+  li:has(dt:contains("Pricing Unit")),
+  .product-item:contains("Pricing Unit") { 
+     display: none !important; 
+  }
+
+  .job-subtotal-display { color: #1a73e8; font-weight: 700; font-size: 18px; }
+
+  /* 🛠️ DESKTOP OVERLAP FIX */
+  .shopping-cart-content .product-name { width: 60% !important; vertical-align: top !important; }
+  .shopping-cart-content .total { width: 35% !important; text-align: right !important; padding-right: 25px !important; }
+  
+  .wrap_title_cart .product-name { 
+    display: block !important; 
+    margin-bottom: 12px !important; 
+    line-height: 1.4 !important; 
+    white-space: normal !important;
+    font-weight: 700 !important;
+  }
+  .wrap_title_cart dl { margin-top: 10px !important; display: block !important; }
+  .product-option { 
+    display: block !important; 
+    margin-bottom: 6px !important; 
+    font-size: 13px !important;
+    line-height: 1.2 !important;
+  }
+  .product-option dt { font-weight: 600 !important; }
+
+  /* 📱 MOBILE VISIBILITY & RESPONSIVENESS */
+  @media screen and (max-width: 768px) {
+    .shopping-cart-content, 
+    .shopping-cart-content tbody, 
+    .shopping-cart-content tr.product-item, 
+    .shopping-cart-content td.product-name, 
+    .shopping-cart-content td.total {
+      display: block !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .shopping-cart-content tr.title { display: none !important; }
+    .shopping-cart-content td.product-name { padding: 20px 10px !important; border: none !important; }
+    .shopping-cart-content td.total { 
+      text-align: left !important; 
+      padding: 10px 10px 20px 10px !important; 
+      border-bottom: 2px solid #f4f4f4 !important; 
+    }
+    .wrap_item_cart { display: flex !important; flex-direction: row !important; gap: 15px !important; }
+    .product-thumb { width: 100px !important; flex-shrink: 0 !important; }
+    .wrap_title_cart { flex: 1 !important; }
+  }
+
+  /* 🚫 HIDE QUANTITY SELECTOR COMPLETELY */
+  .shopping-cart-content .quantity-item,
+  .shopping-cart-content tr.title td:nth-child(2),
+  .shopping-cart-content .product-item-qty,
+  .shopping-cart-content .js-qty,
+  .shopping-cart-content .qty,
+  .shopping-cart-content .ajaxcart__qty,
+  .shopping-cart-content [data-quantity-input] { 
+    display: none !important; 
+    visibility: hidden !important; 
+    opacity: 0 !important; 
+    pointer-events: none !important;
+    width: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* HIDE SINALITE BASE PRICING */
+  .shopping_cart_content dt:contains("Pricing Tier"),
+  .shopping_cart_content dd:contains("Base Product") { display: none !important; }
+</style>
+
+{% assign real_item_count = 0 %}
+{% for item in cart.items %}
+  {% assign is_pricing = false %}
+  {% if item.product.title contains 'Pricing Unit' or item.variant.title contains 'Pricing Unit' %}{% assign is_pricing = true %}{% endif %}
+  {% unless is_pricing %}
+    {% assign real_item_count = real_item_count | plus: item.quantity %}
+  {% endunless %}
+{% endfor %}
+
+{%assign sid = section.id %}
+{% assign saveTotal = 0  %}
+
+<style>
+  /* Hide the Quantity Column header and cells completely */
+  .shopping-cart-content .quantity-item,
+  .shopping-cart-content tr.title td:nth-child(2) { 
+    display: none !important; 
+  }
+  
+  .shopping-cart-content .product-name .price,
+  .shopping-cart-content .cart_price {
+    display: none !important;
+  }
+  
+  .job-subtotal-display { 
+    color: #1a73e8; 
+    font-weight: 700; 
+    font-size: 18px; 
+  }
+</style>
+
+<script>
+  function calculateJobSubtotals() {
+    const allRows = document.querySelectorAll('tr.product-item');
+    const pricingMap = {};
+    const mainRows = [];
+
+    allRows.forEach(row => {
+      const jobId = row.getAttribute('data-job-id');
+      const price = parseInt(row.getAttribute('data-line-price') || "0");
+      if (!jobId) return;
+
+      if (!row.classList.contains('is-pricing-unit')) {
+        mainRows.push(row);
+        pricingMap[jobId] = (pricingMap[jobId] || 0) + price;
+      } else {
+        pricingMap[jobId] = (pricingMap[jobId] || 0) + price;
+      }
+    });
+
+    mainRows.forEach(row => {
+      const jobId = row.getAttribute('data-job-id');
+      const totalCents = pricingMap[jobId] || 0;
+      const totalCell = row.querySelector('.total');
+      if (totalCell) {
+        const formatted = (totalCents / 100).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+        totalCell.innerHTML = `<div class="job-subtotal-display">${formatted}</div>`;
+      }
+    });
+  }
+
+  function forceCleanup() {
+      document.querySelectorAll('.each-item, .product-item').forEach(row => {
+         const content = row.innerHTML || "";
+         if(content.includes('Pricing Unit')) {
+            row.classList.add('is-pricing-unit');
+         }
+      });
+      
+      // Sync Sidebar Subtotal Label
+      const subLabel = document.querySelector('.info-subtotal .text');
+      if (subLabel) {
+        const count = {{ real_item_count }};
+        subLabel.textContent = `Subtotal (${count} ${count === 1 ? 'item' : 'items'})`;
+      }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    calculateJobSubtotals();
+    setInterval(calculateJobSubtotals, 1000);
+    setInterval(forceCleanup, 500);
+  });
+
+  // ATOMIC DELETE Logic
+  document.addEventListener('click', function(e) {
+    const btn = e.target.closest('.js-remove-item');
+    if (btn) {
+      const row = btn.closest('.product-item');
+      const jobId = row ? row.getAttribute('data-job-id') : null;
+      if (jobId) {
+        e.preventDefault();
+        btn.innerHTML = "..."; 
+        fetch('/cart.js').then(res => res.json()).then(cart => {
+          const updates = {};
+          cart.items.forEach(item => {
+            if (item.properties && item.properties._job_id === jobId) {
+              updates[item.id] = 0;
+            }
+          });
+          fetch('/cart/update.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ updates: updates })
+          }).then(() => window.location.reload());
+        });
+      }
+    }
+  });
+</script>
+
+<section id="laber_{{sid}}" class="laber_blog_style2_{{sid}}">
+<div class="main-content shop-page shoppingcart-content">
+  <div class="container wrap-cart">
+    <script class="data-json-cart" type="application/json">{{ cart | json }}</script>
+    <script>
+      var dataJsonCart = document.querySelector('.data-json-cart').innerHTML;
+    </script>
+    {% if cart.item_count > 0 %} 
+        {% if section.settings.show_text_countdown %}
+        {% capture text_countdown_html %}   
+         {% assign minutes = section.settings.minutes %} 
+        {% render 'text-countdown', minutes: minutes %}                         
+        {% endcapture %}
+        {{ text_countdown_html }}
+        {% endif %}
+    	<form action="/cart" method="post" novalidate class="cart">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 cart-left">
+            
+            <div class="cart-content">
+          
+              <table class="shopping-cart-content">
+                <tr class="title"> 
+                  
+                  <td class="product-name"><div class="h3">{{'cart.label.product'|t}}</div></td>
+                  <td class="quantity-item"><div class="h3">{{'cart.label.quantity'|t}}</div></td>	
+                  <td class="total"><div class="h3">{{'cart.label.total'|t}}</div></td>
+                  <td class="delete-item"><div></div></td>
+                </tr>
+                {% for item in cart.items %}
+                  {%- if item.variant.compare_at_price > item.original_price -%}
+                      {% assign saveTotal = saveTotal | plus: item.variant.compare_at_price | minus: item.final_price %}
+                  {% endif %}
+                  <tr  data-hulkapps-lineitem data-line-price="{{ item.final_line_price }}" data-job-id="{{ item.properties._job_id }}" class="product-item each-item {% if item.product.title contains 'Pricing Unit' or item.variant.title contains 'Pricing Unit' %}is-pricing-unit{% endif %}" id="item-id-{{ item.id }}">     
+                    
+                    <td class="product-name" data-title="{{'cart.label.product'|t}}">
+                      <div class="wrap_item_cart">
+                        <a class="product-thumb img" href="{{ item.url }}" title="{{ item.product.title }}">
+                        	<img class="lazyload" data-src="{{ item | img_url: 'grande' }}" width="150" alt="{{item.title}}" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+
+                        </a>
+                        <div class="wrap_title_cart">
+                          <a href="{{ item.url }}" title="{{ item.product.title }}" class="product-name" style="white-space: normal !important; overflow: visible !important;">{{ item.product.title }}</a>
+                          {%- if item.product.has_only_default_variant == false or item.properties.size != 0 or item.selling_plan_allocation != nil -%}
+                            <dl>
+                              {%- if item.product.has_only_default_variant == false -%}
+                                {%- for option in item.options_with_values -%}
+                                  <div class="product-option">
+                                    <dt>{{ option.name }}: </dt>
+                                    <dd>{{ option.value }}</dd>
+                                  </div>
+                                {%- endfor -%}
+                              {%- endif -%}
+
+                              <span  data-hulkapps-line-properties data-hulkapps-line-properties>
+                                  {%- for property in item.properties -%}
+                                    {%- assign property_first_char = property.first | slice: 0 -%}
+                                    {%- assign show_property = true -%}
+                                    {%- if property.last == blank -%}
+                                      {%- assign show_property = false -%}
+                                    {%- endif -%}
+
+                                    {%- if show_property -%}
+                                    {%- assign display_key = property.first -%}
+                                    {%- if property_first_char == '_' -%}{%- assign display_key = property.first | slice: 1, 100 -%}{%- endif -%}
+                                    {%- if display_key contains 'po_text_area' or display_key contains 'Instructions' or display_key contains 'DESCRIPTION' -%}{%- assign display_key = 'DESCRIPTION' -%}{%- endif -%}
+                                    {%- if display_key == 'YES' or display_key contains 'proof' or display_key contains 'PROOF' -%}{%- assign display_key = 'EMAIL PROOF' -%}{%- endif -%}
+                                    {%- if display_key contains 'Design' or display_key contains 'Services' or display_key contains 'DESIGN' or display_key contains 'SERVICES' -%}{%- assign display_key = 'DESIGN SERVICES' -%}{%- endif -%}
+                                    {%- if display_key contains 'Front' or display_key contains 'FRONT' -%}{%- assign display_key = 'FRONT ARTWORK' -%}{%- endif -%}
+                                    {%- if display_key contains 'Back' or display_key contains 'BACK' -%}{%- assign display_key = 'BACK ARTWORK' -%}{%- endif -%}
+
+                                    <div class="product-option">
+                                      <dt>{{ display_key }}: </dt>
+                                      <dd>
+                                        {%- if property.last contains '/uploads/' -%}
+                                          <a href="{{ property.last }}" class="link" target="_blank">
+                                            {% render 'icon-image' %}  
+                                            <span class="img">
+                                                <img src="{{ property.last }}" alt="" class="uploads_image" width="100" height="100" loading= "lazy" />
+                                            </span>
+                                          </a>
+                                        {%- else -%}
+                                          {{ property.last }}
+                                        {%- endif -%}
+                                      </dd>
+                                    </div>
+                                  {%- endif -%}
+                                {%- endfor -%}
+                              </span>
+                            </dl>
+                          {%- endif -%}
+                        </div>
+                      </div>
+                    </td>
+                    
+                    <td class="quantity-item" data-title="{{'cart.label.quantity'|t}}">
+                      <div class="quantity-cart">
+                        <div class="group-quantity-button js-quantity">
+                          <a class="minus js_minus" href="javascript:void(0);"><svg width="20" height="20" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M 9,18l 16,0 C 25.552,18, 26,17.552, 26,17C 26,16.448, 25.552,16, 25,16l-16,0 C 8.448,16, 8,16.448, 8,17 C 8,17.552, 8.448,18, 9,18z"></path></g></svg></a>
+                          <input id="updates_{{ item.id }}" data-min="1" data-max="{{item.product.variants.first.inventory_quantity}}" class="input-text qty js_qty" type="text" size="4" title="Qty" name="updates[]" value="{% if item.quantity < 10%}0{% endif %}{{ item.quantity }}">
+                          <a class="plus js_plus" href="javascript:void(0);">
+                          	<svg width="20" height="20" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" ><g><path d="M 9,18L 16,18 l0,7 C 16,25.552, 16.448,26, 17,26S 18,25.552, 18,25L 18,18 l 7,0 C 25.552,18, 26,17.552, 26,17 C 26,16.448, 25.552,16, 25,16L 18,16 L 18,9 C 18,8.448, 17.552,8, 17,8S 16,8.448, 16,9L 16,16 L 9,16 C 8.448,16, 8,16.448, 8,17C 8,17.552, 8.448,18, 9,18z"></path></g></svg>
+                          </a>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="total" data-title="{{'cart.label.total'|t}}">
+                        <span class="bcpo-cart-item-line-price" data-key="{{item.key}}">{{ item.original_line_price | money }}</span>
+                    </td>
+                    <td class="delete-item" data-title="Remove">
+                      <a class="alo_tooltip js-remove-item" data-id="{{ item.id }}" href="{{ routes.cart_change_url }}?line={{ forloop.index }}&amp;quantity=0">
+                      	<i class="icondelete icon-trash-2"></i>
+                        <span class="alo_tooltip-content">{{ 'cart.general.remove' | t }}</span>
+                    	</a>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </table>
+            </div>
+            
+            {%if section.settings.show_order_note%}
+            <div class="add-order-note">
+              <h3 class="title">{{'cart.general.order_note_title' | t}}</h3>
+              <textarea name="note" id="CartSpecialInstructions" class="cart-note__input" placeholder="{{'cart.general.order_note_text'| t}}">{{ cart.note }}</textarea>
+            </div>
+            {%endif%}
+          </div>
+          
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 cart-right">
+            <div class="content cart-total">
+              {% include 'free-shipping' %} 
+              <h5 class="title h3 cart_total">{{ 'cart.general.cart_total' | t }}</h5>
+              
+              <div class="info-checkout info-subtotal">
+                <span class="text">{{'cart.general.subtotal' | t}} ({{ real_item_count }} {{ real_item_count | pluralize: 'item', 'items' }}) </span>
+                <span class="item subtotal"><span class="bcpo-cart-original-total">{{ cart.original_total_price | money }}</span></span>              
+              </div>
+
+              {%- if cart.cart_level_discount_applications.size > 0 -%}
+              <div class="info-checkout info-discount">
+                <ul class="discounts list-unstyled">
+                  {%- for discount in cart.cart_level_discount_applications -%}
+                    <li>{{ discount.title }} (-{{ discount.total_allocated_amount | money }})</li>
+                  {%- endfor -%}
+                </ul>
+              </div>
+              {%- endif -%}
+
+              <div class="info-checkout info-total">
+                <span class="text">{{'cart.general.total' | t}} </span>
+                <span class="item total"><span class="bcpo-cart-original-total">{{ cart.total_price | money }}</span></span>
+              </div>
+              
+              <div class="group-button">
+                  <button type="button" name="checkout" class="btn btn_checkout submit js-teleport-checkout">
+                    {{ 'cart.general.checkout' | t }}
+                  </button>
+              </div>
+            </div>
+          </div>
+        </div>
+    	</form>     
+    {% else %}	
+      <div class="row content-form text-center">
+        <p class="main-title">{{ 'cart.general.empty' | t }}</p>
+        <a href="{{ routes.root_url }}" class="button submit">{{ 'cart.general.continue_shopping' | t }}</a>   
+      </div>
+    {% endif %}
+  </div>
+</div>
+</section>
+
+{% schema %}
+{
+  "name": "Cart",
+  "settings": [ 
+    { "type": "checkbox", "id": "show_text_countdown", "label": "Show Countdown", "default": true },
+    { "type": "range", "id": "minutes", "min": 1, "max": 60, "step": 1, "label": "minutes", "default": 10 }, 
+    { "type": "checkbox", "id": "show_order_note", "label": "Show Note", "default": true }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,1274 @@
+{% comment %}
+  Beyond Imagination Hero Section
+  Responsive hero section with carousel, animated background glows, and customizable content
+{% endcomment %}
+
+{% style %}
+  .hero-wrapper {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+    position: relative;
+    background-color: {{ section.settings.background_color }};
+    z-index: 1;
+    margin-top: {{ section.settings.navbar_height }}px;
+  }
+
+  .hero-wrapper *,
+  .hero-wrapper *::before,
+  .hero-wrapper *::after {
+    box-sizing: border-box;
+  }
+
+  .hero-container {
+    max-width: 2200px;
+    margin: 0 auto;
+    position: relative;
+    width: 100%;
+  }
+
+  .hero-glow-cyan {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 300px;
+    background: {{ section.settings.cyan_glow_color }};
+    filter: blur(100px);
+    opacity: 0.1;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: hero-pulse 4s ease-in-out infinite;
+  }
+
+  .hero-glow-magenta {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 200px;
+    height: 200px;
+    background: {{ section.settings.magenta_glow_color }};
+    filter: blur(80px);
+    opacity: 0.1;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  @keyframes hero-pulse {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.1;
+    }
+    50% {
+      transform: scale(1.1);
+      opacity: 0.15;
+    }
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: {{ section.settings.mobile_padding_top }}px 16px {{ section.settings.mobile_padding_bottom }}px;
+    position: relative;
+    z-index: 10;
+  }
+
+  .hero-left {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    z-index: 10;
+    position: relative;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 8px 16px;
+    background-color: {{ section.settings.badge_bg_color }};
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: {{ section.settings.badge_border_radius }}px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    width: fit-content;
+  }
+
+  .hero-badge-icon {
+    width: 12px;
+    height: 12px;
+    color: {{ section.settings.badge_icon_color }};
+    flex-shrink: 0;
+  }
+
+  .hero-badge-text {
+    font-size: {{ section.settings.mobile_badge_text_size }}px;
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: {{ section.settings.badge_text_color }};
+  }
+
+  .hero-h1 {
+    font-size: {{ section.settings.mobile_heading_size }}px;
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -0.05em;
+    color: {{ section.settings.heading_color }};
+    margin: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .hero-h1-italic {
+    font-style: italic;
+  }
+
+  .hero-description {
+    font-size: {{ section.settings.mobile_description_size }}px;
+    font-weight: 300;
+    line-height: 1.6;
+    color: {{ section.settings.description_color }};
+    max-width: 100%;
+  }
+
+  .hero-highlight {
+    font-weight: 500;
+    color: {{ section.settings.heading_color }};
+    position: relative;
+    display: inline;
+  }
+
+  .hero-highlight-cyan::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: {{ section.settings.cyan_glow_color }};
+  }
+
+  .hero-highlight-magenta::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: {{ section.settings.magenta_glow_color }};
+  }
+
+  .hero-highlight-yellow::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: {{ section.settings.yellow_highlight_color }};
+  }
+
+  .hero-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .hero-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: {{ section.settings.button_border_radius }}px;
+    transition: all 0.3s ease;
+    background-color: {{ section.settings.primary_btn_bg }};
+    color: {{ section.settings.primary_btn_text }};
+    border: 2px solid {{ section.settings.primary_btn_bg }};
+    cursor: pointer;
+    width: 100%;
+  }
+
+  .hero-btn-primary:hover {
+    background-color: {{ section.settings.primary_btn_hover_bg }};
+    border-color: {{ section.settings.primary_btn_hover_bg }};
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .hero-btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: {{ section.settings.button_border_radius }}px;
+    transition: all 0.3s ease;
+    background-color: transparent;
+    color: {{ section.settings.secondary_btn_text }};
+    border: 2px solid {{ section.settings.secondary_btn_border }};
+    cursor: pointer;
+    width: 100%;
+  }
+
+  .hero-btn-secondary:hover {
+    background-color: {{ section.settings.secondary_btn_hover_bg }};
+    color: {{ section.settings.secondary_btn_hover_text }};
+    border-color: {{ section.settings.secondary_btn_hover_bg }};
+    transform: translateY(-2px);
+  }
+
+  .hero-right {
+    width: 100%;
+    position: relative;
+    z-index: 5;
+  }
+
+  .hero-carousel {
+    width: 100%;
+    position: relative;
+    border-radius: {{ section.settings.image_border_radius }}px;
+    overflow: hidden;
+    z-index: 5;
+  }
+
+  .hero-carousel-inner {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .hero-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 1000ms ease-in-out;
+    pointer-events: none;
+  }
+
+  .hero-slide.active {
+    position: relative;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .hero-slide-link {
+    display: block;
+    width: 100%;
+  }
+
+  .hero-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: {{ section.settings.image_border_radius }}px;
+  }
+
+  .hero-image-placeholder {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background-color: #f4f4f4;
+    border-radius: {{ section.settings.image_border_radius }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .hero-image-placeholder svg {
+    width: 100%;
+    height: 100%;
+    max-width: 400px;
+    max-height: 400px;
+  }
+
+  .hero-empty-state {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 20px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .hero-indicators {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+    pointer-events: auto;
+  }
+
+  .hero-indicator {
+    height: 4px;
+    background-color: rgba(255, 255, 255, 0.4);
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+    width: 12px;
+  }
+
+  .hero-indicator.active {
+    background-color: rgba(255, 255, 255, 1);
+    width: 32px;
+  }
+
+  @media screen and (min-width: 640px) {
+    .hero-grid {
+      padding: {{ section.settings.mobile_padding_top }}px 24px {{ section.settings.mobile_padding_bottom }}px;
+    }
+
+    .hero-badge {
+      padding: 10px 20px;
+      gap: 12px;
+    }
+
+    .hero-badge-icon {
+      width: 14px;
+      height: 14px;
+    }
+
+    .hero-badge-text {
+      font-size: {{ section.settings.mobile_badge_text_size | plus: 2 }}px;
+      letter-spacing: 0.2em;
+    }
+
+    .hero-h1 {
+      font-size: {{ section.settings.mobile_heading_size | times: 1.2 }}px;
+    }
+
+    .hero-description {
+      font-size: {{ section.settings.mobile_description_size | plus: 2 }}px;
+    }
+
+    .hero-buttons {
+      flex-direction: row;
+      gap: 16px;
+    }
+
+    .hero-btn-primary,
+    .hero-btn-secondary {
+      padding: 18px 32px;
+      width: auto;
+    }
+
+    .hero-indicator {
+      width: 16px;
+    }
+
+    .hero-indicator.active {
+      width: 48px;
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    .hero-grid {
+      padding: {{ section.settings.mobile_padding_top | times: 1.5 }}px 24px {{ section.settings.mobile_padding_bottom | times: 1.5 }}px;
+    }
+
+    .hero-h1 {
+      font-size: {{ section.settings.mobile_heading_size | times: 1.6 }}px;
+    }
+
+    .hero-description {
+      font-size: {{ section.settings.mobile_description_size | plus: 4 }}px;
+      max-width: 512px;
+    }
+
+    .hero-btn-primary,
+    .hero-btn-secondary {
+      padding: 20px 40px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .hero-glow-cyan {
+      width: 600px;
+      height: 600px;
+      filter: blur(150px);
+    }
+
+    .hero-glow-magenta {
+      width: 400px;
+      height: 400px;
+      filter: blur(120px);
+    }
+
+    .hero-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      padding: {{ section.settings.desktop_padding_top }}px 48px {{ section.settings.desktop_padding_bottom }}px;
+    }
+
+    .hero-h1 {
+      font-size: {{ section.settings.desktop_heading_size }}px;
+    }
+
+    .hero-description {
+      font-size: {{ section.settings.desktop_description_size }}px;
+    }
+
+    .hero-badge-text {
+      font-size: {{ section.settings.desktop_badge_text_size }}px;
+    }
+  }
+
+  @media screen and (min-width: 1280px) {
+    .hero-grid {
+      gap: 128px;
+      padding: {{ section.settings.desktop_padding_top }}px 80px {{ section.settings.desktop_padding_bottom }}px;
+    }
+
+    .hero-h1 {
+      font-size: {{ section.settings.desktop_heading_size | times: 1.2 }}px;
+    }
+  }
+
+  @media screen and (min-width: 1536px) {
+    .hero-h1 {
+      font-size: {{ section.settings.desktop_heading_size | times: 1.6 }}px;
+    }
+  }
+{% endstyle %}
+
+<section class="hero-wrapper section-beyond-imagination-hero" {{ section.shopify_attributes }}>
+  <div class="hero-glow-cyan"></div>
+  <div class="hero-glow-magenta"></div>
+  
+  <div class="hero-container">
+    <div class="hero-grid">
+      <div class="hero-left">
+        <div class="hero-badge">
+          <svg class="hero-badge-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M9.153 5.408C10.42 3.136 11.053 2 12 2c.947 0 1.58 1.136 2.847 3.408l.328.588c.36.646.54.969.82 1.182.28.213.63.292 1.33.45l.636.144c2.46.557 3.689.835 3.982 1.776.292.94-.546 1.921-2.223 3.882l-.434.507c-.476.557-.715.836-.822 1.18-.107.345-.071.717.001 1.46l.066.677c.253 2.617.38 3.925-.386 4.506-.766.582-1.918.051-4.22-1.009l-.597-.274c-.654-.302-.981-.452-1.328-.452-.347 0-.674.15-1.329.452l-.595.274c-2.303 1.06-3.455 1.59-4.22 1.01-.767-.582-.64-1.89-.387-4.507l.066-.676c.072-.744.108-1.116 0-1.46-.106-.345-.345-.624-.821-1.18l-.434-.508c-1.677-1.96-2.515-2.941-2.223-3.882.293-.941 1.523-1.22 3.983-1.776l.636-.144c.699-.158 1.048-.237 1.329-.45.28-.213.46-.536.82-1.182l.328-.588z"/>
+          </svg>
+          <span class="hero-badge-text">{{ section.settings.badge_text }}</span>
+        </div>
+
+        <h1 class="hero-h1">
+          {{ section.settings.heading_line_1 }} <span class="hero-h1-italic">{{ section.settings.heading_line_2 }}</span>
+        </h1>
+
+        <div class="hero-description">
+          {{ section.settings.description_part_1 }}
+          <span class="hero-highlight hero-highlight-cyan">{{ section.settings.highlight_1 }}</span>
+          {{ section.settings.description_part_2 }}
+          <span class="hero-highlight hero-highlight-magenta">{{ section.settings.highlight_2 }}</span>
+          {{ section.settings.description_part_3 }}
+          <span class="hero-highlight hero-highlight-yellow">{{ section.settings.highlight_3 }}</span>
+          {{ section.settings.description_part_4 }}
+        </div>
+
+        <div class="hero-buttons">
+          {% if section.settings.primary_button_label != blank %}
+            <a href="{{ section.settings.primary_button_link }}" class="hero-btn-primary">
+              {{ section.settings.primary_button_label }}
+            </a>
+          {% endif %}
+          
+          {% if section.settings.secondary_button_label != blank %}
+            <a href="{{ section.settings.secondary_button_link }}" class="hero-btn-secondary">
+              {{ section.settings.secondary_button_label }}
+            </a>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="hero-carousel">
+          <div class="hero-carousel-inner">
+            {% assign has_slides = false %}
+            {% for i in (1..10) %}
+              {% assign image_key = 'slide_image_' | append: i %}
+              {% if section.settings[image_key] %}
+                {% assign has_slides = true %}
+                {% break %}
+              {% endif %}
+            {% endfor %}
+            
+            {% if has_slides %}
+              {% for i in (1..10) %}
+                {% assign image_key = 'slide_image_' | append: i %}
+                {% assign link_key = 'slide_link_' | append: i %}
+                {% assign alt_key = 'slide_alt_' | append: i %}
+                
+                {% if section.settings[image_key] %}
+                  <div class="hero-slide{% if forloop.first %} active{% endif %}" data-slide-index="{{ forloop.index0 }}">
+                    {% if section.settings[link_key] != blank %}
+                      <a href="{{ section.settings[link_key] }}" class="hero-slide-link">
+                        <img
+                          src="{{ section.settings[image_key] | image_url: width: 1200 }}"
+                          alt="{{ section.settings[alt_key] | escape }}"
+                          loading="lazy"
+                          width="{{ section.settings[image_key].width }}"
+                          height="{{ section.settings[image_key].height }}"
+                          class="hero-image"
+                        >
+                      </a>
+                    {% else %}
+                      <img
+                        src="{{ section.settings[image_key] | image_url: width: 1200 }}"
+                        alt="{{ section.settings[alt_key] | escape }}"
+                        loading="lazy"
+                        width="{{ section.settings[image_key].width }}"
+                        height="{{ section.settings[image_key].height }}"
+                        class="hero-image"
+                      >
+                    {% endif %}
+                  </div>
+                {% endif %}
+              {% endfor %}
+            {% else %}
+              <div class="hero-slide active" data-slide-index="0">
+                <div class="hero-image-placeholder">
+                  {{ 'image' | placeholder_svg_tag }}
+                  <div class="hero-empty-state">
+                    Add carousel images in theme settings
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+          </div>
+
+          {% if section.settings.show_indicators and has_slides %}
+            <div class="hero-indicators"></div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function() {
+    class BeyondImaginationHero extends HTMLElement {
+      constructor() {
+        super();
+        this.currentSlide = 0;
+        this.autoRotateInterval = null;
+        this.isPaused = false;
+      }
+
+      connectedCallback() {
+        this.style.display = 'block';
+        
+        this.slides = this.querySelectorAll('.hero-slide');
+        this.indicatorsContainer = this.querySelector('.hero-indicators');
+        this.carousel = this.querySelector('.hero-carousel');
+        
+        const section = this.closest('[data-section-id]');
+        const sectionId = section ? section.getAttribute('data-section-id') : '';
+        
+        this.slideInterval = {{ section.settings.slide_interval | times: 1000 }};
+        this.pauseOnHover = {{ section.settings.pause_on_hover }};
+        this.showIndicators = {{ section.settings.show_indicators }};
+
+        if (this.slides.length > 1) {
+          this.createIndicators();
+          this.startAutoRotate();
+          
+          if (this.pauseOnHover && this.carousel) {
+            this.carousel.addEventListener('mouseenter', () => this.pauseAutoRotate());
+            this.carousel.addEventListener('mouseleave', () => this.resumeAutoRotate());
+          }
+        }
+      }
+
+      createIndicators() {
+        if (!this.showIndicators || !this.indicatorsContainer) return;
+
+        this.slides.forEach((slide, index) => {
+          const indicator = document.createElement('button');
+          indicator.className = 'hero-indicator';
+          indicator.setAttribute('aria-label', 'Go to slide ' + (index + 1));
+          
+          if (index === 0) {
+            indicator.classList.add('active');
+          }
+          
+          indicator.addEventListener('click', () => {
+            this.goToSlide(index);
+            this.resetAutoRotate();
+          });
+          
+          this.indicatorsContainer.appendChild(indicator);
+        });
+      }
+
+      goToSlide(index) {
+        this.slides[this.currentSlide].classList.remove('active');
+        
+        const indicators = this.querySelectorAll('.hero-indicator');
+        if (indicators[this.currentSlide]) {
+          indicators[this.currentSlide].classList.remove('active');
+        }
+
+        this.currentSlide = index;
+        
+        this.slides[this.currentSlide].classList.add('active');
+        if (indicators[this.currentSlide]) {
+          indicators[this.currentSlide].classList.add('active');
+        }
+      }
+
+      nextSlide() {
+        const nextIndex = (this.currentSlide + 1) % this.slides.length;
+        this.goToSlide(nextIndex);
+      }
+
+      startAutoRotate() {
+        if (this.slides.length <= 1) return;
+        
+        this.autoRotateInterval = setInterval(() => {
+          if (!this.isPaused) {
+            this.nextSlide();
+          }
+        }, this.slideInterval);
+      }
+
+      pauseAutoRotate() {
+        this.isPaused = true;
+      }
+
+      resumeAutoRotate() {
+        this.isPaused = false;
+      }
+
+      resetAutoRotate() {
+        if (this.autoRotateInterval) {
+          clearInterval(this.autoRotateInterval);
+          this.startAutoRotate();
+        }
+      }
+
+      disconnectedCallback() {
+        if (this.autoRotateInterval) {
+          clearInterval(this.autoRotateInterval);
+        }
+      }
+    }
+
+    customElements.define('beyond-imagination-hero', BeyondImaginationHero);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Beyond Imagination Hero",
+  "tag": "section",
+  "class": "section-beyond-imagination-hero",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout & Spacing"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "navbar_height",
+      "label": "Navbar height offset",
+      "info": "Add margin-top to prevent overlap with fixed navbar",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "Mobile Padding"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile top padding",
+      "min": 20,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile bottom padding",
+      "min": 20,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Desktop Padding"
+    },
+    {
+      "type": "range",
+      "id": "desktop_padding_top",
+      "label": "Desktop top padding",
+      "min": 40,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "default": 160
+    },
+    {
+      "type": "range",
+      "id": "desktop_padding_bottom",
+      "label": "Desktop bottom padding",
+      "min": 40,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Mobile Text Sizes"
+    },
+    {
+      "type": "range",
+      "id": "mobile_badge_text_size",
+      "label": "Mobile badge text size",
+      "min": 6,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Mobile heading size",
+      "min": 24,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "mobile_description_size",
+      "label": "Mobile description size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Desktop Text Sizes"
+    },
+    {
+      "type": "range",
+      "id": "desktop_badge_text_size",
+      "label": "Desktop badge text size",
+      "min": 8,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "desktop_heading_size",
+      "label": "Desktop heading size",
+      "min": 40,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "desktop_description_size",
+      "label": "Desktop description size",
+      "min": 14,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Carousel Settings"
+    },
+    {
+      "type": "range",
+      "id": "slide_interval",
+      "label": "Slide interval",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_on_hover",
+      "label": "Pause on hover",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_indicators",
+      "label": "Show indicators",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "label": "Image border radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Slide 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_image_1",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "slide_alt_1",
+      "label": "Alt text",
+      "default": "Hero image 1"
+    },
+    {
+      "type": "url",
+      "id": "slide_link_1",
+      "label": "Link (optional)"
+    },
+    {
+      "type": "header",
+      "content": "Slide 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_image_2",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "slide_alt_2",
+      "label": "Alt text",
+      "default": "Hero image 2"
+    },
+    {
+      "type": "url",
+      "id": "slide_link_2",
+      "label": "Link (optional)"
+    },
+    {
+      "type": "header",
+      "content": "Slide 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_image_3",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "slide_alt_3",
+      "label": "Alt text",
+      "default": "Hero image 3"
+    },
+    {
+      "type": "url",
+      "id": "slide_link_3",
+      "label": "Link (optional)"
+    },
+    {
+      "type": "header",
+      "content": "Slide 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_image_4",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "slide_alt_4",
+      "label": "Alt text",
+      "default": "Hero image 4"
+    },
+    {
+      "type": "url",
+      "id": "slide_link_4",
+      "label": "Link (optional)"
+    },
+    {
+      "type": "header",
+      "content": "Slide 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_image_5",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "slide_alt_5",
+      "label": "Alt text",
+      "default": "Hero image 5"
+    },
+    {
+      "type": "url",
+      "id": "slide_link_5",
+      "label": "Link (optional)"
+    },
+    {
+      "type": "header",
+      "content": "Slide 6"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_image_6",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "slide_alt_6",
+      "label": "Alt text",
+      "default": "Hero image 6"
+    },
+    {
+      "type": "url",
+      "id": "slide_link_6",
+      "label": "Link (optional)"
+    },
+    {
+      "type": "header",
+      "content": "Slide 7"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_image_7",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "slide_alt_7",
+      "label": "Alt text",
+      "default": "Hero image 7"
+    },
+    {
+      "type": "url",
+      "id": "slide_link_7",
+      "label": "Link (optional)"
+    },
+    {
+      "type": "header",
+      "content": "Slide 8"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_image_8",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "slide_alt_8",
+      "label": "Alt text",
+      "default": "Hero image 8"
+    },
+    {
+      "type": "url",
+      "id": "slide_link_8",
+      "label": "Link (optional)"
+    },
+    {
+      "type": "header",
+      "content": "Slide 9"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_image_9",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "slide_alt_9",
+      "label": "Alt text",
+      "default": "Hero image 9"
+    },
+    {
+      "type": "url",
+      "id": "slide_link_9",
+      "label": "Link (optional)"
+    },
+    {
+      "type": "header",
+      "content": "Slide 10"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_image_10",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "slide_alt_10",
+      "label": "Alt text",
+      "default": "Hero image 10"
+    },
+    {
+      "type": "url",
+      "id": "slide_link_10",
+      "label": "Link (optional)"
+    },
+    {
+      "type": "header",
+      "content": "Badge"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge text",
+      "default": "TEXAS PREMIERE PRINT AGENCY"
+    },
+    {
+      "type": "color",
+      "id": "badge_bg_color",
+      "label": "Background",
+      "default": "#fafafa"
+    },
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "badge_icon_color",
+      "label": "Icon color",
+      "default": "#06b6d4"
+    },
+    {
+      "type": "range",
+      "id": "badge_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading_line_1",
+      "label": "Heading line 1",
+      "default": "BEYOND"
+    },
+    {
+      "type": "text",
+      "id": "heading_line_2",
+      "label": "Heading line 2 (italic)",
+      "default": "IMAGINATION"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Description"
+    },
+    {
+      "type": "textarea",
+      "id": "description_part_1",
+      "label": "Description part 1",
+      "default": "We specialize in bringing your vision to life through exceptional"
+    },
+    {
+      "type": "text",
+      "id": "highlight_1",
+      "label": "Highlight 1 (cyan underline)",
+      "default": "Design"
+    },
+    {
+      "type": "textarea",
+      "id": "description_part_2",
+      "label": "Description part 2",
+      "default": ", premium"
+    },
+    {
+      "type": "text",
+      "id": "highlight_2",
+      "label": "Highlight 2 (magenta underline)",
+      "default": "Print Media"
+    },
+    {
+      "type": "textarea",
+      "id": "description_part_3",
+      "label": "Description part 3",
+      "default": ", and strategic"
+    },
+    {
+      "type": "text",
+      "id": "highlight_3",
+      "label": "Highlight 3 (yellow underline)",
+      "default": "Marketing"
+    },
+    {
+      "type": "textarea",
+      "id": "description_part_4",
+      "label": "Description part 4",
+      "default": " solutions that make your brand stand out."
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description color",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "text",
+      "id": "primary_button_label",
+      "label": "Primary button text",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "primary_button_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "color",
+      "id": "primary_btn_bg",
+      "label": "Primary button background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "primary_btn_text",
+      "label": "Primary button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "primary_btn_hover_bg",
+      "label": "Primary button hover background",
+      "default": "#333333"
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_label",
+      "label": "Secondary button text",
+      "default": "Learn more"
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_link",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "color",
+      "id": "secondary_btn_text",
+      "label": "Secondary button text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "secondary_btn_border",
+      "label": "Secondary button border",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "secondary_btn_hover_bg",
+      "label": "Secondary button hover background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "secondary_btn_hover_text",
+      "label": "Secondary button hover text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "label": "Button border radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Background Glows"
+    },
+    {
+      "type": "color",
+      "id": "cyan_glow_color",
+      "label": "Cyan glow color",
+      "default": "#06b6d4"
+    },
+    {
+      "type": "color",
+      "id": "magenta_glow_color",
+      "label": "Magenta glow color",
+      "default": "#ec4899"
+    },
+    {
+      "type": "color",
+      "id": "yellow_highlight_color",
+      "label": "Yellow highlight color",
+      "default": "#fbbf24"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Beyond Imagination Hero"
+    }
+  ]
+}
+{% endschema %}
