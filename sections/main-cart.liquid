@@ -5,6 +5,7 @@
   /* Fallback: Hide any row that mentions "Pricing Unit" */
   tr:has(dt:contains("Pricing Unit")), 
   tr:has(dd:contains("Pricing Unit")),
+  tr[data-line-price="0"],
   li:has(dt:contains("Pricing Unit")),
   .product-item:contains("Pricing Unit") { 
      display: none !important; 
@@ -79,7 +80,7 @@
 {% assign real_item_count = 0 %}
 {% for item in cart.items %}
   {% assign is_pricing = false %}
-  {% if item.product.title contains 'Pricing Unit' or item.variant.title contains 'Pricing Unit' %}{% assign is_pricing = true %}{% endif %}
+  {% if item.product.title contains 'Pricing Unit' or item.variant.title contains 'Pricing Unit' or item.original_line_price == 0 %}{% assign is_pricing = true %}{% endif %}
   {% unless is_pricing %}
     {% assign real_item_count = real_item_count | plus: item.quantity %}
   {% endunless %}
@@ -219,7 +220,7 @@
                   {%- if item.variant.compare_at_price > item.original_price -%}
                       {% assign saveTotal = saveTotal | plus: item.variant.compare_at_price | minus: item.final_price %}
                   {% endif %}
-                  <tr  data-hulkapps-lineitem data-line-price="{{ item.final_line_price }}" data-job-id="{{ item.properties._job_id }}" class="product-item each-item {% if item.product.title contains 'Pricing Unit' or item.variant.title contains 'Pricing Unit' %}is-pricing-unit{% endif %}" id="item-id-{{ item.id }}">     
+                  <tr  data-hulkapps-lineitem data-line-price="{{ item.original_line_price }}" data-job-id="{{ item.properties._job_id }}" class="product-item each-item {% if item.product.title contains 'Pricing Unit' or item.variant.title contains 'Pricing Unit' or item.original_line_price == 0 %}is-pricing-unit{% endif %}" id="item-id-{{ item.id }}">     
                     
                     <td class="product-name" data-title="{{'cart.label.product'|t}}">
                       <div class="wrap_item_cart">
@@ -268,7 +269,18 @@
                                             </span>
                                           </a>
                                         {%- else -%}
-                                          {{ property.last }}
+                                          
+{% if property.last contains '/uploads/' %}
+	{% assign file_type = property.last | split: '.' | last | downcase %}
+	{% assign file_types = 'jpg,jpeg,webp,gif,png,apng,avif,svg,bmp,ico,tiff' | split: ',' %}
+	{% if file_types contains file_type %}
+		<div class="bcpo-cart-file"><img src="{{ property.last }}" style="max-width: 50px; height: auto;"></div>
+	{% else %}
+		<span class="bcpo-cart-file">Uploaded file</span>
+	{% endif %}
+{% else %}
+	{{ property.last }}
+{% endif %}
                                         {%- endif -%}
                                       </dd>
                                     </div>
