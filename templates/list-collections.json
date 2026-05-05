@@ -153,12 +153,14 @@
         },
         "43a1da90-eec3-4b52-b0e4-a824b7a4cd2f": {
           "type": "collection",
+          "disabled": true,
           "settings": {
             "collection": ""
           }
         },
         "b249b471-4085-4b39-a279-4caae51be850": {
           "type": "collection",
+          "disabled": true,
           "settings": {
             "collection": ""
           }
