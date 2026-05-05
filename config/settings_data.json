@@ -1310,7 +1310,7 @@
             "type": "simple",
             "settings": {
               "title": "All Products",
-              "url": "shopify://collections/all",
+              "url": "shopify://collections",
               "open_link": "_self",
               "icon": "",
               "cus_cl": false,
