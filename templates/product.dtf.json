@@ -18,6 +18,12 @@
           "type": "show_price",
           "settings": {}
         },
+        "description_meta": {
+          "type": "show_description",
+          "settings": {
+            "custom_liquid": "{{ product.metafields.custom.short_description }}"
+          }
+        },
         "variants": {
           "type": "product_variants",
           "settings": {
@@ -39,6 +45,7 @@
       "block_order": [
         "title",
         "price",
+        "description_meta",
         "variants",
         "quantity_selector"
       ],
@@ -56,10 +63,18 @@
           "settings": {
             "title_description": "Description"
           }
+        },
+        "tab_info": {
+          "type": "tab_metafields",
+          "settings": {
+            "title": "Additional Information",
+            "custom_liquid": "{{ product.description }}"
+          }
         }
       },
       "block_order": [
-        "tab_description"
+        "tab_description",
+        "tab_info"
       ],
       "settings": {
         "hide_tabs": false,
