@@ -1385,7 +1385,7 @@ var AloReference = (function Alo($){
                               url: frm.attr('action'),
                               data: data + slug_js,
                               success: function (result) {
-                                  var arr = result.split('||');
+                                  var arr = result.split('[--split--]');
                                   $('.search_header__prs .h_results').html("{{ 'general.search.results' | t }}");
                                   $('.search_header__prs .h_results').hide();
                                   $(arr[0]).show();

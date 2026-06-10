@@ -9,7 +9,7 @@
    assign on_sale_txt = 'products.product.on_sale' | t
    assign save_js = 'products.product.save_js' | t: saved_amount:'saved_amount' -%}
  
-{%- if results_count > 0 %}{% if results_count > 1 %}.h_results{% else %}.h_result{% endif %}||
+{%- if results_count > 0 %}{% if results_count > 1 %}.h_results{% else %}.h_result{% endif %}[--split--]
     {%- paginate search.results by limit -%}
         {%- for item in search.results %}{%- render 'product_ajax_js',product:item,on_sale_txt:on_sale_txt,save_js:save_js -%}{% endfor -%}
         {%- if paginate.pages > 1 -%}
@@ -20,7 +20,7 @@
          {%- endif -%}
     {%- endpaginate -%}
 {%- else -%}
-    .h_result||{{ 'general.search.no_results_product' | t }}
+    .h_result[--split--]{{ 'general.search.no_results_product' | t }}
      {%- if only_search_prs == false and product_type == '*' or product_type == blank -%}
      <div class="results_article_blog lazyload mt__25" data-include='{{ routes.search_url }}?view=link&q={{search_terms| url_encode}}&type=article,page'></div>
      {%- endif -%}

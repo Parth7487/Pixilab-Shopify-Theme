@@ -9,7 +9,7 @@
 	assign on_sale_txt = 'products.product.on_sale' | t
 	assign save_js = 'products.product.save_js' | t: saved_amount:'saved_amount' -%} 
 
-{%- if results_count > 0 %}{% if results_count > 1 %}.h_results{% else %}.h_result{% endif %}||
+{%- if results_count > 0 %}{% if results_count > 1 %}.h_results{% else %}.h_result{% endif %}[--split--]
 {%- paginate search.results by 16 -%}
 	{%- for product in search.results -%}
 		{%- assign on_sale = false -%}{%- assign image = product.images[0] -%}{%- if product.compare_at_price_min > product.price_min -%}{%- assign on_sale = true -%}{%- endif -%}
@@ -42,7 +42,7 @@
      {%- endif -%}
 {%- endpaginate -%}
 {%- else -%}
-.h_result||{{ 'general.search.no_results_product' | t }}
+.h_result[--split--]{{ 'general.search.no_results_product' | t }}
  {%- if only_search_prs == false and product_type == '*' or product_type == blank -%}
  <div class="col-12 results_article_blog lazyload mt__25" data-include='{{ routes.search_url }}?view=link&q={{search_terms| url_encode}}&type=article,page'></div>
  {%- endif -%}
