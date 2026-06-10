@@ -1,1 +1,191 @@
-{"sections": {"main": {"type": "main-product", "blocks": {"judge_me_reviews_preview_badge_Ah8G8H": {"type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8", "settings": {}}, "ed5dec54-d995-4f88-87d3-102460e07067": {"type": "name_product", "settings": {"np_text_transform": "capitalize", "np_size": 36, "np_weight": 500, "np_size_mobile": 24, "np_mg_top": 0, "np_mg_bottom": 16}}, "6ff5677e-1d98-482d-bd86-4c67fe63a2af": {"type": "show_reviews", "settings": {"use-reviewst": true, "use-sold-product": true, "min_sold": 4, "max_sold": 25, "time": "24 hours"}}, "c78dd46d-d065-4e43-aaa7-13423da0532f": {"type": "show_description", "settings": {"custom_liquid": "{{product.metafields.custom.short_description}}"}}, "custom_liquid_price_display": {"type": "custom_liquid", "settings": {"custom_liquid": "<!-- \ud83d\udce6 TOP BLOCK: Shows the Dropdowns (Card Stock, Size, Turnaround) -->\n<div id=\"sinalite-advanced-builder\">\n  <h4 style=\"color: #333;\">Loading Live Print Options...</h4>\n</div>"}}, "optis_product_options_option_set_tYCQwN": {"type": "shopify://apps/optis-product-options/blocks/option-set/2c446099-c349-4e73-80cd-49c9770b7807", "settings": {}}, "custom_liquid_4hnA7N": {"type": "custom_liquid", "settings": {"custom_liquid": "<!-- \ud83d\ude80 The Sinalite Integration Plugin - Final Production Version (PO Robust) -->\n\n<style>\n  #sinalite-live-price-card {\n    margin: 20px 0;\n    display: none; \n    padding: 15px;\n    background: #f8f9fa;\n    border-radius: 8px;\n    border-left: 4px solid #1a73e8;\n  }\n  .price-amount {\n    font-size: 32px;\n    font-weight: 700;\n    color: #111;\n  }\n  .price-label {\n    font-size: 14px;\n    color: #666;\n    margin-bottom: 5px;\n  }\n</style>\n\n<div id=\"sinalite-live-price-card\">\n  <div class=\"price-label\">Estimated Retail Price:</div>\n  <div class=\"price-amount\">\n    $<span id=\"calculated-price-amount\">0.00</span>\n  </div>\n</div>\n\n<script>\n  console.log('SINALITE LOADED');\n  const MIDDLEWARE_SERVER_URL = \"https://shopify-sinalite-app.onrender.com\";\n  const SINALITE_PRODUCT_ID = \"{{ product.variants.first.sku }}\".trim();\n  \n  let baseProductId = null;\n  let pricingUnitId = null;\n  {% for variant in product.variants %}\n    {% if forloop.first %}baseProductId = \"{{ variant.id }}\";{% endif %}\n    {% if variant.title contains \"Base\" %}baseProductId = \"{{ variant.id }}\";{% endif %}\n    {% if variant.title contains \"Pricing Unit\" %}pricingUnitId = \"{{ variant.id }}\";{% endif %}\n  {% endfor %}\n\n  window.globalRetailPrice = 0.00;\n  window.lastSinaliteBasePrice = 0.00;\n\n  function syncSinaliteProperties() {\n    const form = document.querySelector('form[action*=\"/cart/add\"]');\n    if (!form) return;\n\n    document.querySelectorAll('.sinalite-dropdown').forEach(dropdown => {\n      const selectedText = dropdown.options[dropdown.selectedIndex].text;\n      const groupName = dropdown.dataset.group || dropdown.previousElementSibling?.innerText.trim() || 'Option';\n      const inputName = `properties[${groupName}]`;\n\n      let hiddenInput = form.querySelector(`input[name=\"${inputName}\"]`);\n      if (!hiddenInput) {\n        hiddenInput = document.createElement('input');\n        hiddenInput.type = 'hidden';\n        hiddenInput.name = inputName;\n        form.appendChild(hiddenInput);\n      }\n      hiddenInput.value = selectedText;\n    });\n  }\n\n  const getOptisAddonPrice = () => {\n    let extra = 0;\n    document.querySelectorAll('input:checked, option:checked, .po-value, .po-label input:checked').forEach(input => {\n       const val = (input.value || input.textContent || \"\").trim().toUpperCase();\n       const containerText = input.closest('fieldset, .product-option, .po-label, .po_label, .po-label-container')?.innerText.toLowerCase() || \"\";\n       if (val === \"YES\" || containerText.includes('selected') || input.checked) {\n          if (containerText.includes('email proof') || containerText.includes('proof(+$5)')) extra += 5.00;\n          if (containerText.includes('design services') || containerText.includes('services(+$59.99)')) extra += 59.99;\n       }\n    });\n    document.querySelectorAll('.po-label-container.checked, .po-label.checked').forEach(container => {\n       const text = container.innerText.toLowerCase();\n       if (text.includes('email proof')) extra += 5.00;\n       if (text.includes('design services')) extra += 59.99;\n    });\n    return extra;\n  };\n\n  function refreshPriceDisplay() {\n    const addonTotal = getOptisAddonPrice();\n    window.globalRetailPrice = window.lastSinaliteBasePrice + addonTotal;\n    const amountEl = document.getElementById(\"calculated-price-amount\");\n    if (amountEl && window.lastSinaliteBasePrice > 0) {\n      amountEl.innerText = window.globalRetailPrice.toFixed(2);\n      document.getElementById(\"sinalite-live-price-card\").style.display = \"block\";\n    }\n    syncSinaliteProperties();\n  }\n\n  function fetchLivePrice() {\n    const selectedIds = [];\n    document.querySelectorAll('.sinalite-dropdown').forEach(d => selectedIds.push(parseInt(d.value)));\n    fetch(`${MIDDLEWARE_SERVER_URL}/api/price/${SINALITE_PRODUCT_ID}`, {\n      method: \"POST\",\n      headers: { \"Content-Type\": \"application/json\" },\n      body: JSON.stringify({ productOptions: selectedIds })\n    })\n    .then(res => res.json())\n    .then(data => { \n       if(data.retailPrice) { \n         window.lastSinaliteBasePrice = parseFloat(data.retailPrice); \n         refreshPriceDisplay(); \n       }\n    });\n  }\n\n  if (SINALITE_PRODUCT_ID) {\n    fetch(`${MIDDLEWARE_SERVER_URL}/api/product/${SINALITE_PRODUCT_ID}`)\n    .then(res => res.json())\n    .then(pData => {\n      const builder = document.getElementById(\"sinalite-advanced-builder\");\n      builder.innerHTML = \"\";\n      const grouped = {};\n      pData[0].forEach(o => {\n        if(!grouped[o.group]) grouped[o.group] = [];\n        grouped[o.group].push(o);\n      });\n      Object.keys(grouped).forEach(k => {\n        let html = `<label style=\"display:block;margin-top:15px\"><b>${k}</b></label>`;\n        html += `<select class=\"sinalite-dropdown\" data-group=\"${k}\" style=\"width:100%;padding:10px\">`;\n        grouped[k].forEach(v => { html += `<option value=\"${v.id}\">${v.name}</option>`; });\n        html += `</select>`;\n        builder.innerHTML += html;\n      });\n      document.querySelectorAll('.sinalite-dropdown').forEach(d => d.addEventListener('change', fetchLivePrice));\n      fetchLivePrice();\n    });\n  }\n\n  setInterval(refreshPriceDisplay, 1000);\n\n  document.body.addEventListener(\"click\", function(e) {\n    const btn = e.target.closest(\".js_add_to_cart_button, .add-to-cart, [name='add']\");\n    if (btn && !btn.classList.contains('processing')) {\n      e.preventDefault();\n      e.stopImmediatePropagation();\n      btn.classList.add('processing');\n      btn.innerText = \"Finalizing Profile...\";\n\n                                    const props = {};\n      const form = document.querySelector('form[action*=\"/cart/add\"]');\n      \n      // \ud83d\udeab KILL SIDE DRAWER\n      window.stopMiniCart = true;\n      document.addEventListener('ajaxProduct:added', (e) => e.stopImmediatePropagation(), true);\n      document.addEventListener('cart:updated', (e) => e.stopImmediatePropagation(), true);\n\n      if (form) {\n        const formData = new FormData(form);\n        for (let [k, v] of formData.entries()) {\n          if (k.includes('properties[')) {\n            let name = k.replace('properties[', '').replace(']', '').trim();\n            if (v) props[name] = v;\n          }\n        }\n        \n        // \ud83d\udd0e COLLISION-FREE SCRAPER\n        document.querySelectorAll('input:checked, select option:checked, .po-value, .po_text_area').forEach(input => {\n           if (input.name && input.name.includes('_job_id')) return;\n           const val = (input.value || input.textContent || \"\").trim().toUpperCase();\n           if (!val || val === \"ON\") return;\n\n           let label = \"Option\";\n           const row = input.closest('.bss-po-option-row, .po-row, .product-option, .po-label-container');\n           if (row) {\n              const labelEl = row.querySelector('.bss-po-option-label, .po-label, label, b');\n              if (labelEl) label = labelEl.innerText.split('+')[0].split('(')[0].trim();\n           }\n           \n           if (label.toLowerCase().includes('design')) label = \"DESIGN SERVICES\";\n           if (label.toLowerCase().includes('proof')) label = \"EMAIL PROOF\";\n           if (input.classList.contains('po_text_area') || input.classList.contains('po-value')) label = \"DESCRIPTION\";\n\n           props[label] = val;\n        });\n\n        // \ud83d\udee1\ufe0f Fail-safe: Use the CORRECT Price ID (#calculated-price-amount)\n        const priceEl = document.getElementById('calculated-price-amount');\n        if (priceEl) {\n           const priceText = priceEl.innerText;\n           if (priceText.includes('249') || priceText.includes('244')) {\n              props[\"DESIGN SERVICES\"] = \"YES\";\n              if (priceText.includes('249')) props[\"EMAIL PROOF\"] = \"YES\";\n           }\n        }\n      }\n\n      document.querySelectorAll('.sinalite-dropdown').forEach(d => {\n        props[d.dataset.group] = d.options[d.selectedIndex].text;\n      });\n\n      const jobId = \"JOB_\" + Date.now();\n      props[\"_job_id\"] = jobId;\n      \n      const basePriceCents = {{ product.variants.first.price | default: 0 }};\n      const totalCents = Math.round(window.globalRetailPrice * 100);\n      const units = Math.max(0, totalCents - basePriceCents);\n\n      fetch('/cart/add.js', {\n        method: 'POST',\n        headers: { 'Content-Type': 'application/json' },\n        body: JSON.stringify({\n          items: [\n            { id: baseProductId, quantity: 1, properties: props },\n            { id: pricingUnitId, quantity: units, properties: { \"_job_id\": jobId, \"_hidden\": \"true\" } }\n          ]\n        })\n      }).then(() => window.location.href = \"/checkout\");\n    }\n  }, true);\n</script>"}}, "quantity_button_96FMUA": {"type": "quantity_button", "settings": {"icon_button_cart": "lnr lnr-arrow-right", "border": 1, "qt_show_quantity": false, "qt_show_cart": true, "show_popup": true, "product_terms_conditions_page_content": "", "qt_buy_it_now": true, "btn_affiliate": "Buy On Themeforest", "qt_show_compare": true, "qt_show_wishlist": true, "show_social_sharing": true, "show_custom_color_btn": false, "color_text_cart": "#ffffff", "bg_add_to_cart": "#1a73e8", "color_text_cart_hover": "#ffffff", "bg_add_to_cart_hv": "#343e45", "color_text_buy_now": "#ffffff", "bg_buy_it_now": "#4ad295", "color_text_buy_now_hover": "#ffffff", "bg_buy_it_now_hv": "#1a73e8"}}, "custom_liquid_PDWzye": {"type": "custom_liquid", "disabled": true, "settings": {"custom_liquid": ""}}}, "block_order": ["judge_me_reviews_preview_badge_Ah8G8H", "ed5dec54-d995-4f88-87d3-102460e07067", "6ff5677e-1d98-482d-bd86-4c67fe63a2af", "c78dd46d-d065-4e43-aaa7-13423da0532f", "custom_liquid_price_display", "optis_product_options_option_set_tYCQwN", "custom_liquid_4hnA7N", "quantity_button_96FMUA", "custom_liquid_PDWzye"], "settings": {"products-before-after": true, "cl_bg": "#ffffff", "mg": "0,0,50px,0", "pd": "20px,20px,20px,20px", "bd": 5, "mg_mb": "", "pd_mb": ""}}, "product_tabs": {"type": "product-page-tab", "blocks": {"tab_description": {"type": "tab_description", "settings": {"title_description": "Description"}}, "shipping": {"type": "tab_custom_html", "disabled": true, "settings": {"title": "Shipping Information", "page_content": "shipping-policy"}}, "additional_info": {"type": "tab_metafields", "settings": {"title": "Additional Information", "custom_liquid": "{{product.metafields.custom.additional_information}}"}}, "reviews": {"type": "tab_reviews", "disabled": true, "settings": {"title_reviews": "Reviews"}}}, "block_order": ["tab_description", "shipping", "additional_info", "reviews"], "settings": {"hide_tabs": false, "accordion_tabs": false, "cl_bg": "#ffffff", "show_border": true, "cl_line": "#eeeeee", "mg": "50px,0,50px,0", "pd": "20px,20px,20px,20px", "bd": 5, "mg_mb": "", "pd_mb": ""}}, "1775277186147037a4": {"type": "apps", "blocks": {"judge_me_reviews_review_widget_VU3dHK": {"type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8", "settings": {"review_data": "sample_data", "max_width": 1200, "show_shop_reviews": false, "empty_state": "empty_widget"}}}, "block_order": ["judge_me_reviews_review_widget_VU3dHK"], "settings": {}}}, "order": ["main", "product_tabs", "1775277186147037a4"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "judge_me_reviews_preview_badge_Ah8G8H": {
+          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        },
+        "ed5dec54-d995-4f88-87d3-102460e07067": {
+          "type": "name_product",
+          "settings": {
+            "np_text_transform": "capitalize",
+            "np_size": 36,
+            "np_weight": 500,
+            "np_size_mobile": 24,
+            "np_mg_top": 0,
+            "np_mg_bottom": 16
+          }
+        },
+        "6ff5677e-1d98-482d-bd86-4c67fe63a2af": {
+          "type": "show_reviews",
+          "settings": {
+            "use-reviewst": true,
+            "use-sold-product": true,
+            "min_sold": 4,
+            "max_sold": 25,
+            "time": "24 hours"
+          }
+        },
+        "c78dd46d-d065-4e43-aaa7-13423da0532f": {
+          "type": "show_description",
+          "settings": {
+            "custom_liquid": "{{product.metafields.custom.short_description}}"
+          }
+        },
+        "custom_liquid_price_display": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<!-- 📦 TOP BLOCK: Shows the Dropdowns (Card Stock, Size, Turnaround) -->\n<div id=\"sinalite-advanced-builder\">\n  <h4 style=\"color: #333;\">Loading Live Print Options...</h4>\n</div>"
+          }
+        },
+        "optis_product_options_option_set_tYCQwN": {
+          "type": "shopify://apps/optis-product-options/blocks/option-set/2c446099-c349-4e73-80cd-49c9770b7807",
+          "settings": {}
+        },
+        "custom_liquid_4hnA7N": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<!-- 🚀 The Sinalite Integration Plugin - Final Production Version (PO Robust) -->\n\n<style>\n  #sinalite-live-price-card {\n    margin: 20px 0;\n    display: none; \n    padding: 15px;\n    background: #f8f9fa;\n    border-radius: 8px;\n    border-left: 4px solid #1a73e8;\n  }\n  .price-amount {\n    font-size: 32px;\n    font-weight: 700;\n    color: #111;\n  }\n  .price-label {\n    font-size: 14px;\n    color: #666;\n    margin-bottom: 5px;\n  }\n</style>\n\n<div id=\"sinalite-live-price-card\">\n  <div class=\"price-label\">Estimated Retail Price:</div>\n  <div class=\"price-amount\">\n    $<span id=\"calculated-price-amount\">0.00</span>\n  </div>\n</div>\n\n<script>\n  console.log('SINALITE LOADED');\n  const MIDDLEWARE_SERVER_URL = \"https://shopify-sinalite-app.onrender.com\";\n  const SINALITE_PRODUCT_ID = \"{{ product.variants.first.sku }}\".trim();\n  \n  let baseProductId = null;\n  let pricingUnitId = null;\n  {% for variant in product.variants %}\n    {% if forloop.first %}baseProductId = \"{{ variant.id }}\";{% endif %}\n    {% if variant.title contains \"Base\" %}baseProductId = \"{{ variant.id }}\";{% endif %}\n    {% if variant.title contains \"Pricing Unit\" %}pricingUnitId = \"{{ variant.id }}\";{% endif %}\n  {% endfor %}\n\n  window.globalRetailPrice = 0.00;\n  window.lastSinaliteBasePrice = 0.00;\n\n  function syncSinaliteProperties() {\n    const form = document.querySelector('form[action*=\"/cart/add\"]');\n    if (!form) return;\n\n    document.querySelectorAll('.sinalite-dropdown').forEach(dropdown => {\n      const selectedText = dropdown.options[dropdown.selectedIndex].text;\n      const groupName = dropdown.dataset.group || dropdown.previousElementSibling?.innerText.trim() || 'Option';\n      const inputName = `properties[${groupName}]`;\n\n      let hiddenInput = form.querySelector(`input[name=\"${inputName}\"]`);\n      if (!hiddenInput) {\n        hiddenInput = document.createElement('input');\n        hiddenInput.type = 'hidden';\n        hiddenInput.name = inputName;\n        form.appendChild(hiddenInput);\n      }\n      hiddenInput.value = selectedText;\n    });\n  }\n\n  const getOptisAddonPrice = () => {\n    let extra = 0;\n    document.querySelectorAll('input:checked, option:checked, .po-value, .po-label input:checked').forEach(input => {\n       const val = (input.value || input.textContent || \"\").trim().toUpperCase();\n       const containerText = input.closest('fieldset, .product-option, .po-label, .po_label, .po-label-container')?.innerText.toLowerCase() || \"\";\n       if (val === \"YES\" || containerText.includes('selected') || input.checked) {\n          if (containerText.includes('email proof') || containerText.includes('proof(+$5)')) extra += 5.00;\n          if (containerText.includes('design services') || containerText.includes('services(+$59.99)')) extra += 59.99;\n       }\n    });\n    document.querySelectorAll('.po-label-container.checked, .po-label.checked').forEach(container => {\n       const text = container.innerText.toLowerCase();\n       if (text.includes('email proof')) extra += 5.00;\n       if (text.includes('design services')) extra += 59.99;\n    });\n    return extra;\n  };\n\n  function refreshPriceDisplay() {\n    const addonTotal = getOptisAddonPrice();\n    window.globalRetailPrice = window.lastSinaliteBasePrice + addonTotal;\n    const amountEl = document.getElementById(\"calculated-price-amount\");\n    if (amountEl && window.lastSinaliteBasePrice > 0) {\n      amountEl.innerText = window.globalRetailPrice.toFixed(2);\n      document.getElementById(\"sinalite-live-price-card\").style.display = \"block\";\n    }\n    syncSinaliteProperties();\n  }\n\n  function fetchLivePrice() {\n    const selectedIds = [];\n    document.querySelectorAll('.sinalite-dropdown').forEach(d => selectedIds.push(parseInt(d.value)));\n    fetch(`${MIDDLEWARE_SERVER_URL}/api/price/${SINALITE_PRODUCT_ID}`, {\n      method: \"POST\",\n      headers: { \"Content-Type\": \"application/json\" },\n      body: JSON.stringify({ productOptions: selectedIds })\n    })\n    .then(res => res.json())\n    .then(data => { \n       if(data.retailPrice) { \n         window.lastSinaliteBasePrice = parseFloat(data.retailPrice); \n         refreshPriceDisplay(); \n       }\n    });\n  }\n\n  if (SINALITE_PRODUCT_ID) {\n    fetch(`${MIDDLEWARE_SERVER_URL}/api/product/${SINALITE_PRODUCT_ID}`)\n    .then(res => res.json())\n    .then(pData => {\n      const builder = document.getElementById(\"sinalite-advanced-builder\");\n      builder.innerHTML = \"\";\n      const grouped = {};\n      pData[0].forEach(o => {\n        if(!grouped[o.group]) grouped[o.group] = [];\n        grouped[o.group].push(o);\n      });\n      Object.keys(grouped).forEach(k => {\n        let html = `<label style=\"display:block;margin-top:15px\"><b>${k}</b></label>`;\n        html += `<select class=\"sinalite-dropdown\" data-group=\"${k}\" style=\"width:100%;padding:10px\">`;\n        grouped[k].forEach(v => { html += `<option value=\"${v.id}\">${v.name}</option>`; });\n        html += `</select>`;\n        builder.innerHTML += html;\n      });\n      document.querySelectorAll('.sinalite-dropdown').forEach(d => d.addEventListener('change', fetchLivePrice));\n      fetchLivePrice();\n    });\n  }\n\n  setInterval(refreshPriceDisplay, 1000);\n\n  document.body.addEventListener(\"click\", function(e) {\n    const btn = e.target.closest(\".js_add_to_cart_button, .add-to-cart, [name='add']\");\n    if (btn && !btn.classList.contains('processing')) {\n      e.preventDefault();\n      e.stopImmediatePropagation();\n      btn.classList.add('processing');\n      btn.innerText = \"Finalizing Profile...\";\n\n                                    const props = {};\n      const form = document.querySelector('form[action*=\"/cart/add\"]');\n      \n      // 🚫 KILL SIDE DRAWER\n      window.stopMiniCart = true;\n      document.addEventListener('ajaxProduct:added', (e) => e.stopImmediatePropagation(), true);\n      document.addEventListener('cart:updated', (e) => e.stopImmediatePropagation(), true);\n\n      if (form) {\n        const formData = new FormData(form);\n        for (let [k, v] of formData.entries()) {\n          if (k.includes('properties[')) {\n            let name = k.replace('properties[', '').replace(']', '').trim();\n            if (v) props[name] = v;\n          }\n        }\n        \n        // 🔎 COLLISION-FREE SCRAPER\n        document.querySelectorAll('input:checked, select option:checked, .po-value, .po_text_area').forEach(input => {\n           if (input.name && input.name.includes('_job_id')) return;\n           const val = (input.value || input.textContent || \"\").trim().toUpperCase();\n           if (!val || val === \"ON\") return;\n\n           let label = \"Option\";\n           const row = input.closest('.bss-po-option-row, .po-row, .product-option, .po-label-container');\n           if (row) {\n              const labelEl = row.querySelector('.bss-po-option-label, .po-label, label, b');\n              if (labelEl) label = labelEl.innerText.split('+')[0].split('(')[0].trim();\n           }\n           \n           if (label.toLowerCase().includes('design')) label = \"DESIGN SERVICES\";\n           if (label.toLowerCase().includes('proof')) label = \"EMAIL PROOF\";\n           if (input.classList.contains('po_text_area') || input.classList.contains('po-value')) label = \"DESCRIPTION\";\n\n           props[label] = val;\n        });\n\n        // 🛡️ Fail-safe: Use the CORRECT Price ID (#calculated-price-amount)\n        const priceEl = document.getElementById('calculated-price-amount');\n        if (priceEl) {\n           const priceText = priceEl.innerText;\n           if (priceText.includes('249') || priceText.includes('244')) {\n              props[\"DESIGN SERVICES\"] = \"YES\";\n              if (priceText.includes('249')) props[\"EMAIL PROOF\"] = \"YES\";\n           }\n        }\n      }\n\n      document.querySelectorAll('.sinalite-dropdown').forEach(d => {\n        props[d.dataset.group] = d.options[d.selectedIndex].text;\n      });\n\n      const jobId = \"JOB_\" + Date.now();\n      props[\"_job_id\"] = jobId;\n      \n      const basePriceCents = {{ product.variants.first.price | default: 0 }};\n      const totalCents = Math.round(window.globalRetailPrice * 100);\n      const units = Math.max(0, totalCents - basePriceCents);\n\n      fetch('/cart/add.js', {\n        method: 'POST',\n        headers: { 'Content-Type': 'application/json' },\n        body: JSON.stringify({\n          items: [\n            { id: baseProductId, quantity: 1, properties: props },\n            { id: pricingUnitId, quantity: units, properties: { \"_job_id\": jobId, \"_hidden\": \"true\" } }\n          ]\n        })\n      }).then(() => window.location.href = \"/checkout\");\n    }\n  }, true);\n</script>"
+          }
+        },
+        "quantity_button_96FMUA": {
+          "type": "quantity_button",
+          "settings": {
+            "icon_button_cart": "lnr lnr-arrow-right",
+            "border": 1,
+            "qt_show_quantity": false,
+            "qt_show_cart": true,
+            "show_popup": true,
+            "product_terms_conditions_page_content": "",
+            "qt_buy_it_now": true,
+            "btn_affiliate": "Buy On Themeforest",
+            "qt_show_compare": true,
+            "qt_show_wishlist": true,
+            "show_social_sharing": true,
+            "show_custom_color_btn": false,
+            "color_text_cart": "#ffffff",
+            "bg_add_to_cart": "#1a73e8",
+            "color_text_cart_hover": "#ffffff",
+            "bg_add_to_cart_hv": "#343e45",
+            "color_text_buy_now": "#ffffff",
+            "bg_buy_it_now": "#4ad295",
+            "color_text_buy_now_hover": "#ffffff",
+            "bg_buy_it_now_hv": "#1a73e8"
+          }
+        },
+        "custom_liquid_PDWzye": {
+          "type": "custom_liquid",
+          "disabled": true,
+          "settings": {
+            "custom_liquid": ""
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_preview_badge_Ah8G8H",
+        "ed5dec54-d995-4f88-87d3-102460e07067",
+        "6ff5677e-1d98-482d-bd86-4c67fe63a2af",
+        "c78dd46d-d065-4e43-aaa7-13423da0532f",
+        "custom_liquid_price_display",
+        "optis_product_options_option_set_tYCQwN",
+        "custom_liquid_4hnA7N",
+        "quantity_button_96FMUA",
+        "custom_liquid_PDWzye"
+      ],
+      "settings": {
+        "products-before-after": true,
+        "cl_bg": "#ffffff",
+        "mg": "0,0,50px,0",
+        "pd": "20px,20px,20px,20px",
+        "bd": 5,
+        "mg_mb": "",
+        "pd_mb": ""
+      }
+    },
+    "product_tabs": {
+      "type": "product-page-tab",
+      "blocks": {
+        "tab_description": {
+          "type": "tab_description",
+          "settings": {
+            "title_description": "Description"
+          }
+        },
+        "shipping": {
+          "type": "tab_custom_html",
+          "disabled": true,
+          "settings": {
+            "title": "Shipping Information",
+            "page_content": "shipping-policy"
+          }
+        },
+        "additional_info": {
+          "type": "tab_metafields",
+          "settings": {
+            "title": "Additional Information",
+            "custom_liquid": "{{product.metafields.custom.additional_information}}"
+          }
+        },
+        "reviews": {
+          "type": "tab_reviews",
+          "disabled": true,
+          "settings": {
+            "title_reviews": "Reviews"
+          }
+        }
+      },
+      "block_order": [
+        "tab_description",
+        "shipping",
+        "additional_info",
+        "reviews"
+      ],
+      "settings": {
+        "hide_tabs": false,
+        "accordion_tabs": false,
+        "cl_bg": "#ffffff",
+        "show_border": true,
+        "cl_line": "#eeeeee",
+        "mg": "50px,0,50px,0",
+        "pd": "20px,20px,20px,20px",
+        "bd": 5,
+        "mg_mb": "",
+        "pd_mb": ""
+      }
+    },
+    "1775277186147037a4": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_VU3dHK": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "sample_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_VU3dHK"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "product_tabs",
+    "1775277186147037a4"
+  ]
+}

@@ -17,7 +17,17 @@
   --color-icon-header:{{section.settings.color_icon}};
   --color-count-header:{{section.settings.color_count}};
 }
+
+.header-logo img, .site-header__logo-image img {
+  max-width: {{ section.settings.logo_max_width_mobile | default: section.settings.logo_max_width }}px !important;
+  width: 100% !important;
+  height: auto !important;
+}
+
 @media (min-width: 992px) {
+  .header-logo img, .site-header__logo-image img {
+    max-width: {{ section.settings.logo_max_width }}px !important;
+  }
   .header-logo, .site-header__logo-image {
     transform: translate({{ section.settings.logo_offset_x }}px, {{ section.settings.logo_offset_y }}px);
     transition: transform 0.2s ease;
@@ -112,8 +122,18 @@
           "max": 450,
           "step": 5,
           "unit": "px",
-          "label": "Logo width",
+          "label": "Logo width (Desktop)",
           "default": 150
+        },
+        {
+          "type": "range",
+          "id": "logo_max_width_mobile",
+          "min": 50,
+          "max": 300,
+          "step": 5,
+          "unit": "px",
+          "label": "Logo width (Mobile)",
+          "default": 100
         },
         {
           "type": "range",

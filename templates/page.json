@@ -1,1 +1,125 @@
-{"sections":{"breadcrumb":{"type":"breadcrumb","disabled":true,"settings":{"show_title_page":true,"h_position":"center","v_position":"middle","txt_align":"center","bg":"#f7f7f9","cl_border":"#ffffff","b_height":200,"mg_bottom":0,"mobile_bg":"#f5f5f5","mobile_ht":100,"mobile_mg_bottom":0}},"main":{"type":"main-page","disabled":true,"settings":{"show_page":false,"cl_bg":"#ffffff","pd_c":"","mg":"","pd":"80px,0,80px,0","mg_mb":"","pd_mb":"50px,0,50px,0"}},"blocks_zkCmCr":{"type":"_blocks","blocks":{"ai_gen_block_1496a30_LGx7Mq":{"type":"ai_gen_block_1496a30","settings":{"section_bg":"#ffffff","section_padding_top":80,"section_padding_bottom":80,"container_width":1400,"enable_mobile_slider":false,"main_title":"Design Systems","title_size":48,"title_weight":700,"title_color":"#222222","main_subtitle":"Industrial-grade design solutions engineered for maximum impact across all mediums","subtitle_size":18,"subtitle_color":"#777777","card_bg":"#ffffff","card_border_radius":12,"accent_color":"#16bcdc","icon_bg":"#f4f5f7","icon_color":"#16bcdc","card_title_size":22,"card_title_color":"#222222","card_desc_size":15,"card_desc_color":"#777777","card_1_enabled":true,"card_1_icon":"<svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" viewbox=\"0 0 24 24\"><path d=\"M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z\"><\/path><\/svg>","card_1_title":"Branding","card_1_desc":"Industrial-grade branding systems engineered for high impact. Strategic identity development that resonates across all touchpoints.","card_2_enabled":true,"card_2_icon":"<svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" viewbox=\"0 0 24 24\"><path d=\"M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5.04-6.71l-2.75 3.54-1.96-2.36L6.5 17h11l-3.54-4.71z\"><\/path><\/svg>","card_2_title":"Print Media","card_2_desc":"High-fidelity print solutions for physical presence. From business cards to large-format publications with precision and quality.","card_3_enabled":true,"card_3_icon":"<svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" viewbox=\"0 0 24 24\"><path d=\"M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 14H4v-4h11v4zm0-5H4V9h11v4zm5 5h-4V9h4v9z\"><\/path><\/svg>","card_3_title":"Web Design","card_3_desc":"Immersive digital experiences and ecommerce. Responsive, accessible, and conversion-optimized web solutions.","card_4_enabled":true,"card_4_icon":"<svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" viewbox=\"0 0 24 24\"><path d=\"M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z\"><\/path><\/svg>","card_4_title":"Marketing","card_4_desc":"Data-driven growth strategies and analytics. Comprehensive campaigns that deliver measurable results and ROI.","card_5_enabled":true,"card_5_icon":"<svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" viewbox=\"0 0 24 24\"><path d=\"M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H3V5h18v14zM5 10h5v7H5zm7-5h7v3h-7zm0 4h7v8h-7z\"><\/path><\/svg>","card_5_title":"Signage","card_5_desc":"Large format displays and architectural graphics. Environmental design that transforms spaces and enhances brand presence.","card_6_enabled":true,"card_6_icon":"<svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" viewbox=\"0 0 24 24\"><path d=\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z\"><\/path><\/svg>","card_6_title":"Packaging","card_6_desc":"Premium packaging design that protects and promotes. Sustainable solutions that enhance product value and shelf appeal.","card_7_enabled":true,"card_7_icon":"<svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" viewbox=\"0 0 24 24\"><path d=\"M12 2l-5.5 9h11z\"><\/path><circle cx=\"17.5\" cy=\"17.5\" r=\"4.5\"><\/circle><path d=\"M3 13.5h8v8H3z\"><\/path><\/svg>","card_7_title":"Illustration","card_7_desc":"Custom illustrations and visual storytelling. Unique artwork that brings concepts to life and engages audiences.","card_8_enabled":true,"card_8_icon":"<svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" viewbox=\"0 0 24 24\"><path d=\"M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z\"><\/path><\/svg>","card_8_title":"Motion Graphics","card_8_desc":"Dynamic animations and video content. Engaging motion design that captures attention and communicates effectively.","cta_text":"Get in touch","cta_link":"shopify:\/\/pages\/contact","cta_size":16,"cta_bg":"#222222","cta_color":"#ffffff","cta_hover_bg":"#16bcdc","cta_hover_color":"#ffffff","cta_border_radius":8},"blocks":{}}},"block_order":["ai_gen_block_1496a30_LGx7Mq"],"name":"Design systems","settings":{}}},"order":["breadcrumb","main","blocks_zkCmCr"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "breadcrumb": {
+      "type": "breadcrumb",
+      "disabled": true,
+      "settings": {
+        "show_title_page": true,
+        "h_position": "center",
+        "v_position": "middle",
+        "txt_align": "center",
+        "bg": "#f7f7f9",
+        "cl_border": "#ffffff",
+        "b_height": 200,
+        "mg_bottom": 0,
+        "mobile_bg": "#f5f5f5",
+        "mobile_ht": 100,
+        "mobile_mg_bottom": 0
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "show_page": false,
+        "cl_bg": "#ffffff",
+        "pd_c": "",
+        "mg": "",
+        "pd": "80px,0,80px,0",
+        "mg_mb": "",
+        "pd_mb": "50px,0,50px,0"
+      }
+    },
+    "blocks_zkCmCr": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_1496a30_LGx7Mq": {
+          "type": "ai_gen_block_1496a30",
+          "settings": {
+            "section_bg": "#ffffff",
+            "section_padding_top": 80,
+            "section_padding_bottom": 80,
+            "container_width": 1400,
+            "enable_mobile_slider": false,
+            "main_title": "Design Systems",
+            "title_size": 48,
+            "title_weight": 700,
+            "title_color": "#222222",
+            "main_subtitle": "Industrial-grade design solutions engineered for maximum impact across all mediums",
+            "subtitle_size": 18,
+            "subtitle_color": "#777777",
+            "card_bg": "#ffffff",
+            "card_border_radius": 12,
+            "accent_color": "#16bcdc",
+            "icon_bg": "#f4f5f7",
+            "icon_color": "#16bcdc",
+            "card_title_size": 22,
+            "card_title_color": "#222222",
+            "card_desc_size": 15,
+            "card_desc_color": "#777777",
+            "card_1_enabled": true,
+            "card_1_icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 24 24\"><path d=\"M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z\"></path></svg>",
+            "card_1_title": "Branding",
+            "card_1_desc": "Industrial-grade branding systems engineered for high impact. Strategic identity development that resonates across all touchpoints.",
+            "card_2_enabled": true,
+            "card_2_icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 24 24\"><path d=\"M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5.04-6.71l-2.75 3.54-1.96-2.36L6.5 17h11l-3.54-4.71z\"></path></svg>",
+            "card_2_title": "Print Media",
+            "card_2_desc": "High-fidelity print solutions for physical presence. From business cards to large-format publications with precision and quality.",
+            "card_3_enabled": true,
+            "card_3_icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 24 24\"><path d=\"M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 14H4v-4h11v4zm0-5H4V9h11v4zm5 5h-4V9h4v9z\"></path></svg>",
+            "card_3_title": "Web Design",
+            "card_3_desc": "Immersive digital experiences and ecommerce. Responsive, accessible, and conversion-optimized web solutions.",
+            "card_4_enabled": true,
+            "card_4_icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 24 24\"><path d=\"M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z\"></path></svg>",
+            "card_4_title": "Marketing",
+            "card_4_desc": "Data-driven growth strategies and analytics. Comprehensive campaigns that deliver measurable results and ROI.",
+            "card_5_enabled": true,
+            "card_5_icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 24 24\"><path d=\"M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H3V5h18v14zM5 10h5v7H5zm7-5h7v3h-7zm0 4h7v8h-7z\"></path></svg>",
+            "card_5_title": "Signage",
+            "card_5_desc": "Large format displays and architectural graphics. Environmental design that transforms spaces and enhances brand presence.",
+            "card_6_enabled": true,
+            "card_6_icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 24 24\"><path d=\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z\"></path></svg>",
+            "card_6_title": "Packaging",
+            "card_6_desc": "Premium packaging design that protects and promotes. Sustainable solutions that enhance product value and shelf appeal.",
+            "card_7_enabled": true,
+            "card_7_icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 24 24\"><path d=\"M12 2l-5.5 9h11z\"></path><circle cx=\"17.5\" cy=\"17.5\" r=\"4.5\"></circle><path d=\"M3 13.5h8v8H3z\"></path></svg>",
+            "card_7_title": "Illustration",
+            "card_7_desc": "Custom illustrations and visual storytelling. Unique artwork that brings concepts to life and engages audiences.",
+            "card_8_enabled": true,
+            "card_8_icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 24 24\"><path d=\"M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z\"></path></svg>",
+            "card_8_title": "Motion Graphics",
+            "card_8_desc": "Dynamic animations and video content. Engaging motion design that captures attention and communicates effectively.",
+            "cta_text": "Get in touch",
+            "cta_link": "shopify://pages/contact",
+            "cta_size": 16,
+            "cta_bg": "#222222",
+            "cta_color": "#ffffff",
+            "cta_hover_bg": "#16bcdc",
+            "cta_hover_color": "#ffffff",
+            "cta_border_radius": 8
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_1496a30_LGx7Mq"
+      ],
+      "name": "Design systems",
+      "settings": {}
+    }
+  },
+  "order": [
+    "breadcrumb",
+    "main",
+    "blocks_zkCmCr"
+  ]
+}
