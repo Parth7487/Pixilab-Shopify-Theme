@@ -43,6 +43,10 @@
             "custom_liquid": "{{product.metafields.custom.short_description}}"
           }
         },
+        "show_price_block": {
+          "type": "show_price",
+          "settings": {}
+        },
         "custom_liquid_price_display": {
           "type": "custom_liquid",
           "settings": {
@@ -95,6 +99,7 @@
       "block_order": [
         "judge_me_reviews_preview_badge_Ah8G8H",
         "ed5dec54-d995-4f88-87d3-102460e07067",
+        "show_price_block",
         "6ff5677e-1d98-482d-bd86-4c67fe63a2af",
         "c78dd46d-d065-4e43-aaa7-13423da0532f",
         "custom_liquid_price_display",
