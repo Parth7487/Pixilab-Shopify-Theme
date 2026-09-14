@@ -196,7 +196,7 @@
               {% include 'reviews-count' %}
               {% if product_reviews_count > 0%}
               <div class="product-collection__reviews">
-                {% render 'product-get-review' with id: id hide_counter: hide_reviews_counter %}
+                {% render 'product-get-review' with id, id: id, hide_counter: hide_reviews_counter %}
               </div>
               {% endif %}
             {%- endif -%}
@@ -222,7 +222,7 @@
             {%- endif -%}
             {%- if show_button_add_to_cart or show_options -%}
             <div class="product-collection__variants {% if show_options == false or show_custom_options %} d-none{% elsif product.variants.size == 1 and product.variants.first.title contains 'Default' %} d-none{% endif %}">
-              {% render 'product-get-variants' with product: product current_variant: current_variant show_options: show_options show_custom_options: show_custom_options %}
+              {% render 'product-get-variants' with product, product: product, current_variant: current_variant, show_options: show_options, show_custom_options: show_custom_options %}
             </div>
             {%- endif -%}
             {% endform %}
@@ -265,3 +265,21 @@
       </div>
   </div>
 </div>
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'product-get-review' with id: id hide_counter: hide_reviews_counter
+    %}"
+  to: "{% render 'product-get-review' with id, id: id, hide_counter: hide_reviews_counter
+    %}"
+  position: 12938..13023
+- from: "{% render 'product-get-variants' with product: product current_variant: current_variant
+    show_options: show_options show_custom_options: show_custom_options %}"
+  to: "{% render 'product-get-variants' with product, product: product, current_variant:
+    current_variant, show_options: show_options, show_custom_options: show_custom_options
+    %}"
+  position: 14361..14531
+{% endcomment %}
