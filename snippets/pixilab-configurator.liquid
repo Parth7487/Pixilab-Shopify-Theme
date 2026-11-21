@@ -1,0 +1,391 @@
+{% comment %}
+  Pixilab Studio - Single-Product High-Speed Custom Print Configurator
+  Integrates 1,440+ dynamic Printograph options into 1 parent product
+{% endcomment %}
+
+<div id="pixilab-print-configurator" class="pds-configurator-container">
+  <div class="pds-config-grid">
+    <!-- Visual Mockup & Spec Preview -->
+    <div class="pds-visual-box">
+      <div class="pds-mockup-wrapper">
+        <div id="pdsMockup" class="pds-card-mockup uv-shine">
+          <div class="pds-mockup-logo"></div>
+          <div class="pds-mockup-text">
+            <div class="pds-mockup-title">{{ product.title | default: "Custom Business Cards" }}</div>
+            <div id="pdsMockupSpecs" class="pds-mockup-subtitle">2" x 3.5" · 14 pt. Gloss</div>
+          </div>
+        </div>
+      </div>
+      <div class="pds-badges">
+        <div class="pds-badge"><span>⚡</span> 2-4 Days Turnaround</div>
+        <div class="pds-badge"><span>🎨</span> Commercial 4/4 Color</div>
+        <div class="pds-badge"><span>🛡️</span> 100% Quality Guarantee</div>
+      </div>
+    </div>
+
+    <!-- Interactive Option Selector -->
+    <div class="pds-options-box">
+      <!-- Orientation -->
+      <div class="pds-field-group">
+        <label class="pds-field-label">Orientation: <span id="pdsLblOrientation" class="pds-highlight">Horizontal</span></label>
+        <div class="pds-btn-grid" style="grid-template-columns: 1fr 1fr;">
+          <button type="button" class="pds-btn active" onclick="pdsSetOrientation('Horizontal')">Horizontal</button>
+          <button type="button" class="pds-btn" onclick="pdsSetOrientation('Vertical')">Vertical</button>
+        </div>
+      </div>
+
+      <!-- Size -->
+      <div class="pds-field-group">
+        <label class="pds-field-label">Size: <span id="pdsLblSize" class="pds-highlight">2" x 3.5" U.S. Standard</span></label>
+        <select id="pdsSelSize" class="pds-select" onchange="pdsUpdatePrice()">
+          <option value='2" x 3.5" U.S. Standard'>2" x 3.5" (U.S. Standard)</option>
+          <option value='1.75" x 3"'>1.75" x 3" (Slim)</option>
+          <option value='1.75" x 3.5"'>1.75" x 3.5" (Skinny)</option>
+          <option value='2" x 3"'>2" x 3" (Compact)</option>
+          <option value='2.17" x 3.35" European Standard'>2.17" x 3.35" (European Standard)</option>
+        </select>
+      </div>
+
+      <!-- Colors -->
+      <div class="pds-field-group">
+        <label class="pds-field-label">Color Printing: <span id="pdsLblColor" class="pds-highlight">Full Color Both Sides (4/4)</span></label>
+        <select id="pdsSelColor" class="pds-select" onchange="pdsUpdatePrice()">
+          <option value="Full Color Both Sides">Full Color Both Sides (4/4)</option>
+          <option value="Full Color Front, No Back">Full Color Front, Blank Back (4/0)</option>
+          <option value="Full Color Front, Grayscale Back">Full Color Front, Grayscale Back (4/1)</option>
+        </select>
+      </div>
+
+      <!-- Coating -->
+      <div class="pds-field-group">
+        <label class="pds-field-label">Coating / Finish: <span id="pdsLblCoating" class="pds-highlight">High Gloss UV Front</span></label>
+        <select id="pdsSelCoating" class="pds-select" onchange="pdsUpdatePrice()">
+          <option value="High Gloss UV Coating Front">High Gloss UV Coating Front</option>
+          <option value="High Gloss UV Coating Both Sides">High Gloss UV Coating Both Sides</option>
+          <option value="None">None (Uncoated finish)</option>
+        </select>
+      </div>
+
+      <!-- Corners -->
+      <div class="pds-field-group">
+        <label class="pds-field-label">Corners: <span id="pdsLblCorner" class="pds-highlight">Standard Square</span></label>
+        <div class="pds-btn-grid" style="grid-template-columns: 1fr 1fr;">
+          <button type="button" id="pdsBtnSquare" class="pds-btn active" onclick="pdsSetCorner(false)">Standard Square</button>
+          <button type="button" id="pdsBtnRound" class="pds-btn" onclick="pdsSetCorner(true)">Rounded Corners</button>
+        </div>
+      </div>
+
+      <!-- Quantity Grid -->
+      <div class="pds-field-group">
+        <label class="pds-field-label">Quantity: <span id="pdsLblQty" class="pds-highlight">500 Cards</span></label>
+        <div class="pds-btn-grid" id="pdsQtyGrid"></div>
+      </div>
+
+      <!-- Live Calculated Price Banner -->
+      <div class="pds-price-card">
+        <div class="pds-price-main">
+          <span id="pdsPriceAmount">$44.49</span>
+          <span id="pdsPriceUnit">$0.089 / card</span>
+        </div>
+        <div class="pds-price-sub">Digital PDF Proof Included · Ready in 2-4 Days</div>
+      </div>
+
+      <!-- Instant Teleport / Cart Button -->
+      <button type="button" class="pds-submit-btn" onclick="pdsCheckout()">
+        <span>⚡ Proceed to Checkout</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .pds-configurator-container {
+    margin: 25px 0;
+    padding: 24px;
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+    font-family: inherit;
+  }
+  .pds-config-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 28px;
+  }
+  @media(max-width: 850px) {
+    .pds-config-grid { grid-template-columns: 1fr; }
+  }
+  .pds-mockup-wrapper {
+    background: #f8fafc;
+    border-radius: 14px;
+    height: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed #cbd5e1;
+    overflow: hidden;
+  }
+  .pds-card-mockup {
+    width: 250px;
+    height: 145px;
+    background: #ffffff;
+    border-radius: 6px;
+    box-shadow: 0 15px 30px -8px rgba(0,0,0,0.12), 0 0 1px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    transition: all 0.35s ease;
+    border: 1px solid #e2e8f0;
+    position: relative;
+  }
+  .pds-card-mockup.vertical {
+    width: 145px;
+    height: 250px;
+  }
+  .pds-card-mockup.round-corners {
+    border-radius: 18px;
+  }
+  .pds-mockup-logo {
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, #ec4899, #eab308, #06b6d4);
+  }
+  .pds-mockup-title { font-weight: 700; font-size: 13px; color: #0f172a; }
+  .pds-mockup-subtitle { font-size: 11px; color: #64748b; font-weight: 500; margin-top: 2px; }
+  .pds-badges {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 14px;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 600;
+    color: #475569;
+  }
+  .pds-badge { background: #f8fafc; padding: 10px 4px; border-radius: 8px; }
+  .pds-badge span { display: block; font-size: 14px; margin-bottom: 2px; }
+  .pds-field-group { margin-bottom: 16px; }
+  .pds-field-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #334155;
+    margin-bottom: 6px;
+  }
+  .pds-highlight { color: #2563eb; font-weight: 600; text-transform: none; }
+  .pds-btn-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 8px;
+  }
+  .pds-btn {
+    padding: 9px 12px;
+    border-radius: 8px;
+    border: 1.5px solid #e2e8f0;
+    background: #ffffff;
+    font-size: 13px;
+    font-weight: 600;
+    color: #334155;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+  }
+  .pds-btn:hover { border-color: #cbd5e1; background: #f8fafc; }
+  .pds-btn.active {
+    border-color: #2563eb;
+    background: #eff6ff;
+    color: #2563eb;
+    box-shadow: 0 0 0 1px #2563eb;
+  }
+  .pds-select {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1.5px solid #e2e8f0;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1e293b;
+    background: #ffffff;
+    cursor: pointer;
+    outline: none;
+  }
+  .pds-select:focus { border-color: #2563eb; }
+  .pds-price-card {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin: 18px 0 14px 0;
+  }
+  .pds-price-main { display: flex; justify-content: space-between; align-items: baseline; }
+  #pdsPriceAmount { font-size: 32px; font-weight: 800; color: #0f172a; }
+  #pdsPriceUnit { font-size: 13px; font-weight: 600; color: #64748b; }
+  .pds-price-sub { font-size: 12px; color: #64748b; margin-top: 4px; }
+  .pds-submit-btn {
+    background: #0f172a;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    padding: 16px;
+    font-size: 15px;
+    font-weight: 700;
+    width: 100%;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 14px rgba(15,23,42,0.2);
+  }
+  .pds-submit-btn:hover { background: #1e293b; transform: translateY(-1px); }
+</style>
+
+<script>
+  (function() {
+    const PDS_MARKUP = 3.0;
+    let pdsState = {
+      orientation: 'Horizontal',
+      size: '2" x 3.5" U.S. Standard',
+      color: 'Full Color Both Sides',
+      coating: 'High Gloss UV Coating Front',
+      isRound: false,
+      quantity: '500'
+    };
+
+    const pdsQuantities = [250, 500, 1000, 2500, 5000, 10000];
+
+    window.pdsRenderQuantities = function() {
+      const grid = document.getElementById('pdsQtyGrid');
+      if (!grid) return;
+      grid.innerHTML = '';
+      pdsQuantities.forEach(q => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'pds-btn' + (pdsState.quantity == q ? ' active' : '');
+        btn.innerText = q.toLocaleString() + ' pcs';
+        btn.onclick = () => {
+          pdsState.quantity = q.toString();
+          window.pdsRenderQuantities();
+          window.pdsUpdatePrice();
+        };
+        grid.appendChild(btn);
+      });
+    };
+
+    window.pdsSetOrientation = function(val) {
+      pdsState.orientation = val;
+      document.querySelectorAll('.pds-field-group:first-child .pds-btn').forEach(b => {
+        b.classList.toggle('active', b.innerText === val);
+      });
+      document.getElementById('pdsLblOrientation').innerText = val;
+      document.getElementById('pdsMockup').classList.toggle('vertical', val === 'Vertical');
+      window.pdsUpdatePrice();
+    };
+
+    window.pdsSetCorner = function(isRound) {
+      pdsState.isRound = isRound;
+      document.getElementById('pdsBtnSquare').classList.toggle('active', !isRound);
+      document.getElementById('pdsBtnRound').classList.toggle('active', isRound);
+      document.getElementById('pdsLblCorner').innerText = isRound ? 'Rounded (1/4" Radius)' : 'Standard Square';
+      document.getElementById('pdsMockup').classList.toggle('round-corners', isRound);
+      window.pdsUpdatePrice();
+    };
+
+    window.pdsUpdatePrice = function() {
+      pdsState.size = document.getElementById('pdsSelSize').value;
+      pdsState.color = document.getElementById('pdsSelColor').value;
+      pdsState.coating = document.getElementById('pdsSelCoating').value;
+
+      document.getElementById('pdsLblSize').innerText = pdsState.size;
+      document.getElementById('pdsLblColor').innerText = pdsState.color;
+      document.getElementById('pdsLblCoating').innerText = pdsState.coating;
+      document.getElementById('pdsLblQty').innerText = parseInt(pdsState.quantity).toLocaleString() + ' Cards';
+      document.getElementById('pdsMockupSpecs').innerText = pdsState.size + ' · 14 pt. Gloss (' + pdsState.orientation + ')';
+
+      // Live base wholesale quote calculation
+      // Baseline 250 @ $9.38; 500 @ $14.83; 1000 @ $21.24, etc.
+      let baseWholesale = 14.83;
+      const q = parseInt(pdsState.quantity);
+      if (q === 250) baseWholesale = 9.38;
+      else if (q === 500) baseWholesale = 14.83;
+      else if (q === 1000) baseWholesale = 21.24;
+      else if (q === 2500) baseWholesale = 49.50;
+      else if (q === 5000) baseWholesale = 92.00;
+      else if (q === 10000) baseWholesale = 175.00;
+
+      // Add round corner flat wholesale fee
+      if (pdsState.isRound) {
+        if (q === 250) baseWholesale += 5.00;
+        else if (q === 500) baseWholesale += 7.00;
+        else if (q === 1000) baseWholesale += 11.00;
+        else if (q === 2500) baseWholesale += 31.00;
+        else if (q === 5000) baseWholesale += 60.00;
+        else if (q === 10000) baseWholesale += 100.00;
+      }
+
+      const retail = baseWholesale * PDS_MARKUP;
+      const unit = retail / q;
+
+      document.getElementById('pdsPriceAmount').innerText = '$' + retail.toFixed(2);
+      document.getElementById('pdsPriceUnit').innerText = '$' + unit.toFixed(3) + ' / card';
+    };
+
+    window.pdsCheckout = function() {
+      const priceText = document.getElementById('pdsPriceAmount').innerText.replace('$', '');
+      const btn = document.querySelector('.pds-submit-btn');
+      btn.innerText = 'Redirecting to Checkout...';
+      btn.style.opacity = '0.7';
+
+      // Call Render Middleware / Shopify Teleport flow
+      fetch('https://shopify-sinalite-app.onrender.com/api/teleport-cart', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: "Custom Business Cards (14 pt. Gloss)",
+          price: priceText,
+          properties: {
+            "Orientation": pdsState.orientation,
+            "Size": pdsState.size,
+            "Color": pdsState.color,
+            "Coating": pdsState.coating,
+            "Corners": pdsState.isRound ? "Rounded" : "Square",
+            "Quantity": pdsState.quantity,
+            "Paper Stock": "14 pt. Gloss Cover",
+            "_orderType": "Custom POD Configurator",
+            "_jobId": "JOB_" + Date.now()
+          }
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.invoiceUrl) {
+          window.location.href = data.invoiceUrl;
+        } else {
+          // Standard cart fallback
+          window.location.href = '/checkout';
+        }
+      })
+      .catch(() => {
+        window.location.href = '/cart';
+      });
+    };
+
+    // Initialize on load
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        pdsRenderQuantities();
+        pdsUpdatePrice();
+      });
+    } else {
+      pdsRenderQuantities();
+      pdsUpdatePrice();
+    }
+  })();
+</script>
