@@ -1595,7 +1595,7 @@
           "container_width": 1650,
           "logo_max_width": 230,
           "logo_max_width_mobile": 115,
-          "logo_offset_x": 50,
+          "logo_offset_x": 0,
           "logo_offset_y": 11,
           "layout": "container",
           "header_use_search_home": false,

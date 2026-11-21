@@ -24,6 +24,22 @@
   height: auto !important;
 }
 
+/* Flex alignment and collision guard for header logo & search bar */
+.header-top .row {
+  align-items: center !important;
+}
+
+.header-logo {
+  z-index: 2;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-bar {
+  z-index: 1;
+}
+
 @media (min-width: 992px) {
   .header-logo img, .site-header__logo-image img {
     max-width: {{ section.settings.logo_max_width }}px !important;
