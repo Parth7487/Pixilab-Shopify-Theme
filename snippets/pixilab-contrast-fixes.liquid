@@ -1,0 +1,91 @@
+<style>
+/* --- Pixilab Category Banner: Zero Dimming / Zero Hover Overlay --- */
+.cat_grid_item__link {
+  position: relative !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+}
+
+/* Remove dark overlay completely so image stays 100% natural and bright */
+.cat_grid_item__overlay {
+  display: none !important;
+}
+
+.cat_grid_item__link:hover .cat_grid_item__overlay {
+  display: none !important;
+}
+
+/* Keep card zoom / shadow static on hover */
+.cat_grid_item__link:hover img,
+.cat_grid_item:hover img,
+.product-item:hover img {
+  transform: none !important;
+  filter: none !important;
+}
+
+.cat_grid_item__link .collection-name {
+  position: absolute !important;
+  bottom: 20px !important;
+  left: 20px !important;
+  right: 20px !important;
+  top: auto !important;
+  z-index: 3 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-end !important;
+  align-items: flex-start !important;
+  pointer-events: none !important;
+  text-align: left !important;
+}
+
+/* Category Pill Styling */
+.cat_grid_item__link .collection-name a.cat_pill_title {
+  background: rgba(15, 23, 42, 0.85) !important;
+  padding: 6px 14px !important;
+  border-radius: 8px !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+  font-size: clamp(0.9rem, 1vw + 0.4rem, 1.15rem) !important;
+  font-weight: 700 !important;
+  display: inline-block !important;
+  pointer-events: auto !important;
+  transition: background-color 0.2s ease !important;
+}
+
+.cat_grid_item__link:hover .collection-name a.cat_pill_title {
+  background: #00b9f1 !important;
+  border-color: #00b9f1 !important;
+  color: #ffffff !important;
+}
+
+/* Hide product count like (12 items) */
+.cat_grid_item__count {
+  display: none !important;
+}
+
+/* --- Clean Collection Layout: Hide Sidebar & Product Count --- */
+/* Hide '12 products' count banner */
+.product-count-vertical,
+.product-count__text,
+#ProductCountDesktop,
+.product-count {
+  display: none !important;
+}
+
+/* Hide Product Categories, Filter by, and Featured product blocks in collection sidebar */
+.facets-wrapper,
+#main-collection-filters,
+.facets-vertical aside,
+.facets-container,
+.sidebar-collection,
+.block_categories,
+.block_featured_product {
+  display: none !important;
+}
+
+/* Expand product grid to full width now that sidebar is removed */
+.facets-vertical .product-grid-container {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+</style>

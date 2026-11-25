@@ -1,0 +1,992 @@
+{% comment %}
+  Pixilab Business Card Live Dropdown Configurator
+  Dynamically adapts options and prices for all 8 paper stocks!
+  Order requested:
+  1. Size
+  2. Orientation
+  3. Paper if applicable
+  4. Color (Printed Sides / Color)
+  5. Quantity
+  6. Rounded corner
+  7. Coating
+  8. Production time
+  9. Process type
+     - Instantly process (radio/option)
+     - PDF proof - $2.00 (checkbox / option)
+     - Let us design it for you - $50.00 (checkbox)
+  10. Shipping estimate
+  11. Subtotal amount
+  12. Artwork Upload
+{% endcomment %}
+{%- assign current_handle = product.handle | downcase -%}
+{%- assign current_stock_key = '14_pt_gloss' -%}
+{%- assign current_stock_label = '14 pt. Gloss' -%}
+
+{%- if current_handle contains 'uncoated' -%}
+  {%- assign current_stock_key = '14_pt_uncoated' -%}
+  {%- assign current_stock_label = '14 pt. Uncoated' -%}
+{%- elsif current_handle contains '100-lb' or current_handle contains 'matte-cover' -%}
+  {%- assign current_stock_key = '100_lb_matte_cover' -%}
+  {%- assign current_stock_label = '100 lb. Matte Cover' -%}
+{%- elsif current_handle contains 'linen' -%}
+  {%- assign current_stock_key = '13_pt_premium_linen' -%}
+  {%- assign current_stock_label = '13 pt. Premium Linen' -%}
+{%- elsif current_handle contains '16-pt' or current_handle contains 'premium-matte' -%}
+  {%- assign current_stock_key = '16_pt_premium_matte' -%}
+  {%- assign current_stock_label = '16 pt. Premium Matte' -%}
+{%- elsif current_handle contains 'pearl' -%}
+  {%- assign current_stock_key = '18_pt_ultra_premium_pearl' -%}
+  {%- assign current_stock_label = '18 pt. Ultra Premium Pearl' -%}
+{%- elsif current_handle contains 'kraft' -%}
+  {%- assign current_stock_key = '18_pt_premium_kraft' -%}
+  {%- assign current_stock_label = '18 pt. Premium Kraft' -%}
+{%- elsif current_handle contains 'smooth-white' -%}
+  {%- assign current_stock_key = '18_pt_ultra_premium_smooth_white' -%}
+  {%- assign current_stock_label = '18 pt. Ultra Premium Smooth White' -%}
+{%- elsif current_handle contains 'trifecta-green' -%}
+  {%- assign current_stock_key = '24_pt_trifecta_green' -%}
+  {%- assign current_stock_label = '24 pt. Trifecta Green' -%}
+{%- elsif current_handle contains 'trifecta-black' -%}
+  {%- assign current_stock_key = '38_pt_trifecta_black' -%}
+  {%- assign current_stock_label = '38 pt. Trifecta Black' -%}
+{%- elsif current_handle contains 'trifecta-red' -%}
+  {%- assign current_stock_key = '38_pt_trifecta_red' -%}
+  {%- assign current_stock_label = '38 pt. Trifecta Red' -%}
+{%- elsif current_handle contains 'trifecta-blue' -%}
+  {%- assign current_stock_key = '38_pt_trifecta_blue' -%}
+  {%- assign current_stock_label = '38 pt. Trifecta Blue' -%}
+{%- endif -%}
+
+{%- assign current_pricing = 'pricing_' | append: current_stock_key | append: '.json' -%}
+
+<div id="pixilab-print-configurator" class="pixilab-configurator-box" data-stock="{{ current_stock_key }}">
+  <div class="px-config-header">
+    <div class="px-config-badge">{{ current_stock_label }} Specification & Pricing Matrix</div>
+  </div>
+
+  <!-- 1. SIZE -->
+  <div class="px-option-row">
+    <label class="px-label">Size</label>
+    <select id="pxSelectSize" class="px-select"></select>
+  </div>
+
+  <!-- 2. ORIENTATION -->
+  <div class="px-option-row">
+    <label class="px-label">Orientation</label>
+    <div class="px-pill-group" id="pxGroupOrientation">
+      <button type="button" class="px-pill active" data-val="Horizontal">Horizontal</button>
+      <button type="button" class="px-pill" data-val="Vertical">Vertical</button>
+    </div>
+  </div>
+
+  <!-- 3. PAPER (IF APPLICABLE) -->
+  <div class="px-option-row" id="pxRowPaper">
+    <label class="px-label">Paper Stock</label>
+    <div class="px-readonly-badge-input">
+      <span class="px-stock-name">{{ current_stock_label }}</span>
+      <span class="px-stock-tag">Premium Quality</span>
+    </div>
+  </div>
+
+  <!-- 4. COLOR -->
+  <div class="px-option-row">
+    <label class="px-label">Color / Printed Sides</label>
+    <select id="pxSelectColor" class="px-select"></select>
+  </div>
+
+  <!-- 5. QUANTITY -->
+  <div class="px-option-row">
+    <label class="px-label">Quantity</label>
+    <div class="px-qty-grid" id="pxQtyGrid"></div>
+  </div>
+
+  <!-- 6. ROUNDED CORNER -->
+  <div class="px-option-row" id="pxRowCorners">
+    <label class="px-label">Rounded Corners</label>
+    <div class="px-pill-group" id="pxGroupCorners">
+      <button type="button" class="px-pill active" data-round="0">Standard Square</button>
+      <button type="button" class="px-pill" data-round="1">Round Corners (1/4" Radius)</button>
+    </div>
+  </div>
+
+  <!-- 7. COATING -->
+  <div class="px-option-row">
+    <label class="px-label">Coating</label>
+    <select id="pxSelectCoating" class="px-select"></select>
+  </div>
+
+  <!-- 8. PRODUCTION TIME -->
+  <div class="px-option-row">
+    <label class="px-label">Production Time</label>
+    <select id="pxSelectProductionTime" class="px-select">
+      <option value="2-4 Business Days (Standard)" selected>2-4 Business Days (Standard)</option>
+      <option value="Next Day Rush Production">Next Day Rush Production</option>
+    </select>
+  </div>
+
+  <!-- 9. PROCESS TYPE & ADD-ONS -->
+  <div class="px-option-row">
+    <label class="px-label">Process Type & Options</label>
+    
+    <!-- Instantly Process / Default -->
+    <div class="px-process-options-list">
+      <label class="px-radio-toggle-card active" for="pxProcessInstant">
+        <input type="radio" id="pxProcessInstant" name="pxProcessRadio" class="px-radio-input" value="Instantly Process" checked />
+        <div class="px-radio-text">
+          <span class="px-radio-title">⚡ Instantly Process</span>
+          <span class="px-radio-sub">Fastest turnaround. Straight to prepress upon artwork upload.</span>
+        </div>
+      </label>
+
+      <!-- PDF Proof ($2.00) -->
+      <label class="px-checkbox-toggle-card" for="pxPdfProofCheckbox" id="pxPdfProofCard">
+        <div class="px-checkbox-toggle-left">
+          <input type="checkbox" id="pxPdfProofCheckbox" class="px-custom-checkbox" />
+          <div class="px-checkbox-text">
+            <div class="px-checkbox-title-row">
+              <span class="px-checkbox-title">📄 PDF Proof</span>
+              <span class="px-addon-price-tag">+$2.00</span>
+            </div>
+            <p class="px-checkbox-desc">Receive a precision digital PDF proof by email for final approval before printing.</p>
+          </div>
+        </div>
+      </label>
+
+      <!-- Let Us Design It For You ($50.00) -->
+      <label class="px-checkbox-toggle-card" for="pxDesignServiceCheckbox" id="pxDesignServiceCard">
+        <div class="px-checkbox-toggle-left">
+          <input type="checkbox" id="pxDesignServiceCheckbox" class="px-custom-checkbox" />
+          <div class="px-checkbox-text">
+            <div class="px-checkbox-title-row">
+              <span class="px-checkbox-title">✨ Let Us Design It For You</span>
+              <span class="px-addon-price-tag green">+$50.00</span>
+            </div>
+            <p class="px-checkbox-desc">Our senior graphic designers will create a bespoke layout with unlimited revisions.</p>
+          </div>
+        </div>
+      </label>
+    </div>
+  </div>
+
+  <!-- 10. SHIPPING ESTIMATE -->
+  <div class="px-option-row">
+    <label class="px-label">Shipping Estimate</label>
+    <div class="px-shipping-box">
+      <div class="px-shipping-row">
+        <span class="px-shipping-icon">🚚</span>
+        <div class="px-shipping-details">
+          <span class="px-shipping-name">Standard Courier Ground / Priority Delivery</span>
+          <span class="px-shipping-calc">Calculated at checkout based on destination zip code</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 11. SUBTOTAL AMOUNT -->
+  <div class="px-price-summary-card">
+    <div class="px-price-left">
+      <div class="px-price-title">Subtotal Amount</div>
+      <div class="px-price-amount" id="pxRetailPriceDisplay">$34.65</div>
+      <div class="px-price-unit" id="pxUnitPriceDisplay">$0.069 per card · Free Digital Proof</div>
+    </div>
+    <div class="px-price-right">
+      <span class="px-price-badge" id="pxTurnaroundBadge">2-4 Days Turnaround</span>
+    </div>
+  </div>
+
+  <!-- 12. UPLOAD ARTWORK / PRINT FILES -->
+  <div class="px-option-row px-artwork-upload-section">
+    <label class="px-label">Upload Artwork / Print Files</label>
+    <div class="px-upload-grid">
+      <div class="px-upload-box">
+        <div class="px-upload-header">
+          <span class="px-upload-icon">📁</span>
+          <span class="px-upload-title">Upload Front Artwork</span>
+        </div>
+        <p class="px-upload-hint">PDF, AI, PSD, PNG, JPG (Max 50MB, 300 DPI)</p>
+        <input type="file" id="pxUploadFront" class="px-file-input" accept=".pdf,.ai,.psd,.eps,.tiff,.png,.jpg,.jpeg" />
+        <div id="pxUploadFrontStatus" class="px-upload-status">No file chosen</div>
+      </div>
+      <div class="px-upload-box">
+        <div class="px-upload-header">
+          <span class="px-upload-icon">📁</span>
+          <span class="px-upload-title">Upload Back Artwork</span>
+        </div>
+        <p class="px-upload-hint">PDF, AI, PSD, PNG, JPG (Optional for 1-side)</p>
+        <input type="file" id="pxUploadBack" class="px-file-input" accept=".pdf,.ai,.psd,.eps,.tiff,.png,.jpg,.jpeg" />
+        <div id="pxUploadBackStatus" class="px-upload-status">No file chosen</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<style>
+.pixilab-configurator-box {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 24px;
+  margin: 20px 0;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+  font-family: inherit;
+}
+.px-config-header {
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #f1f5f9;
+}
+.px-config-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  background: #e0f2fe;
+  color: #0369a1;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+.px-option-row {
+  margin-bottom: 18px;
+}
+.px-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #0f172a;
+  margin-bottom: 8px;
+}
+
+/* Readonly Paper Stock Badge */
+.px-readonly-badge-input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 14px;
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  min-height: 44px;
+}
+.px-stock-name {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #0f172a;
+}
+.px-stock-tag {
+  font-size: 11px;
+  font-weight: 700;
+  color: #0369a1;
+  background: #e0f2fe;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.px-pill-group {
+  display: flex;
+  gap: 10px;
+}
+.px-pill {
+  flex: 1;
+  padding: 11px 16px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #1e293b;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: center;
+  min-height: 44px;
+}
+.px-pill:hover {
+  border-color: #cbd5e1;
+  background: #f8fafc;
+}
+.px-pill.active {
+  border-color: #0f172a;
+  background: #0f172a;
+  color: #ffffff;
+}
+
+.px-select {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #1e293b;
+  background: #ffffff;
+  outline: none;
+  cursor: pointer;
+  min-height: 44px;
+  transition: border-color 0.2s ease;
+}
+.px-select:focus {
+  border-color: #0284c7;
+}
+
+.px-qty-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.px-qty-btn {
+  padding: 10px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #1e293b;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: center;
+  min-height: 42px;
+}
+.px-qty-btn:hover {
+  border-color: #cbd5e1;
+  background: #f8fafc;
+}
+.px-qty-btn.active {
+  border-color: #0891b2;
+  background: #ecfeff;
+  color: #0891b2;
+}
+
+/* Process Options List */
+.px-process-options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.px-radio-toggle-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.px-radio-toggle-card.active {
+  border-color: #0284c7;
+  background: #f0f9ff;
+}
+.px-radio-input {
+  width: 18px;
+  height: 18px;
+  accent-color: #0284c7;
+  cursor: pointer;
+}
+.px-radio-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.px-radio-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0f172a;
+}
+.px-radio-sub {
+  font-size: 11.5px;
+  color: #64748b;
+}
+
+.px-checkbox-toggle-card {
+  display: block;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.px-checkbox-toggle-card:hover {
+  border-color: #cbd5e1;
+  background: #f8fafc;
+}
+.px-checkbox-toggle-card.active {
+  border-color: #008060;
+  background: #f0fdf4;
+  box-shadow: 0 0 0 1px #008060;
+}
+.px-checkbox-toggle-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.px-custom-checkbox {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  accent-color: #008060;
+  cursor: pointer;
+}
+.px-checkbox-text {
+  flex: 1;
+}
+.px-checkbox-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2px;
+}
+.px-checkbox-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0f172a;
+}
+.px-addon-price-tag {
+  background: #e0f2fe;
+  color: #0369a1;
+  font-size: 11.5px;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 5px;
+}
+.px-addon-price-tag.green {
+  background: #dcfce7;
+  color: #166534;
+}
+.px-checkbox-desc {
+  font-size: 11.5px;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Shipping Box */
+.px-shipping-box {
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 12px 16px;
+}
+.px-shipping-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.px-shipping-icon {
+  font-size: 20px;
+}
+.px-shipping-details {
+  display: flex;
+  flex-direction: column;
+}
+.px-shipping-name {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #0f172a;
+}
+.px-shipping-calc {
+  font-size: 11.5px;
+  color: #64748b;
+}
+
+/* Price Card */
+.px-price-summary-card {
+  margin: 22px 0;
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 18px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.px-price-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.px-price-amount {
+  font-size: 30px;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.2;
+}
+.px-price-unit {
+  font-size: 12px;
+  color: #059669;
+  font-weight: 600;
+  margin-top: 2px;
+}
+.px-price-badge {
+  font-size: 12px;
+  font-weight: 700;
+  color: #047857;
+  background: #d1fae5;
+  padding: 6px 12px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* Upload Grid */
+.px-artwork-upload-section {
+  margin-top: 20px;
+}
+.px-upload-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: 12px;
+}
+.px-upload-box {
+  background: #f8fafc;
+  border: 1.5px dashed #cbd5e1;
+  border-radius: 10px;
+  padding: 14px;
+  text-align: center;
+  transition: all 0.2s ease;
+  position: relative;
+}
+.px-upload-box:hover {
+  border-color: #0284c7;
+  background: #f0f9ff;
+}
+.px-upload-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 13px;
+  color: #0f172a;
+}
+.px-upload-hint {
+  font-size: 11px;
+  color: #64748b;
+  margin: 4px 0 8px 0;
+}
+.px-file-input {
+  width: 100%;
+  font-size: 11px;
+  color: #475569;
+  cursor: pointer;
+}
+.px-upload-status {
+  font-size: 11px;
+  font-weight: 600;
+  color: #0284c7;
+  margin-top: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Pixilab UX Polish: Hide Wishlist & Compare buttons */
+.compare-wishlist,
+.product-iteam .compare-wishlist,
+[data-js-store-lists-product-wishlist],
+.js-store-lists-add-wishlist,
+.js-store-lists-add-compare {
+  display: none !important;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .pixilab-configurator-box {
+    padding: clamp(14px, 4vw, 20px) !important;
+    border-radius: 12px !important;
+  }
+  .px-upload-grid {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+  .px-qty-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+  }
+  .px-pill-group {
+    flex-direction: column !important;
+  }
+  .px-pill {
+    min-height: 44px !important;
+    width: 100% !important;
+  }
+}
+</style>
+
+<script>
+(function() {
+  {%- assign setting_id = 'markup_' | append: current_stock_key -%}
+  {%- assign dynamic_markup = settings[setting_id] | default: 3.0 -%}
+  const MARKUP = {{ dynamic_markup | default: 3.0 }};
+  let pricingData = null;
+
+  const STOCK_CONFIGS = {
+    '14_pt_gloss': {
+      sizes: ['2" x 3.5" U.S. Standard', '1.75" x 3"', '1.75" x 3.5"', '2" x 3"', '2.17" x 3.35" European Standard'],
+      colors: ['Full Color Both Sides', 'Full Color Front, No Back', 'Full Color Front, Grayscale Back'],
+      coatings: ['High Gloss UV Coating Both Sides', 'High Gloss UV Coating Front', 'None'],
+      quantities: [250, 500, 1000, 2500, 5000, 10000]
+    },
+    '14_pt_uncoated': {
+      sizes: ['2" x 3.5" U.S. Standard', '1.75" x 3"', '1.75" x 3.5"', '2" x 3"', '2.17" x 3.35" European Standard'],
+      colors: ['Full Color Both Sides', 'Full Color Front, No Back', 'Full Color Front, Grayscale Back'],
+      coatings: ['None'],
+      quantities: [250, 500, 1000, 2500, 5000, 10000]
+    },
+    '100_lb_matte_cover': {
+      sizes: ['2" x 3.5" U.S. Standard', '1.75" x 3"', '1.75" x 3.5"', '2" x 3"', '2.17" x 3.35" European Standard'],
+      colors: ['Full Color Both Sides', 'Full Color Front, No Back'],
+      coatings: ['Matte Aqueous Coating', 'None'],
+      quantities: [250, 500, 1000, 2500, 5000, 10000]
+    },
+    '13_pt_premium_linen': {
+      sizes: ['2" x 3.5" U.S. Standard', '1.75" x 3"', '1.75" x 3.5"', '2" x 3"', '2.17" x 3.35" European Standard'],
+      colors: ['Full Color Both Sides', 'Full Color Front, No Back'],
+      coatings: ['None'],
+      quantities: [250, 500, 1000]
+    },
+    '16_pt_premium_matte': {
+      sizes: ['2" x 3.5" U.S. Standard', '1.75" x 3"', '1.75" x 3.5"', '2" x 3"', '2.17" x 3.35" European Standard'],
+      colors: ['Full Color Both Sides', 'Full Color Front, No Back', 'Full Color Front, Grayscale Back'],
+      coatings: ['Matte Aqueous Coating', 'High Gloss UV Coating Both Sides', 'High Gloss UV Coating Front', 'None'],
+      quantities: [250, 500, 1000, 2500, 5000, 10000]
+    },
+    '18_pt_ultra_premium_pearl': {
+      sizes: ['2" x 3.5" U.S. Standard', '1.75" x 3"', '1.75" x 3.5"', '2" x 3"', '2.17" x 3.35" European Standard'],
+      colors: ['Full Color Both Sides', 'Full Color Front, No Back'],
+      coatings: ['None'],
+      quantities: [250, 500, 1000]
+    },
+    '18_pt_premium_kraft': {
+      sizes: ['2" x 3.5" U.S. Standard', '1.75" x 3"', '1.75" x 3.5"', '2" x 3"', '2.17" x 3.35" European Standard'],
+      colors: ['Full Color Both Sides', 'Full Color Front, No Back'],
+      coatings: ['None'],
+      quantities: [250, 500, 1000]
+    },
+    '18_pt_ultra_premium_smooth_white': {
+      sizes: ['2" x 3.5" U.S. Standard', '1.75" x 3"', '1.75" x 3.5"', '2" x 3"', '2.17" x 3.35" European Standard'],
+      colors: ['Full Color Both Sides', 'Full Color Front, No Back'],
+      coatings: ['None'],
+      quantities: [250, 500, 1000]
+    },
+    '24_pt_trifecta_green': {
+      sizes: ['2" x 3.5" U.S. Standard', '1.75" x 3"', '1.75" x 3.5"', '2" x 3"', '2.17" x 3.35" European Standard'],
+      colors: ['Full Color Both Sides', 'Full Color Front, No Back'],
+      coatings: ['Velvet Finish'],
+      quantities: [250, 500, 1000, 2500, 5000]
+    },
+    '38_pt_trifecta_black': {
+      sizes: ['2" x 3.5" U.S. Standard', '1.75" x 3"', '1.75" x 3.5"', '2" x 3"', '2.17" x 3.35" European Standard'],
+      colors: ['Full Color Both Sides', 'Full Color Front, No Back'],
+      coatings: ['Velvet Finish'],
+      quantities: [250, 500, 1000, 2500, 5000]
+    },
+    '38_pt_trifecta_red': {
+      sizes: ['2" x 3.5" U.S. Standard', '1.75" x 3"', '1.75" x 3.5"', '2" x 3"', '2.17" x 3.35" European Standard'],
+      colors: ['Full Color Both Sides', 'Full Color Front, No Back'],
+      coatings: ['Velvet Finish'],
+      quantities: [250, 500, 1000, 2500, 5000]
+    },
+    '38_pt_trifecta_blue': {
+      sizes: ['2" x 3.5" U.S. Standard', '1.75" x 3"', '1.75" x 3.5"', '2" x 3"', '2.17" x 3.35" European Standard'],
+      colors: ['Full Color Both Sides', 'Full Color Front, No Back'],
+      coatings: ['Velvet Finish'],
+      quantities: [250, 500, 1000, 2500, 5000]
+    }
+  };
+
+  const currentStock = '{{ current_stock_key }}';
+  const cfg = STOCK_CONFIGS[currentStock] || STOCK_CONFIGS['14_pt_gloss'];
+
+  const state = {
+    orientation: 'Horizontal',
+    size: cfg.sizes[0],
+    paperStock: '{{ current_stock_label }}',
+    color: cfg.colors[0],
+    coating: cfg.coatings[0],
+    quantity: cfg.quantities[0].toString(),
+    isRound: '0',
+    productionTime: '2-4 Business Days (Standard)',
+    processType: 'Instantly Process',
+    pdfProof: false,
+    designService: false,
+    frontFile: null,
+    backFile: null
+  };
+
+  // Populate dynamic select dropdowns according to stock
+  function initSelect(id, items, currentVal) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.innerHTML = '';
+    items.forEach(it => {
+      const opt = document.createElement('option');
+      opt.value = it;
+      opt.textContent = it;
+      if (it === currentVal) opt.selected = true;
+      el.appendChild(opt);
+    });
+  }
+
+  function initQuantities(items, currentVal) {
+    const grid = document.getElementById('pxQtyGrid');
+    if (!grid) return;
+    grid.innerHTML = '';
+    items.forEach(q => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'px-qty-btn' + (q.toString() === currentVal.toString() ? ' active' : '');
+      btn.setAttribute('data-qty', q.toString());
+      btn.textContent = Number(q).toLocaleString();
+      btn.addEventListener('click', function() {
+        grid.querySelectorAll('.px-qty-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        state.quantity = this.getAttribute('data-qty');
+        calculatePrice();
+      });
+      grid.appendChild(btn);
+    });
+  }
+
+  initSelect('pxSelectSize', cfg.sizes, state.size);
+  initSelect('pxSelectColor', cfg.colors, state.color);
+  initSelect('pxSelectCoating', cfg.coatings, state.coating);
+  initQuantities(cfg.quantities, state.quantity);
+
+  // Load pricing matrix
+  fetch("{{ current_pricing | asset_url }}")
+    .then(r => r.json())
+    .then(data => {
+      pricingData = data;
+      calculatePrice();
+    })
+    .catch(err => {
+      console.warn("Pricing file load fallback:", err);
+    });
+
+  // 1. Size
+  const selectSize = document.getElementById('pxSelectSize');
+  if (selectSize) {
+    selectSize.addEventListener('change', function() {
+      state.size = this.value;
+      calculatePrice();
+    });
+  }
+
+  // 2. Orientation
+  const orientPills = document.querySelectorAll('#pxGroupOrientation .px-pill');
+  orientPills.forEach(p => {
+    p.addEventListener('click', function() {
+      orientPills.forEach(x => x.classList.remove('active'));
+      this.classList.add('active');
+      state.orientation = this.getAttribute('data-val');
+      calculatePrice();
+    });
+  });
+
+  // 4. Color
+  const selectColor = document.getElementById('pxSelectColor');
+  if (selectColor) {
+    selectColor.addEventListener('change', function() {
+      state.color = this.value;
+      calculatePrice();
+    });
+  }
+
+  // 6. Rounded corners
+  const roundCornerBtn = document.querySelector('#pxGroupCorners .px-pill[data-round="1"]');
+  if (roundCornerBtn) {
+    if (['38_pt_trifecta_black', '38_pt_trifecta_red', '38_pt_trifecta_blue'].includes(currentStock)) {
+      roundCornerBtn.style.display = 'none';
+      state.isRound = '0';
+    } else {
+      roundCornerBtn.style.display = '';
+    }
+  }
+
+  const cornerPills = document.querySelectorAll('#pxGroupCorners .px-pill');
+  cornerPills.forEach(p => {
+    p.addEventListener('click', function() {
+      cornerPills.forEach(x => x.classList.remove('active'));
+      this.classList.add('active');
+      state.isRound = this.getAttribute('data-round');
+      calculatePrice();
+    });
+  });
+
+  // 7. Coating
+  const selectCoating = document.getElementById('pxSelectCoating');
+  if (selectCoating) {
+    selectCoating.addEventListener('change', function() {
+      state.coating = this.value;
+      calculatePrice();
+    });
+  }
+
+  // 8. Production Time
+  const selectProdTime = document.getElementById('pxSelectProductionTime');
+  if (selectProdTime) {
+    selectProdTime.addEventListener('change', function() {
+      state.productionTime = this.value;
+      const badge = document.getElementById('pxTurnaroundBadge');
+      if (badge) {
+        badge.innerText = this.value.includes('Next Day') ? '1 Day Rush' : '2-4 Days Turnaround';
+      }
+      calculatePrice();
+    });
+  }
+
+  // 9. Process Type & Checkboxes
+  const pdfProofCheckbox = document.getElementById('pxPdfProofCheckbox');
+  const pdfProofCard = document.getElementById('pxPdfProofCard');
+  if (pdfProofCheckbox) {
+    pdfProofCheckbox.addEventListener('change', function() {
+      state.pdfProof = this.checked;
+      if (pdfProofCard) {
+        if (this.checked) pdfProofCard.classList.add('active');
+        else pdfProofCard.classList.remove('active');
+      }
+      calculatePrice();
+    });
+  }
+
+  const designCheckbox = document.getElementById('pxDesignServiceCheckbox');
+  const designCard = document.getElementById('pxDesignServiceCard');
+  if (designCheckbox) {
+    designCheckbox.addEventListener('change', function() {
+      state.designService = this.checked;
+      if (designCard) {
+        if (this.checked) designCard.classList.add('active');
+        else designCard.classList.remove('active');
+      }
+      calculatePrice();
+    });
+  }
+
+  // Artwork Uploads
+  const frontInput = document.getElementById('pxUploadFront');
+  const frontStatus = document.getElementById('pxUploadFrontStatus');
+  if (frontInput) {
+    frontInput.addEventListener('change', function() {
+      if (this.files && this.files[0]) {
+        state.frontFile = this.files[0].name;
+        if (frontStatus) frontStatus.innerText = '✓ ' + this.files[0].name;
+      } else {
+        state.frontFile = null;
+        if (frontStatus) frontStatus.innerText = 'No file chosen';
+      }
+      calculatePrice();
+    });
+  }
+
+  const backInput = document.getElementById('pxUploadBack');
+  const backStatus = document.getElementById('pxUploadBackStatus');
+  if (backInput) {
+    backInput.addEventListener('change', function() {
+      if (this.files && this.files[0]) {
+        state.backFile = this.files[0].name;
+        if (backStatus) backStatus.innerText = '✓ ' + this.files[0].name;
+      } else {
+        state.backFile = null;
+        if (backStatus) backStatus.innerText = 'No file chosen';
+      }
+      calculatePrice();
+    });
+  }
+
+  function calculatePrice() {
+    if (!pricingData) return;
+
+    // Direct key lookup
+    const key = `${state.orientation}|${state.size}|${state.color}|${state.coating}|${state.quantity}|${state.isRound}`;
+    let wholesale = pricingData[key];
+
+    // Fallback lookup if exact match not found
+    if (wholesale === undefined) {
+      const candidateKeys = Object.keys(pricingData).filter(k => k.includes(`|${state.quantity}|`));
+      if (candidateKeys.length > 0) {
+        wholesale = pricingData[candidateKeys[0]];
+      } else {
+        const anyKeys = Object.keys(pricingData);
+        if (anyKeys.length > 0) wholesale = pricingData[anyKeys[0]];
+      }
+    }
+
+    if (wholesale === undefined || isNaN(wholesale)) {
+      wholesale = 11.50;
+    }
+
+    let retail = wholesale * MARKUP;
+    
+    // Add-on checkboxes
+    if (state.pdfProof) {
+      retail += 2.00;
+    }
+    if (state.designService) {
+      retail += 50.00;
+    }
+
+    const qtyNum = parseInt(state.quantity) || 250;
+    const perUnit = retail / qtyNum;
+
+    const retailStr = '$' + retail.toFixed(2);
+    const retailDisplay = document.getElementById('pxRetailPriceDisplay');
+    const unitDisplay = document.getElementById('pxUnitPriceDisplay');
+    if (retailDisplay) retailDisplay.innerText = retailStr;
+    if (unitDisplay) unitDisplay.innerText = '$' + perUnit.toFixed(3) + ' per card · Free Digital Proof';
+
+    // Update all native Shopify price elements on page
+    document.querySelectorAll('.product-price, .price, #show_price_block, [data-price], .money, .price-review .price').forEach(el => {
+      const span = el.querySelector('.money, .current-price, .price-item') || el;
+      if (span && !span.id?.includes('pxRetailPriceDisplay')) {
+        span.innerText = retailStr;
+      }
+    });
+
+    // Attach custom properties to Shopify cart form
+    syncProperties(retailStr, wholesale);
+  }
+
+  function syncProperties(retailStr, wholesale) {
+    const form = document.querySelector('form[action*="/cart/add"]');
+    if (!form) return;
+
+    const props = {
+      'Size': state.size,
+      'Orientation': state.orientation,
+      'Paper Stock': state.paperStock,
+      'Color': state.color,
+      'Quantity': state.quantity + ' Cards',
+      'Rounded Corners': state.isRound === '1' ? 'Round Corners (1/4" Radius)' : 'Standard Square',
+      'Coating': state.coating,
+      'Production Time': state.productionTime,
+      'Process Type': state.processType,
+      'PDF Proof ($2.00)': state.pdfProof ? 'Yes (+$2.00 digital PDF proof requested)' : 'No',
+      'Let Us Design It For You ($50.00)': state.designService ? 'Yes (+$50.00 custom layout design)' : 'No (Print-Ready Artwork Provided)',
+      'Shipping Estimate': 'Calculated at checkout',
+      'Front Artwork File': state.frontFile || 'Pending Customer Upload / Email',
+      'Back Artwork File': state.backFile || (state.color.includes('Both Sides') ? 'Pending Customer Upload / Email' : 'Not Required (Single Sided)'),
+      'Subtotal Amount': retailStr,
+      '_wholesaleCost': '$' + Number(wholesale).toFixed(2),
+      '_jobId': 'JOB_' + Date.now(),
+      '_hidden': 'true'
+    };
+
+    Object.keys(props).forEach(name => {
+      let input = form.querySelector(`input[name="properties[${name}]"]`);
+      if (!input) {
+        input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = `properties[${name}]`;
+        form.appendChild(input);
+      }
+      input.value = props[name];
+    });
+  }
+})();
+</script>
